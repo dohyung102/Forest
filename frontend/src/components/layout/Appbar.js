@@ -24,7 +24,7 @@ const Appbar = () => {
   // 로그인 정보 받아오면 변경하기
   const auth = null
 
-  function HomeButton() {
+  const homeButton = () => {
     window.location.replace('/')
   }
 
@@ -33,7 +33,7 @@ const Appbar = () => {
       <Container maxWidth='md' height='100%' disableGutters>
         {/* 웹 화면 */}
         <Box sx={{ mx: 1, my: 3, display: { xs: 'none', md: 'flex'}, justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className='pjt-name' onClick={ HomeButton }>
+          <div className='pjt-name' onClick={ homeButton }>
             FOREST
           </div>
           <nav>

@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Appbar from './Appbar';
 
-import Home from '../pages/home'
-import Signup from '../pages/signup'
-import Login from '../pages/login'
-import Mypage from '../pages/mypage'
-import Community from '../pages/community'
+import Home from '../pages/Home'
+import Signup from '../pages/Signup'
+import Login from '../pages/Login'
+import Mypage from '../pages/Mypage'
+import Community from '../pages/Community'
 
 const Layout = () => {
   return (
