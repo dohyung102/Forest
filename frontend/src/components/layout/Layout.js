@@ -9,6 +9,7 @@ import Login from '../pages/Login'
 import Mypage from '../pages/Mypage'
 import Myposts from '../pages/Myposts'
 import Myreviews from '../pages/Myreviews'
+import Search from '../pages/Search'
 import Community from '../pages/Community'
 
 const Layout = () => {
@@ -23,6 +24,7 @@ const Layout = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/posts" element={<Myposts />} />
           <Route path="/mypage/reviews" element={<Myreviews />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/community" element={<Community />} />
         </Routes>
       </div>

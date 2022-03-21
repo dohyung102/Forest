@@ -55,6 +55,7 @@ const Mypage = () => {
       </Grid>
       <Grid item md={6}> 
         <p>기본정보</p>
+        {/* 반복문으로 어떻게 출력 못할까? */}
         <div>
           <label htmlFor='email_input'>이메일 : </label>
           { dummy_userdata.email }

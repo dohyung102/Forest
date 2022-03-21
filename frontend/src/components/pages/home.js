@@ -26,7 +26,7 @@ const Home = () => {
 
   const plant_data = dummy_data.map(plant => {
     return (
-      <Grid item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+      <Grid key={plant.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
         <img className='home-plant-img' src={plant.img} alt='plant_img' />
         <p className='home-plant-name'>{plant.name}</p>
       </Grid>
