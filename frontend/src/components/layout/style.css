@@ -49,6 +49,8 @@ li + li {
   margin-left: 15px;
 }
 
-.content {
-
+.nav-ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
 }

@@ -7,6 +7,8 @@ import Home from '../pages/Home'
 import Signup from '../pages/Signup'
 import Login from '../pages/Login'
 import Mypage from '../pages/Mypage'
+import Myposts from '../pages/Myposts'
+import Myreviews from '../pages/Myreviews'
 import Community from '../pages/Community'
 
 const Layout = () => {
@@ -19,6 +21,8 @@ const Layout = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypage/posts" element={<Myposts />} />
+          <Route path="/mypage/reviews" element={<Myreviews />} />
           <Route path="/community" element={<Community />} />
         </Routes>
       </div>
