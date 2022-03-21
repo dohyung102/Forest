@@ -25,7 +25,11 @@ for item in items:
     else:
         plant_infos = ''
     
-    plant_water_need = data.select('#water-section > div.px-6.pb-6.text-lg.flex.flex-row.flex-wrap.sm\:flex-nowrap > div > p:nth-child(1)')[0].text
+    plant_water_need = data.select('#water-section > div.px-6.pb-6.text-lg.flex.flex-row.flex-wrap.sm\:flex-nowrap > div > p:nth-child(1)')
+    if plant_water_need:
+        plant_water_need = plant_water_need[0].text
+    else:
+        plant_water_need = ''
 
     plant_light_need = data.select('#light-section > section:nth-child(2) > div > div > p')[0].text
 
