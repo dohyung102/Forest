@@ -37,8 +37,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account',
+
+    # django rest framework
     'rest_framework',
+    # 'rest_framework.authtoken',
+    # 'rest_auth',
+
+    # django-allauth
+    # 'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'rest_auth.registration',
+
+    # apps
+    # 'account',
+    'plant.apps.PlantConfig',
+    'product.apps.ProductConfig',
+    'store.apps.StoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -101,6 +117,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# rest framework
+"""
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ], 
+}
+"""
+
+# social login setting
+"""
+SOCIALACCOUNT_PROVIDERS = {
+    'kakao': {
+        'APP': {
+            'client_id': '',
+            'secret': '',
+            'key': ''
+        }
+    }
+}
+"""
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -124,4 +165,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.User'
+# AUTH_USER_MODEL = 'account.User'

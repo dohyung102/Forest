@@ -17,6 +17,19 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # admin
     path('admin/', admin.site.urls),
-    path('accounts/', include('account.urls'))
+
+    # social login
+    # path('account/', include('allauth.urls'))
+    # path('account/', include('rest_auth.urls'))
+    # path('account/registration/', include('rest_auth.registration.urls'))
+    # url(r'account/registration/confirm-email/(?P<key>.+)/$', confirm_email, name='confirm_email'),
+    # path('', include('django.contrib.auth.urls')),
+
+    # path('accounts/', include('account.urls')),
+
+    path('plants/', include('plant.urls')),
+    path('products/', include('product.urls')),
+    path('stores/', include('store.urls'))
 ]
