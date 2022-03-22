@@ -1,0 +1,25 @@
+.detail-plant-img {
+  height: 300px;
+  width: 300px;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.detail-ul {
+  vertical-align: center;
+}
+
+.detail-similar-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+}
+
+.slick-prev {
+  left: 3% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
+}

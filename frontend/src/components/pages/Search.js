@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Grid, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -68,7 +69,10 @@ const Search = () => {
   }).map(plant_data => {
     return (
       <Grid key={plant_data.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-        <img className='home-plant-img' src={plant_data.img} alt='plant_img' />
+        <Link to={`/detail/${plant_data.name}`} state={{ data: plant_data }}>
+        {/* <Link to={{ pathname: `/detail/${plant_data.name}`, state: { data: plant_data } }}> */}
+          <img className='home-plant-img' src={plant_data.img} alt='plant_img' />
+        </Link>
         <p className='home-plant-name'>{plant_data.name}</p>
       </Grid>
     )

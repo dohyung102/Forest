@@ -11,6 +11,8 @@ import Myposts from '../pages/Myposts'
 import Myreviews from '../pages/Myreviews'
 import Search from '../pages/Search'
 import Community from '../pages/Community'
+import Detail from '../pages/Detail'
+import Product from '../pages/Product'
 
 const Layout = () => {
   return (
@@ -25,6 +27,8 @@ const Layout = () => {
           <Route path="/mypage/posts" element={<Myposts />} />
           <Route path="/mypage/reviews" element={<Myreviews />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/detail/:plant" element={<Detail />} />
+          <Route path="/product/:plant" element={<Product />} />
           <Route path="/community" element={<Community />} />
         </Routes>
       </div>
