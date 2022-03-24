@@ -1,6 +1,27 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
+from dj_rest_auth.registration.serializers import RegisterSerializer
+from dj_rest_auth.serializers import UserDetailsSerializer
 
+class CustomRegisterSerializer(RegisterSerializer):
+    nickname = serializers.CharField()
+    gender = serializers.CharField()
+
+    def get_cleaned_data(self):
+        data = super().get_cleaned_data()
+        data['nickname'] = self._validated_data.get('nickname', '')
+        data['gender'] = self._validated_data.get('gender', '')
+        return data
+
+class CustomUserDetailSerializer(UserDetailsSerializer):
+    nickname = serializers.CharField()
+    gender = serializers.CharField()
+
+    def get_cleaned_data(self):
+        data = super().get_cleaned_data()
+        data['nickname'] = self._validated_data.get('nickname', '')
+        data['gender'] = self._validated_data.get('gender', '')
+        return data
 
 class CustomTokenRefreshSerializer(serializers.Serializer):
     refresh_token = serializers.CharField()

@@ -38,6 +38,10 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, max_length=255)
+    nickname = models.CharField(default='', max_length=50)
+    birthday = models.DateField(null=True)
+    gender = models.CharField(null=True, max_length=2)
+    profile_image = models.CharField(null=True, max_length=50)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
