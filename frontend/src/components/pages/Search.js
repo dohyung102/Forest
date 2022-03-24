@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Grid, Button } from '@mui/material';
@@ -50,26 +50,36 @@ const Search = () => {
   ]
 
   const [search, setSearch] = useState('')
-  const [tagA, setTagA] = useState(false)
-  const [tagB, setTagB] = useState(false)
+
+  const [activeCategory, setActiveCategory] = useState('All')
+  const [plants, setPlants] = useState(dummy_plants)
+
+  useEffect(() => {
+    activeCategory === 'All'
+      ? setPlants(dummy_plants)
+      : setPlants(dummy_plants.filter(plant => plant.tag.includes(activeCategory)))
+  }, [activeCategory])
+
+  // const [tagA, setTagA] = useState(false)
+  // const [tagB, setTagB] = useState(false)
 
   const searchHandle = (event) => {
     setSearch(event.target.value)
   }
 
-  console.log(tagA)
+  // console.log(tagA)
   // const tagAHandle = setTagA((tagA) => (!tagA))
   // const tagBHandle = setTagB((tagB) => (!tagB))
 
-  const plant_filter = dummy_plants.filter(plant => {
+  const plant_filter = plants.filter(plant => {
     if (search == null)
       return plant
-    else if (plant.name.toLowerCase().includes(search.toLowerCase()) || plant.tag.includes())
+    else if (plant.name.toLowerCase().includes(search.toLowerCase()))
       return plant
   }).map(plant_data => {
     return (
       <Grid key={plant_data.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-        <Link to={`/detail/${plant_data.name}`} state={{ data: plant_data }}>
+        <Link to={`/detail/${plant_data.name}`}>
         {/* <Link to={{ pathname: `/detail/${plant_data.name}`, state: { data: plant_data } }}> */}
           <img className='home-plant-img' src={plant_data.img} alt='plant_img' />
         </Link>
@@ -86,7 +96,9 @@ const Search = () => {
         {/* <SearchIcon /> */}
         <input type='text' name='plant_search' value={ search } onChange={ searchHandle } placeholder='식물 검색' className='' />
         <div>
-          <button onClick={ () => setTagA((isShow) => (!isShow)) }>long</button>
+          <button onClick={ () => setActiveCategory('All') }>all</button>
+          <button onClick={ () => setActiveCategory('long') }>long</button>
+          <button onClick={ () => setActiveCategory('short') }>short</button>
         </div>
       </div>
 

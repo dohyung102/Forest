@@ -75,16 +75,16 @@ const Detail = () => {
   })
 
   const settings = {
-    // slide: 'div',
+    slide: 'div',
     dots: true,
     infinite: true,
     speed: 500,
-    // arrows : true,
+    arrows : true,
     slidesToShow: 4,
     slidesToScroll: 4,
     draggable : false,
-    prevArrow: <ArrowBackIosIcon color='primary' />,
-    nextArrow: <ArrowForwardIosIcon color='primary' />,
+    // prevArrow: <ArrowBackIosIcon color='primary' />,
+    // nextArrow: <ArrowForwardIosIcon color='primary' />,
   };
 
   return (

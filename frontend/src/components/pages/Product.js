@@ -73,7 +73,7 @@ const Detail = () => {
   return (
     <div>
       <div>
-        detail page
+        product page
       </div>
       <Grid container alignItems='center'>
         <Grid item md={6}>
