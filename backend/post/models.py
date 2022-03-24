@@ -1,4 +1,3 @@
-from curses.ascii import US
 from django.db import models
 from accounts.models import User
 
@@ -9,14 +8,14 @@ class Post(models.Model):
     content = models.CharField(default='', max_length=50)
     image = models.CharField(default='', null=True, max_length=50)
     tag = models.CharField(default='', null=True, max_length=50)
-    created_date = models.DateField()
+    created_date = models.DateField(auto_now_add=True)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):
     content = models.CharField(default='', max_length=50)
-    create_date = models.DateField()
+    create_date = models.DateField(auto_now_add=True)
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
