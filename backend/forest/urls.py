@@ -30,5 +30,6 @@ urlpatterns = [
     ### my apps
     path('plants/', include('plant.urls')),
     path('products/', include('product.urls')),
-    path('stores/', include('store.urls'))
+    path('stores/', include('store.urls')),
+    path('posts/', include('post.urls'))
 ]

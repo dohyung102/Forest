@@ -33,7 +33,7 @@ class Review(models.Model):
     title = models.CharField(default='제목없음', max_length=50)
     context = models.CharField(default='본문내용없음', max_length=50)
     star = models.IntegerField(default=0, null=True)
-    created_date = models.DateField()
+    created_date = models.DateField(auto_now_add=True)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
