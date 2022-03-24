@@ -1,4 +1,3 @@
-from curses.ascii import US
 from django.db import models
 
 from plant.models import Plant
