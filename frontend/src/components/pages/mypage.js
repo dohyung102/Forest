@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid } from '@mui/material';
 
 import './Mypage.css'
@@ -41,6 +41,19 @@ const Mypage = () => {
       },
     ],
   }
+
+  const [file, setFile] = useState('')
+
+
+  const loadFile = (event) => {
+    const imgFile = event.target.files[0]
+    // console.log(imgFile)
+    setFile(URL.createObjectURL(imgFile))
+  }
+  const deleteFile = (event) => {
+    URL.revokeObjectURL(file)
+    setFile('')
+  }
   
   return (
     <Grid container>
@@ -49,9 +62,24 @@ const Mypage = () => {
         <Mynav />
       </Grid>
       <Grid item md={6}>
-        <div className='mypage-img'>
-          이미지
-        </div>
+        {file 
+          ?
+          <div className='mypage-flex'>
+            {/* <img style={{width:'300px', height:'300px', objectFit:'contain' }} alt='upload_img' src={file} /> */}
+            <img className='mypage-img' alt='upload_img' src={file} />
+            <div>
+              <button onClick={deleteFile}>삭제</button>
+            </div>
+          </div>
+          :
+          <div className='mypage-img'>
+            이미지
+          </div>
+        }
+        <form>
+          <label htmlFor='image'>이미지 첨부하기 </label>
+          <input type='file' name='image' accept='image/*' onChange={ loadFile } />
+        </form>
       </Grid>
       <Grid item md={6}> 
         <p>기본정보</p>

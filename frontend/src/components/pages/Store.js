@@ -86,6 +86,9 @@ const Store = () => {
           <button onClick={() => setActiveCategory('small')}>small</button>
           <button onClick={() => setActiveCategory('flowery')}>flowery</button>
         </ul>
+        <div>
+          <button>상품등록</button>
+        </div>
       </Grid>
       <Grid item md={9}>
         <div>상품</div>
