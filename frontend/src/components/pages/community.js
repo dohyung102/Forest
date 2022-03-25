@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { axios }
 
 import { Grid } from '@mui/material';
 
@@ -9,6 +10,12 @@ const Community = () => {
 
   function toPost(e) {
     window.location.href = '/post'
+  }
+
+  const getPosts = () => {
+    const API_url = 'https://api.pexels.com/v1/'
+    // console.log(API_url)
+    return 
   }
 
   const scrollHandle = () => {
