@@ -42,6 +42,7 @@ class User(AbstractUser):
     birthday = models.DateField(null=True)
     gender = models.CharField(null=True, max_length=2)
     profile_image = models.CharField(null=True, max_length=50)
+    role = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
