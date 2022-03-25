@@ -3,6 +3,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 
+from .models import User
+
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
     gender = serializers.CharField()
@@ -22,6 +24,9 @@ class CustomUserDetailSerializer(UserDetailsSerializer):
         data['nickname'] = self._validated_data.get('nickname', '')
         data['gender'] = self._validated_data.get('gender', '')
         return data
+    class Meta:
+        fields = '__all__'
+        model = User
 
 class CustomTokenRefreshSerializer(serializers.Serializer):
     refresh_token = serializers.CharField()
