@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 
 from plant.models import Plant
@@ -14,7 +15,7 @@ class Product(models.Model):
     close_date = models.DateField(default='')
     category = models.CharField(default='', null=True, max_length=50)
     description = models.CharField(default='', null=True, max_length=100)
-    profile_image = models.CharField(default='', null=True, max_length=100)
+    profile_image = models.ImageField(upload_to='images/products/', blank=True, null=True)
 
     plant = models.ForeignKey(Plant, null=True, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, null=True, on_delete=models.CASCADE)

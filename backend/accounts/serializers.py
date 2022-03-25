@@ -2,9 +2,13 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
+<<<<<<< Updated upstream
 
 from .models import User
 
+=======
+from .models import User
+>>>>>>> Stashed changes
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
     gender = serializers.CharField()
@@ -14,7 +18,10 @@ class CustomRegisterSerializer(RegisterSerializer):
         data['nickname'] = self._validated_data.get('nickname', '')
         data['gender'] = self._validated_data.get('gender', '')
         return data
-
+    
+    class Meta:
+        model = User
+        fields = '__all__'
 class CustomUserDetailSerializer(UserDetailsSerializer):
     nickname = serializers.CharField()
     gender = serializers.CharField()
@@ -27,6 +34,10 @@ class CustomUserDetailSerializer(UserDetailsSerializer):
     class Meta:
         fields = '__all__'
         model = User
+
+    class Meta:
+        model = User
+        fields = '__all__'
 
 class CustomTokenRefreshSerializer(serializers.Serializer):
     refresh_token = serializers.CharField()

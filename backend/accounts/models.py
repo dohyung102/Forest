@@ -41,7 +41,7 @@ class User(AbstractUser):
     nickname = models.CharField(default='', max_length=50)
     birthday = models.DateField(null=True)
     gender = models.CharField(null=True, max_length=2)
-    profile_image = models.CharField(null=True, max_length=50)
+    profile_image = models.ImageField(upload_to='images/users/', blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
