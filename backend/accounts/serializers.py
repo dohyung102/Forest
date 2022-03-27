@@ -2,13 +2,9 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
-<<<<<<< Updated upstream
 
 from .models import User
 
-=======
-from .models import User
->>>>>>> Stashed changes
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
     gender = serializers.CharField()

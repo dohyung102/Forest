@@ -36,22 +36,22 @@ urlpatterns = [
     path('users/logout/', LogoutView.as_view()),
     path('users/signup/', RegisterView.as_view(), name='rest_signup'),
 
-    path('verify-email/',
+    path('users/verify-email/',
          VerifyEmailView.as_view(), name='rest_verify_email'),
-    path('account-confirm-email/',
+    path('users/account-confirm-email/',
          VerifyEmailView.as_view(), name='account_email_verification_sent'),
     re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$',
          VerifyEmailView.as_view(), name='account_confirm_email'),
-    path('account-confirm-email/<str:key>/', ConfirmEmailView.as_view()),
+    path('users/account-confirm-email/<str:key>/', ConfirmEmailView.as_view()),
     path('accounts/', include('dj_rest_auth.urls')),
     # path('accounts/registration/', include('dj_rest_auth.registration.urls')),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')), 
 
-    # 유효한 이메일이 유저에게 전달
-    re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
-    # 유저가 클릭한 이메일(=링크) 확인
-    re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
+    # # 유효한 이메일이 유저에게 전달
+    # re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+    # # 유저가 클릭한 이메일(=링크) 확인
+    # re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
 
     ### my apps
     path('plants/', include('plant.urls')),
