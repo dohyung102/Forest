@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import axios from 'axios'
 import { Link } from 'react-router-dom';
-import { axios }
-
 import { Grid } from '@mui/material';
 
 import './Community.css'
+
+// 참고 링크
+// https://slog.website/post/8
+// https://ghur2002.medium.com/react%EC%97%90%EC%84%9C-infinite-scroll-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-128d64ea24b5
+// https://velog.io/@hyounglee/TIL-56
+
 
 const Community = () => {
 
@@ -12,19 +17,57 @@ const Community = () => {
     window.location.href = '/post'
   }
 
-  const getPosts = () => {
-    const API_url = 'https://api.pexels.com/v1/'
-    // console.log(API_url)
-    return 
-  }
+  const [posts, setPosts] = useState([])
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
 
+
+  const [preItems, setPreItems] = useState(0)
+  const [items, setItems] = useState(9)
+
+  // 무한 스크롤 API 이용 
+  const API_url = 'https://api.themoviedb.org/3/movie/popular?api_key=7098d034bd3b550d66f794f9b58e3339&language=ko-KR&page='
+  const getPosts = useCallback(async () => {
+    setLoading(true)
+    await axios.get(`${API_url}${page}`)
+    .then((res) => {
+      console.log(page)
+      setPosts(prevState => [...prevState, ...res.data.results])
+    })
+    setLoading(false)
+  }, [page])
+
+  
+  // dummy data 테스트용 무한스크롤
+  const [testPosts, setTestPosts] = useState([])
+  
+  
+  const testInfiniteScroll = () => {
+    const dummy_result = dummy_posts.slice(preItems, items)
+
+    setTestPosts(prevState => [...prevState, ...dummy_result])
+
+  }
+  
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight
     const scrollTop = document.documentElement.scrollTop
     const clientHeight = document.documentElement.clientHeight
-    if (scrollHeight - scrollTop === clientHeight)
-      console.log('page end')
+    if (scrollHeight - scrollTop === clientHeight && !loading) {
+
+      setPreItems(items)
+      setItems(items => items + 9)
+
+      // setPage(page => page + 1)
+    }
   }
+
+  useEffect(() => {
+    // getPosts()
+    // [getPosts]
+    testInfiniteScroll()
+    // [items]
+  }, [items])
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandle)
@@ -36,7 +79,7 @@ const Community = () => {
   const dummy_posts = [
     {
       'idx':'1',
-      'title':'aaaaa',
+      'title':'1111',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
       'created_at':'2022-03-23 16:20',
@@ -45,7 +88,7 @@ const Community = () => {
     },
     {
       'idx':'2',
-      'title':'bbbbb',
+      'title':'22222',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 16:30',
@@ -54,7 +97,7 @@ const Community = () => {
     },
     {
       'idx':'3',
-      'title':'ccc',
+      'title':'3333',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
       'created_at':'2022-03-23 17:20',
@@ -63,7 +106,7 @@ const Community = () => {
     },
     {
       'idx':'4',
-      'title':'ddddddd',
+      'title':'4444',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -72,7 +115,7 @@ const Community = () => {
     },
     {
       'idx':'5',
-      'title':'eeeeeeeeee',
+      'title':'5555',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -81,7 +124,7 @@ const Community = () => {
     },
     {
       'idx':'6',
-      'title':'ffffff',
+      'title':'66666',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -90,7 +133,7 @@ const Community = () => {
     },
     {
       'idx':'7',
-      'title':'ccc',
+      'title':'7777',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
       'created_at':'2022-03-23 17:20',
@@ -99,7 +142,7 @@ const Community = () => {
     },
     {
       'idx':'8',
-      'title':'ddddddd',
+      'title':'8888',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -108,7 +151,7 @@ const Community = () => {
     },
     {
       'idx':'9',
-      'title':'eeeeeeeeee',
+      'title':'9999',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -117,7 +160,7 @@ const Community = () => {
     },
     {
       'idx':'10',
-      'title':'ffffff',
+      'title':'10101010',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -126,7 +169,7 @@ const Community = () => {
     },
     {
       'idx':'11',
-      'title':'gggggggggggg',
+      'title':'11111111',
       'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
       'img':'',
       'created_at':'2022-03-23 18:30',
@@ -140,11 +183,12 @@ const Community = () => {
       community page
       {/* <button><Link to='/post'>글쓰기</Link></button> */}
       <button onClick={ toPost }>글쓰기</button>
-      {dummy_posts.map(post => {
+      {/* {dummy_posts.map(post => { */}
+      {testPosts.map((post, idx) => {
         return (
           <Grid container spacing={0} sx={{ borderTop:1, borderColor: 'grey.300' }}
             // justifyContent='center' direction='column'
-            key={post.idx} style={{ height: '110px' }}
+            key={idx} style={{ height: '110px' }}
           >
             {/* 좋아요 */}
             <Grid item md={2}>
@@ -153,7 +197,7 @@ const Community = () => {
             {/* 이미지 */}
             { post.img && 
               <Grid item md={2}>
-                <img className='community-post-img' src={post.img} />
+                <img className='community-post-img' src={post.img} alt='post_img' />
               </Grid>
             }
             {/* 컨텐츠 */}
@@ -174,6 +218,11 @@ const Community = () => {
               </Grid>
             }
           </Grid>
+        )
+      })}
+      {posts.map((post, idx) => {
+        return(
+          <div style={{height:'45px'}} key={idx}>{post.title}</div>
         )
       })}
     </div>
