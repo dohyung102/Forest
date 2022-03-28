@@ -10,8 +10,6 @@
 *.pdb
 *.sqlite3
 
-docker/db/data/
-
 ### Django ###
 *.log
 *.pot
@@ -725,5 +723,12 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# docker db
+
+!docker/db/.env
+!docker/db/conf.d
+!docker/db/initdb.d
+docker/db/data/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,node,react,python,django,visualstudiocode,venv,pycharm+all,flask,intellij+all,database
