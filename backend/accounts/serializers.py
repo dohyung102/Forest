@@ -3,7 +3,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 
-from .models import User
+from .models import Preference, User
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
@@ -43,3 +43,11 @@ class CustomTokenRefreshSerializer(serializers.Serializer):
         data = {'access_token': str(refresh.access_token)}
 
         return data
+
+class PreferenceSerializer(serializers.Serializer):
+    user = serializers.ReadOnlyField(source='user.email')
+
+    class Meta:
+        model = Preference
+        fields = '__all__'
+        read_only_fields = ['index']

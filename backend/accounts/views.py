@@ -4,14 +4,18 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from json.decoder import JSONDecodeError
-from rest_framework import status
+from rest_framework import status, viewsets
+from rest_framework.response import Response
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView, SocialConnectView
 
-from accounts.models import User
+from accounts.models import User, Preference
+from .serializers import PreferenceSerializer
+
+from plant.recomm_functions import calculate_recommend_plants_by_user_preference, find_preference_plants_by_index
 
 # state = getattr(settings, 'STATE')
 BASE_URL = 'http://localhost:8000/'
@@ -100,3 +104,23 @@ class GoogleConnect(SocialConnectView):
     adapter_class = GoogleOAuth2Adapter
     callback_url = GOOGLE_CALLBACK_URI
     client_class = OAuth2Client
+
+
+class PreferenceViewSet(viewsets.ModelViewSet):
+    queryset = Preference.objects.all()
+    serializer_class = PreferenceSerializer
+
+    def create(self, request):
+        serialzer = PreferenceSerializer(data=request.data)
+        if serialzer.is_valid(raise_exception=True):
+            index = calculate_recommend_plants_by_user_preference(request.data)
+            serialzer.save(index = index)
+            user_preference_plants = find_preference_plants_by_index(index)
+            return Response(user_preference_plants, status=status.HTTP_201_CREATED)
+
+    def retrieve(self, request, pk):
+        preference = Preference.objects.get(pk=pk)
+        index = preference['index']
+        user_preference_plants = find_preference_plants_by_index(index)
+        return Response(user_preference_plants, status=status.HTTP_200_OK)
+
