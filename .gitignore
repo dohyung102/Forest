@@ -10,6 +10,8 @@
 *.pdb
 *.sqlite3
 
+docker/db/data/
+
 ### Django ###
 *.log
 *.pot
