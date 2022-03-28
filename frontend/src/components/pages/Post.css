@@ -1,3 +1,5 @@
-/* .upload_image {
-  background-image: url('');
-} */
+.post-img {
+  max-width: 50vw;
+  max-height: 50vh;
+  border-radius: 15px;
+}

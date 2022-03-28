@@ -14,7 +14,7 @@ import './Community.css'
 const Community = () => {
 
   function toPost(e) {
-    window.location.href = '/write'
+    window.location.href = '/community/write'
   }
 
   const [posts, setPosts] = useState([])
@@ -285,39 +285,40 @@ const Community = () => {
       {/* {dummy_posts.map(post => { */}
       {testPosts.map((post, idx) => {
         return (
-          
-          <Grid container spacing={0} sx={{ borderTop:1, borderColor: 'grey.300' }}
-            // justifyContent='center' direction='column'
-            key={idx} style={{ height: '110px' }}
-          >
-            {/* 좋아요 */}
-            <Grid item md={2}>
-              {post.likes}
-            </Grid>
-            {/* 이미지 */}
-            { post.img && 
+          <Link to={`/community/${post.idx}`}>
+            <Grid container spacing={0} sx={{ borderTop:1, borderColor: 'grey.300' }}
+              // justifyContent='center' direction='column'
+              key={idx} style={{ height: '110px' }}
+            >
+              {/* 좋아요 */}
               <Grid item md={2}>
-                <img className='community-post-img' src={post.img} alt='post_img' />
+                {post.likes}
               </Grid>
-            }
-            {/* 컨텐츠 */}
-            { post.img
-              ?
-              <Grid item md={7}>
-                <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>
-                  <div>{post.title}</div>
-                  <div>{post.content}</div>
-                </div>
-              </Grid>
-              :
-              <Grid item md={9}>
-                <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>
-                  <div>{post.title}</div>
-                  <div>{post.content}</div>
-                </div>
-              </Grid>
-            }
-          </Grid>
+              {/* 이미지 */}
+              { post.img && 
+                <Grid item md={2}>
+                  <img className='community-post-img' src={post.img} alt='post_img' />
+                </Grid>
+              }
+              {/* 컨텐츠 */}
+              { post.img
+                ?
+                <Grid item md={7}>
+                  <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>
+                    <div>{post.title}</div>
+                    <div>{post.content}</div>
+                  </div>
+                </Grid>
+                :
+                <Grid item md={9}>
+                  <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>
+                    <div>{post.title}</div>
+                    <div>{post.content}</div>
+                  </div>
+                </Grid>
+              }
+            </Grid>
+          </Link>
         )
       })}
       {posts.map((post, idx) => {
