@@ -16,4 +16,10 @@ class PlantViewSet(viewsets.ModelViewSet):
     serializer_class = PlantSerializers
     permission_classes = [AllowAny]
 
+class PlantSearchViewSet(viewsets.ModelViewSet):
+    # search = request.GET.get()
+    # queryset = Plant.objects.filter(name = search)
+    pass
+
+
    

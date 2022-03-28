@@ -22,4 +22,5 @@ urlpatterns = [
     # path('google/login/finish/', views.GoogleLogin.as_view(), name='google_login_todjango'),
     path('preference/', preference_list),
     path('preference/<int:pk>/', preference_detail),
+
 ]

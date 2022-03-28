@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
+from post.serializers import PostSerializers, CommentSerializers
 
 from .models import Preference, User
 
@@ -18,7 +19,10 @@ class CustomRegisterSerializer(RegisterSerializer):
     class Meta:
         model = User
         fields = '__all__'
+        
 class CustomUserDetailSerializer(UserDetailsSerializer):
+    comment_set = CommentSerializers(read_only=True, many=True)
+    post_set = PostSerializers(read_only=True, many=True)
     nickname = serializers.CharField()
     gender = serializers.CharField()
 
@@ -27,9 +31,6 @@ class CustomUserDetailSerializer(UserDetailsSerializer):
         data['nickname'] = self._validated_data.get('nickname', '')
         data['gender'] = self._validated_data.get('gender', '')
         return data
-    class Meta:
-        fields = '__all__'
-        model = User
 
     class Meta:
         model = User

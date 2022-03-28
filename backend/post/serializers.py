@@ -5,6 +5,7 @@ from .models import Post, Comment
 from accounts.serializers import CustomUserDetailSerializer
 from plant.recomm_functions import find_similar_plant_by_plant_id
 
+
 class CommentSerializers(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source = 'user.email')
     post = serializers.ReadOnlyField(source = 'post.pk')
