@@ -135,7 +135,7 @@ DATABASES = {
         'NAME': 'forest', 
         'USER': 'ssafy', 
         'PASSWORD': 'ssafy', 
-        'HOST': 'localhost', 
+        'HOST': 'db', 
         'PORT': '3306',
      } 
 }
