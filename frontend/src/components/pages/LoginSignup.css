@@ -29,7 +29,20 @@
   border: 0;
   height: 45px;
 }
-.login-signup-button:hover {
+.login-signup-button-active {
   cursor: pointer;
   background-color: turquoise;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  font-weight: 700;
+  width: 316px;
+  border-radius: 5px;
+  border: 0;
+  height: 45px;
+}
+
+.valid-alert {
+  color: red;
+  text-align: left;
+  margin-bottom: 5px;
 }
