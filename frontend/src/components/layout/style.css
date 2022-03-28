@@ -37,6 +37,7 @@
   font-size: 36px;
   font-weight: bolder;
   user-select: none;
+  cursor: pointer;
 }
 
 .layout-ul {
