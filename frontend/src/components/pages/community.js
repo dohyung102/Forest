@@ -14,7 +14,7 @@ import './Community.css'
 const Community = () => {
 
   function toPost(e) {
-    window.location.href = '/post'
+    window.location.href = '/write'
   }
 
   const [posts, setPosts] = useState([])
@@ -58,7 +58,7 @@ const Community = () => {
       setPreItems(items)
       setItems(items => items + 9)
 
-      // setPage(page => page + 1)
+      setPage(page => page + 1)
     }
   }
 
@@ -176,6 +176,105 @@ const Community = () => {
       'likes':'0',
       'user':'user_aa'
     },
+    {
+      'idx':'1',
+      'title':'12121212',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
+      'created_at':'2022-03-23 16:20',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'2',
+      'title':'131313',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 16:30',
+      'likes':'2',
+      'user':'user_aa'
+    },
+    {
+      'idx':'3',
+      'title':'141414',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
+      'created_at':'2022-03-23 17:20',
+      'likes':'4',
+      'user':'user_aa'
+    },
+    {
+      'idx':'4',
+      'title':'151515',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'5',
+      'title':'161616',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'6',
+      'title':'171717',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'7',
+      'title':'181818',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
+      'created_at':'2022-03-23 17:20',
+      'likes':'4',
+      'user':'user_aa'
+    },
+    {
+      'idx':'8',
+      'title':'191919',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'9',
+      'title':'202020',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'10',
+      'title':'212121',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
+    {
+      'idx':'11',
+      'title':'222222',
+      'content':'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+      'img':'',
+      'created_at':'2022-03-23 18:30',
+      'likes':'0',
+      'user':'user_aa'
+    },
   ]
 
   return (
@@ -186,6 +285,7 @@ const Community = () => {
       {/* {dummy_posts.map(post => { */}
       {testPosts.map((post, idx) => {
         return (
+          
           <Grid container spacing={0} sx={{ borderTop:1, borderColor: 'grey.300' }}
             // justifyContent='center' direction='column'
             key={idx} style={{ height: '110px' }}

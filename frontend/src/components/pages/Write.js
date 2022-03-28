@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Post = () => {
+const Write = () => {
   
   function toCommunity(e) {
     window.location.href = '/community'
@@ -62,4 +62,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Write;
