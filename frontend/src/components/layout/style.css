@@ -1,0 +1,54 @@
+.layout {
+  padding-bottom: 100px;
+}
+
+.layout-header {
+  position: static;
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* height: 100px; */
+  background-color: rgb(22, 121, 22);
+  color: white;
+  display: flex;
+}
+
+.pjt-name {
+  font-size: 36px;
+  font-weight: bolder;
+}
+
+.layout-ul {
+    display: flex;
+    list-style: none;
+    text-decoration: none;
+}
+
+li + li {
+  margin-left: 15px;
+}
+
+.show-menu{
+  width: 150px;
+  height: 500px;
+  position: absolute;
+  left: 0px;
+  top: -8px;
+  transition: 1s;
+  background-color: rgb(22, 121, 22);
+  color: white;
+  }
+  
+.hide-menu{
+width: 150px;
+height: 500px;
+position: absolute;
+left: -150px;
+top: -8px;
+transition: 1s;
+}
+
+
+.content {
+
+}
