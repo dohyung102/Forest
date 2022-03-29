@@ -13,9 +13,11 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView, SocialConnectView
 
 from accounts.models import User, Preference
-from .serializers import PreferenceSerializer
+from .serializers import CustomUserDetailSerializer, PreferenceSerializer, UserGetRoleSerializer
 
 from plant.recomm_functions import calculate_recommend_plants_by_user_preference, find_preference_plants_by_index
+
+from accounts import serializers
 
 # state = getattr(settings, 'STATE')
 BASE_URL = 'http://localhost:8000/'
@@ -124,3 +126,13 @@ class PreferenceViewSet(viewsets.ModelViewSet):
         user_preference_plants = find_preference_plants_by_index(index)
         return Response(user_preference_plants, status=status.HTTP_200_OK)
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserGetRoleSerializer
+
+    def getrole(self, request, pk):
+        user = User.objects.get(pk=pk)
+        serializer = UserGetRoleSerializer(instance=user, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(role=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)

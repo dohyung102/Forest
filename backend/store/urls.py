@@ -16,5 +16,5 @@ store_detail = StoreViewSet.as_view({
 
 urlpatterns = [
     path('', store_list),
-    path('<int:pk>', store_detail)
+    path('<int:pk>/', store_detail)
 ]

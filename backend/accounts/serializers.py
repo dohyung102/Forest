@@ -3,6 +3,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 from post.serializers import PostSerializers, CommentSerializers
+from product.serializers import BuySerializers, WishlistSerializers
 
 from .models import Preference, User
 
@@ -19,12 +20,25 @@ class CustomRegisterSerializer(RegisterSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        
+
+
+class PreferenceSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.email')
+
+    class Meta:
+        model = Preference
+        fields = '__all__'
+        read_only_fields = ['index']
+
+
 class CustomUserDetailSerializer(UserDetailsSerializer):
     comment_set = CommentSerializers(read_only=True, many=True)
     post_set = PostSerializers(read_only=True, many=True)
     nickname = serializers.CharField()
     gender = serializers.CharField()
+    buy_set = BuySerializers(read_only=True, many=True)
+    wishlist_set = WishlistSerializers(read_only=True, many=True)
+    preference_set = PreferenceSerializer(read_only=True, many=True)
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
@@ -36,7 +50,7 @@ class CustomUserDetailSerializer(UserDetailsSerializer):
         model = User
         fields = '__all__'
 
-class CustomTokenRefreshSerializer(serializers.Serializer):
+class CustomTokenRefreshSerializer(serializers.ModelSerializer):
     refresh_token = serializers.CharField()
 
     def validate(self, attrs):
@@ -45,10 +59,11 @@ class CustomTokenRefreshSerializer(serializers.Serializer):
 
         return data
 
-class PreferenceSerializer(serializers.Serializer):
-    user = serializers.ReadOnlyField(source='user.email')
+
+
+class UserGetRoleSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Preference
-        fields = '__all__'
-        read_only_fields = ['index']
+        model = User
+        fields = ['role']
+        read_only_fields = ['role']
