@@ -135,7 +135,7 @@ DATABASES = {
         'NAME': 'forest', 
         'USER': 'ssafy', 
         'PASSWORD': 'ssafy', 
-        'HOST': 'db', 
+        'HOST': 'localhost', 
         'PORT': '3306',
      } 
 }
@@ -179,7 +179,7 @@ ACCOUNT_USERNAME_REQUIRED = False        # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True            # email 필드 사용 o
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
 
