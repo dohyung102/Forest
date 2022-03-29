@@ -24,7 +24,7 @@ const Post = () => {
         <div>@{post_dummy_data.user}</div>
         <div>{post_dummy_data.title}</div>
         <div>{post_dummy_data.content}</div>
-        <img className='post-img' src={post_dummy_data.img} />
+        <img className='post-img' alt='' src={post_dummy_data.img} />
         <div>작성시간 : {post_dummy_data.created_at}</div>
       </div>
       <Link to='/community'><button>목록으로</button></Link>

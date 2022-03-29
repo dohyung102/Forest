@@ -26,7 +26,7 @@ const Signup = ({history}) => {
     // /---/ => ---가 순서대로 나타나야
     // [0-9] 0에서 9까지 / [a-z] a에서 z까지 / [-_\.] 해당 문자 허용
     // ? 앞의 표현식이 0 or 1회 등장
-    const emailValid = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+    const emailValid = /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 
     if (!emailValid.test(emailInput))
       setEmailError(true)
