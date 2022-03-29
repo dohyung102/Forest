@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,node,react,python,django,visualstudiocode,venv,pycharm+all,flask,intellij+all,database
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,node,react,python,django,visualstudiocode,venv,pycharm+all,flask,intellij+all,database
 
+### FORest Project ###
+chromedriver/
+
 ### Database ###
 *.accdb
 *.db
