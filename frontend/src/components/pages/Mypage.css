@@ -1,0 +1,21 @@
+.mypage-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mypage-title {
+  text-align: center;
+}
+
+.mypage-img {
+  /* display: block; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  width: 240px;
+  height: 320px;
+  margin: auto;
+  border: solid 1px;
+  object-fit: contain;
+  
+}
