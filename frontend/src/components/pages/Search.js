@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Grid, Button } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Grid } from '@mui/material';
 
 const Search = () => {
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const dummy_plants = [
     {
       'name' : '식물a',
@@ -58,7 +58,7 @@ const Search = () => {
     activeCategory === 'All'
       ? setPlants(dummy_plants)
       : setPlants(dummy_plants.filter(plant => plant.tag.includes(activeCategory)))
-  }, [activeCategory])
+  }, [activeCategory, dummy_plants])
 
   // const [tagA, setTagA] = useState(false)
   // const [tagB, setTagB] = useState(false)
@@ -76,6 +76,7 @@ const Search = () => {
       return plant
     else if (plant.name.toLowerCase().includes(search.toLowerCase()))
       return plant
+    return null;
   }).map(plant_data => {
     return (
       <Grid key={plant_data.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+// import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Grid } from '@mui/material';
 
@@ -17,8 +17,11 @@ const Community = () => {
     window.location.href = '/community/write'
   }
 
+  // eslint-disable-next-line no-unused-vars
   const [posts, setPosts] = useState([])
+  // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1)
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false)
 
 
@@ -26,22 +29,26 @@ const Community = () => {
   const [items, setItems] = useState(9)
 
   // 무한 스크롤 API 이용 
+  // eslint-disable-next-line no-unused-vars
   const API_url = 'https://api.themoviedb.org/3/movie/popular?api_key=7098d034bd3b550d66f794f9b58e3339&language=ko-KR&page='
-  const getPosts = useCallback(async () => {
-    setLoading(true)
-    await axios.get(`${API_url}${page}`)
-    .then((res) => {
-      console.log(page)
-      setPosts(prevState => [...prevState, ...res.data.results])
-    })
-    setLoading(false)
-  }, [page])
+  
+  // getPosts
+  // const getPosts = useCallback(async () => {
+  //   setLoading(true)
+  //   await axios.get(`${API_url}${page}`)
+  //   .then((res) => {
+  //     console.log(page)
+  //     setPosts(prevState => [...prevState, ...res.data.results])
+  //   })
+  //   setLoading(false)
+  // }, [page])
 
   
   // dummy data 테스트용 무한스크롤
   const [testPosts, setTestPosts] = useState([])
   
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const testInfiniteScroll = () => {
     const dummy_result = dummy_posts.slice(preItems, items)
 
@@ -67,7 +74,7 @@ const Community = () => {
     // [getPosts]
     testInfiniteScroll()
     // [items]
-  }, [items])
+  }, [items, testInfiniteScroll])
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandle)
