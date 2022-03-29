@@ -13,6 +13,7 @@ const Signup = ({history}) => {
   const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [gender, setGender] = useState('0')
 
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
@@ -61,11 +62,13 @@ const Signup = ({history}) => {
   const signup = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/accounts/registraion/',
+      url: 'http://localhost:8000/users/signup/',
       data: {
         email: email,
         nickname: nickname,
-        password: password,
+        password1: password,
+        password2: passwordConfirm,
+        gender: gender,
       }
     })
       .then((res) => {

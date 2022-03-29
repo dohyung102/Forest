@@ -37,7 +37,7 @@ const Login = () => {
   const login = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/accounts/login',
+      url: 'http://localhost:8000/users/login',
       data: {
         email: email,
         password: password,
@@ -72,7 +72,7 @@ const Login = () => {
       </form>
       <div>
         <Button>비밀번호 찾기</Button>
-        <Link to='/community'><Button>회원가입</Button></Link>
+        <Link to='/signup'><Button>회원가입</Button></Link>
       </div>
       <p>or login with</p>
       <div>

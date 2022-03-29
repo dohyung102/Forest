@@ -250,6 +250,6 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True     # 유저가 받은 링크를 클릭하�
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 
 CORS_ORIGIN_WHITELIST = [
-"localhost:3000"
+"http://localhost:3000"
 
 ]
