@@ -51,3 +51,13 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class Preference(models.Model):
+    watering = models.CharField(max_length=255, default='')
+    flower_presence = models.CharField(max_length=255, default='')
+    manage_difficulty = models.CharField(max_length=255, default='')
+    growth_rate = models.CharField(max_length=255, default='')
+    placement = models.CharField(max_length=255, default='')
+    index = models.IntegerField(default=0)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

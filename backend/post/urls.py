@@ -1,5 +1,6 @@
 from django.urls import path, include
 from .views import PostViewSet, CommentViewSet
+#from .views import MyPostViewSet, MyCommentViewSet
 from rest_framework.routers import DefaultRouter
 
 # post 목록, 등록
@@ -28,12 +29,22 @@ comment_detail = CommentViewSet.as_view({
     'delete': 'destroy'
 })
 
+# my_post_list = MyPostViewSet.as_view({
+#     'get': 'list',
+#     'post': 'create'
+# })
+
+# my_comment_list = MyCommentViewSet.as_view({
+#     # 'get': 'list',
+#     'post': 'create'
+# })
 
 urlpatterns = [
     path('', post_list),
     path('<int:pk>/', post_detail),
     path('<int:post_pk>/comment/', comment_list),
-    path('<int:post_pk>/comment/<int:pk>/', comment_detail)
+    path('<int:post_pk>/comment/<int:pk>/', comment_detail),
+    # path('<user>/', my_post_list),
 ]
 # app_name = 'posts'
 # router = DefaultRouter()
