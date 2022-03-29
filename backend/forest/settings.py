@@ -70,7 +70,9 @@ INSTALLED_APPS = [
     'plant.apps.PlantConfig',
     'product.apps.ProductConfig',
     'store.apps.StoreConfig',
-    'post.apps.PostConfig'
+    'post.apps.PostConfig',
+
+    'corsheaders',
 ]
 
 
@@ -94,6 +96,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'forest.urls'
@@ -245,3 +248,8 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True     # 유저가 받은 링크를 클릭하�
 
 # EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/' # 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+
+CORS_ORIGIN_WHITELIST = [
+"http://localhost:3000"
+
+]
