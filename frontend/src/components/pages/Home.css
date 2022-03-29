@@ -1,0 +1,49 @@
+.home-content {
+  height: 400px;
+  /* background-color: rgba(0, 0, 0); */
+}
+
+@media screen and (min-width:900px) {
+  .home-content-img {
+    width: 900px;
+    height: 400px;
+    display: block;
+    object-fit: cover;
+    /* opacity: 0.8; */
+  }
+}
+
+.home-content-text {
+  /* margin: 0px; */
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.35);
+  /* opacity: 1; */
+}
+.home-content-title {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  /* opacity: 1; */
+}
+.home-content-content {
+  color: white;
+}
+
+.home-plant-img {
+  height: 180px;
+  width: 180px;
+  border-radius: 15px;
+}
+
+.home-plant-name {
+  margin: 5px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.home-plant-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px;
+}

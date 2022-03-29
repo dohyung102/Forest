@@ -1,6 +1,25 @@
-.layout {
-  padding-bottom: 100px;
+@media screen and (min-width:900px) {
+  .layout {
+    /* padding-bottom: 100px; */
+
+    /* display: grid; */
+    margin: 0 auto;
+    width: 900px;
+
+    border-left: solid 1px #aabbaa;
+    border-right: solid 1px #aabbaa;
+
+    /* 나중에 bgcolor 지우기 */
+    /* background-color: #aaaaaa; */
+  }
 }
+
+/* .layout {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+#main-left { border-right: solid 1px #aabbaa; }
+#main-right { border-left: solid 1px #aabbaa; } */
 
 .layout-header {
   position: static;
@@ -8,20 +27,23 @@
   top: 0;
   width: 100%;
   /* height: 100px; */
-  background-color: rgb(22, 121, 22);
-  color: white;
+
+  /* 색상 변경하기 */
+  background-color: antiquewhite;
   display: flex;
 }
 
 .pjt-name {
   font-size: 36px;
   font-weight: bolder;
+  user-select: none;
+  cursor: pointer;
 }
 
 .layout-ul {
     display: flex;
     list-style: none;
-    text-decoration: none;
+    align-items: center;
 }
 
 li + li {
@@ -48,7 +70,8 @@ top: -8px;
 transition: 1s;
 }
 
-
-.content {
-
+.nav-ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
 }

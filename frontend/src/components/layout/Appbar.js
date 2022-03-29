@@ -1,40 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
+// import style from './style.scss'
 import './style.css'
 import { Link } from 'react-router-dom';
 
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import { color, fontSize } from '@mui/system';
 
 
-const Appbar = () => {  
-  const [menuButton, setMenu] = useState(false);  // 메뉴의 초기값을 false로 설정
-  
-  // const toggleMenu = () => {
-  //       setMenu(menuButton => !menuButton); // on,off 개념 boolean
-  // }
-  return (
-    <header className='layout-header'>
-      <Container maxWidth='md' height='100%' disableGutters>
-        {/* 웹 화면 */}
-        <Box sx={{ mx: 1, my: 3, display: { xs: 'none', md: 'flex'}, justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className='pjt-name'>
-            <Link to='/home'>FOREST</Link>
-          </div>
-          <nav>
+
+const Appbar = () => {
+
+  // 로그인 정보 받아오면 변경하기
+  const auth = null
+
+  const homeButton = () => {
+    window.location.replace('/')
+  }
+return (
+  <header className='layout-header'>
+    <Container maxWidth='md' height='100%' disableGutters>
+      {/* 웹 화면 */}
+      <Box sx={{ mx: 1, my: 3, display: { xs: 'none', md: 'flex'}, justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className='pjt-name' onClick={ homeButton }>
+          FOREST
+        </div>
+        <nav>
+          {
+            auth
+            ?
             <ul className='layout-ul'>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>상품등록</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>상품정보</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/search'>식물검색</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/community'>커뮤니티</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>로그아웃</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/mypage'>마이페이지</Button></li>
+              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/cart">장바구니</Link></Button></li>
               <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/survey">설문조사</Link></Button></li>
               <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/recommend">추천식물</Link></Button></li>
               <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/sell_regist">판매상품 등록</Link></Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}>로그인</Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}>회원가입</Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/cart">장바구니</Link></Button></li>
             </ul>
-          </nav>
-          {/* <div>userinfo</div> */}
-        </Box>
+            :
+            <ul className='layout-ul'>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/store'>스토어</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/search'>식물검색</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/community'>커뮤니티</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/login'>로그인</Button></li>
+              <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/signup'>회원가입</Button></li>
+            </ul>
+          }
+        </nav>
+        {/* <div>userinfo</div> */}
+      </Box>
 
         {/* 모바일 화면 */}
         <div className="appbar">
