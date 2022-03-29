@@ -5,6 +5,7 @@ import Product from './StoreProduct'
 
 const Store = () => {
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const dummy_products = [
     {
       'name':'111111',
@@ -64,7 +65,7 @@ const Store = () => {
     activeCategory === 'All'
       ? setProduct(dummy_products)
       : setProduct(dummy_products.filter((product) => product.categories.includes(activeCategory)))
-  }, [activeCategory])
+  }, [activeCategory, dummy_products])
 
   return (
     <Grid container>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { Grid } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"; 
@@ -57,22 +55,23 @@ const Detail = () => {
     ],
   }
 
-  const similar_plant = dummy_plant.similar.map(plant => {
-    return (
-      // <Grid container>
-        // <Grid key={plant.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-        <div>
-          <Link to={`/detail/${plant.name}`}>
-            <img className='home-plant-img' src={plant.img} alt='plant_img' />
-          </Link>
-          <p className='home-plant-name'>{plant.name}</p>
-          <p className='home-plant-name'>{plant.price}</p>
-          <p className='home-plant-name'>{plant.rate}</p>
-        </div>
-        // </Grid>
-      // </Grid>
-    )
-  })
+  // similar_plant
+  // const similar_plant = dummy_plant.similar.map(plant => {
+  //   return (
+  //     // <Grid container>
+  //       // <Grid key={plant.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+  //       <div>
+  //         <Link to={`/detail/${plant.name}`}>
+  //           <img className='home-plant-img' src={plant.img} alt='plant_img' />
+  //         </Link>
+  //         <p className='home-plant-name'>{plant.name}</p>
+  //         <p className='home-plant-name'>{plant.price}</p>
+  //         <p className='home-plant-name'>{plant.rate}</p>
+  //       </div>
+  //       // </Grid>
+  //     // </Grid>
+  //   )
+  // })
 
   const settings = {
     slide: 'div',

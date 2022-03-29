@@ -37,7 +37,7 @@ const Home = () => {
     <div>
       <Grid container className='home-content'>
         <Grid item md={6}>
-          <img className='home-content-img' src='https://www.nongsaro.go.kr/ps/img/curation/bigData_2021/20210929/images/picture13.jpg' />
+          <img className='home-content-img' alt='' src='https://www.nongsaro.go.kr/ps/img/curation/bigData_2021/20210929/images/picture13.jpg' />
         </Grid>
         <Grid item md={6} sx={{ display:'flex', flexDirection:'column', justifyContent:'center' }}>
           <div className='home-content-text'>
