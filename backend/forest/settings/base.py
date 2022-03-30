@@ -15,28 +15,22 @@ import os, json, sys
 import pymysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # 소셜 로그인 key 값 불러오는 부분
-ROOT_DIR = os.path.dirname(BASE_DIR)
+# ROOT_DIR = os.path.dirname(BASE_DIR)
 
-SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'secrets.json')
+# SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'secrets.json')
 
-secrets = json.loads(open(SECRET_BASE_FILE).read())
-for key, value in secrets.items():
-    setattr(sys.modules[__name__], key, value)
+# secrets = json.loads(open(SECRET_BASE_FILE).read())
+# for key, value in secrets.items():
+#     setattr(sys.modules[__name__], key, value)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-lw$gi)rijoq59yfc(0x7lx**m_*ynlt^j&mo-&xmqlnw$lo*3x'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,7 +68,6 @@ INSTALLED_APPS = [
 
     'corsheaders',
 ]
-
 
 SITE_ID = 1
 
@@ -132,16 +125,6 @@ WSGI_APPLICATION = 'forest.wsgi.application'
 
 pymysql.install_as_MySQLdb()
 
-DATABASES = {
-    'default': { 
-    	'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'forest', 
-        'USER': 'ssafy', 
-        'PASSWORD': 'ssafy', 
-        'HOST': 'localhost', 
-        'PORT': '3306',
-     } 
-}
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -236,7 +219,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # MEDIA 관련 설정
 
-MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Email 관련 설정
