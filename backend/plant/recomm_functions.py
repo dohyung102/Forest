@@ -84,37 +84,7 @@ def find_preference_plants_by_index(index):
     user_preference_vector = user_preference_vector[index:index+10]
     result_dict = user_preference_vector.to_dict('records')
     return result_dict
-# b = find_similar_plant_by_plant_id(1)
 
-# # 데이터 합치기
-# friend_list = [
-#     ['john', 95, 85],
-#     ['jane', 85, 80],
-#     ['nate', 30, 10],
-# ]
-# column_name = ['name', 'midterm', 'finalterm']
-# df = pd.DataFrame.from_records(friend_list, columns=column_name)
-# df2 = pd.DataFrame([
-#     ['ben', 50, 50]
-# ], columns = ['name', 'midterm', 'finalterm'])
-# print(df2)
 
-# # df.append(df2, ignore_index= True) # 이거 없어짐
-# df = pd.concat([df, df2], ignore_index= True)
-# print(df)
-
-# column_name = ['id', 'name', 'character', 'watering', 'light_demand', 'humidity', 'flower_presence', 'flower_color', 'manage_difficulty', 'winter_minimum_temperature', 'growth_rate', 'placement', 'similarity']
-# df = pd.DataFrame.from_records([], columns=column_name)
-# pd.to_pickle(df, USER_PREFERENCE_PLANT_VECTOR_DATA)
-# a = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)
-# a = pd.concat([a, b], ignore_index=True)
-# print(a)
-
-# column_name = ['name', 'midterm', 'finalterm']
-# df = pd.DataFrame.from_records([], columns=column_name)
-# print(len(df))
-# df2 = pd.DataFrame([
-#     ['ben', 50, 50]
-# ], columns = ['name', 'midterm', 'finalterm'])
-# df = pd.concat([df, df2], ignore_index= True)
-# print(df)
+# user_click_data = open('forest/logs/user_call_data.log')
+# print(user_click_data.readlines())
