@@ -13,6 +13,7 @@ const Signup = ({history}) => {
   const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [gender, setGender] = useState('0')
 
   const [emailError, setEmailError] = useState(false)
