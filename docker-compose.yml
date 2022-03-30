@@ -1,12 +1,12 @@
 version: "3.8"
 
 services:
-  # certbot:
-  #   image: certbot/certbot
-  #   restart: always
-  #   volumes:
-  #     - ./docker/certbot/conf:/etc/letsencrypt
-  #     - ./docker/certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot
+    restart: always
+    volumes:
+      - ./docker/certbot/conf:/etc/letsencrypt
+      - ./docker/certbot/www:/var/www/certbot
   nginx_proxy:
     build: ./docker/nginx/
     restart: always
