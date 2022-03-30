@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Write = () => {
   
-  function toCommunity(e) {
+  function toCommunity() {
     window.location.href = '/community'
   }
   
@@ -24,6 +25,29 @@ const Write = () => {
   const deleteFile = (event) => {
     URL.revokeObjectURL(file)
     setFile('')
+  }
+
+  const write = () => {
+    console.log(file)
+    axios({
+      method: 'post',
+      url: 'http://localhost:8000/posts/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: {
+        title: title,
+        content: content,
+        // image: file,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        toCommunity()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -55,7 +79,7 @@ const Write = () => {
       <div>
         {/* <button><Link to='/community'>목록으로</Link></button> */}
         <button onClick={ toCommunity }>목록으로</button>
-        <button>글쓰기</button>
+        <button onClick={ write }>글쓰기</button>
       </div>
     </div>
   );

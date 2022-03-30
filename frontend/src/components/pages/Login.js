@@ -9,7 +9,6 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -30,21 +29,28 @@ const Login = () => {
       setEmailError(false)
   }
   const passwordHandle = (event) => {
-    // console.log(event.target.value)
     setPassword(event.target.value)
   }
 
   const login = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/users/login',
+      url: 'http://localhost:8000/users/login/',
       data: {
         email: email,
         password: password,
       }
     })
     .then((res) => {
-      console.log(res)
+      if (res.data.access_token) {
+        localStorage.clear()
+        localStorage.setItem('token', res.data.access_token)
+        localStorage.setItem('user_id', res.data.user.id)
+        const userid = res.data.user.id
+        console.log(userid)
+        // console.log('testV = ', testV)
+      }
+      // console.log('testV = ', testV)
       alert('login success')
       navigate('/')
       })
