@@ -38,15 +38,17 @@ def find_similar_plant_by_plant_id(plant_id):
     plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     plants_vector_data = pd.read_pickle(COSINE_SIMILARITY_PLANT_VECTOR_DATA)
     plant_index = plants_data[plants_data['id'] == plant_id].index.values
-
-    similar_plants_vector_data = plants_vector_data[plant_index[0]]
+    if plant_index.size > 0:
+        similar_plants_vector_data = plants_vector_data[plant_index[0]]
+    else:
+        return []
     plants_data['similarity'] = similar_plants_vector_data
     plants_data = plants_data[plants_data['id'] != plant_id]
     result = plants_data.sort_values('similarity', ascending=False)[:10]
     # print(len(result))
     result_dict = result.to_dict('records')
-    # return result_dict
     return result_dict
+
 
 def calculate_recommend_plants_by_user_preference(preference_data):
     data_dict = {
@@ -84,7 +86,6 @@ def find_preference_plants_by_index(index):
     user_preference_vector = user_preference_vector[index:index+10]
     result_dict = user_preference_vector.to_dict('records')
     return result_dict
-
 
 # user_click_data = open('forest/logs/user_call_data.log')
 # print(user_click_data.readlines())
