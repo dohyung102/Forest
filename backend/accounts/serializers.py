@@ -3,7 +3,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 from post.serializers import PostSerializers, CommentSerializers
-from product.serializers import BuySerializers, WishlistSerializers
+from product.serializers import BuySerializers, WishlistSerializers, ReviewSerializers
 
 from .models import Preference, User
 
@@ -39,6 +39,7 @@ class CustomUserDetailSerializer(UserDetailsSerializer):
     buy_set = BuySerializers(read_only=True, many=True)
     wishlist_set = WishlistSerializers(read_only=True, many=True)
     preference_set = PreferenceSerializer(read_only=True, many=True)
+    review_set = ReviewSerializers(read_only=True, many=True)
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
