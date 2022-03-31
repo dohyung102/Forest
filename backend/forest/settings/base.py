@@ -15,7 +15,7 @@ import os, json, sys
 import pymysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # 소셜 로그인 key 값 불러오는 부분
 # ROOT_DIR = os.path.dirname(BASE_DIR)
