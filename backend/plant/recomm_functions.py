@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from .models import Plant
 
 BASE_DATA_DIR = 'plant/data'
 PLANT_VECTOR_DATA = os.path.join(BASE_DATA_DIR, 'plants_vector_data.pkl')
@@ -17,7 +18,9 @@ def similar_plant_calculate():
 
 
 def plants_data_vectorization():
-    plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
+    plants = Plant.objects.values()
+    plants_data = pd.DataFrame(plants).fillna('no')
+    # plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     combine_index = ['watering', 'flower_presence', 'manage_difficulty', 'growth_rate', 'placement']
     plants = plants_data[combine_index]
     plants['all_text'] = plants[combine_index].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
@@ -26,6 +29,7 @@ def plants_data_vectorization():
     counter_vector.fit(plants['all_text'])
     plants_vector = counter_vector.transform(plants['all_text']).toarray()
     feature_names = counter_vector.get_feature_names()
+    # print(plants_vector)
 
     pd.to_pickle(plants_vector, PLANT_VECTOR_DATA)
     pd.to_pickle(feature_names, FEATURE_NAMES)
@@ -35,7 +39,9 @@ def plants_data_vectorization():
 # plants_data_vectorization()
 # similar_plant_calculate()
 def find_similar_plant_by_plant_id(plant_id):
-    plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
+    plants = Plant.objects.values()
+    plants_data = pd.DataFrame(plants).fillna('no')
+    # plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     plants_vector_data = pd.read_pickle(COSINE_SIMILARITY_PLANT_VECTOR_DATA)
     plant_index = plants_data[plants_data['id'] == plant_id].index.values
     if plant_index.size > 0:
@@ -87,5 +93,6 @@ def find_preference_plants_by_index(index):
     result_dict = user_preference_vector.to_dict('records')
     return result_dict
 
-# user_click_data = open('forest/logs/user_call_data.log')
-# print(user_click_data.readlines())
+user_click_data = open('logs/user_call_data.log')
+print(user_click_data.readlines())
+# plants_data_vectorization()
