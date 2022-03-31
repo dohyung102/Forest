@@ -263,7 +263,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/user_call_data.log'),
+            'filename': os.path.join(BASE_DIR, 'logs/user_call_data'),
             'formatter': 'format'
         },
         # 콘솔(터미널)에 출력
