@@ -734,4 +734,8 @@ $RECYCLE.BIN/
 !docker/db/initdb.d
 docker/db/data/
 
+# django forest
+
+!backend/logs/
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,node,react,python,django,visualstudiocode,venv,pycharm+all,flask,intellij+all,database
