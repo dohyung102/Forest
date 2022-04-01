@@ -87,16 +87,16 @@ const Community = () => {
             >
               {/* 좋아요 */}
               <Grid item md={2}>
-                {post.likes}
+                {/* {post.likes} */}
               </Grid>
               {/* 이미지 */}
-              { post.img && 
+              { post.image && 
                 <Grid item md={2}>
-                  <img className='community-post-img' src={post.img} alt='post_img' />
+                  <img className='community-post-img' src={post.image} alt='post_img' />
                 </Grid>
               }
               {/* 컨텐츠 */}
-              { post.img
+              { post.image
                 ?
                 <Grid item md={7}>
                   <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>

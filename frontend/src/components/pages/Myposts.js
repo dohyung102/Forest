@@ -5,7 +5,7 @@ import { Grid } from '@mui/material';
 
 import Mynav from '../layout/MypageNavigation'
 
-const Myposts = () => {
+const MyPosts = () => {
 
   const navigate = useNavigate()
   // const {state} = useLocation()
@@ -47,7 +47,7 @@ const Myposts = () => {
         {myPost.map((post) => {
           return (
             <div key={post.id}
-              onClick={(e) => {linkToPostDetail(post.id, e)}}
+              onClick={() => linkToPostDetail(post.id)}
             >
               <div>{post.title}</div>
               <div>{post.content}</div>
@@ -59,4 +59,4 @@ const Myposts = () => {
   );
 };
 
-export default Myposts;
+export default MyPosts;

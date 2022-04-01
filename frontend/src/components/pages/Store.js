@@ -90,6 +90,9 @@ const Store = () => {
         <div>
           <button>상품등록</button>
         </div>
+        <div>
+          <button>스토어등록</button>
+        </div>
       </Grid>
       <Grid item md={9}>
         <div>상품</div>
