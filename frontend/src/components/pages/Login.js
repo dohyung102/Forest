@@ -43,14 +43,12 @@ const Login = () => {
     })
     .then((res) => {
       if (res.data.access_token) {
+        // console.log(res.data)
         localStorage.clear()
         localStorage.setItem('token', res.data.access_token)
         localStorage.setItem('user_id', res.data.user.id)
-        const userid = res.data.user.id
-        console.log(userid)
-        // console.log('testV = ', testV)
+        localStorage.setItem('user', res.data.user.email)
       }
-      // console.log('testV = ', testV)
       alert('login success')
       navigate('/')
       })

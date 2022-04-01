@@ -9,7 +9,9 @@ const Write = () => {
   
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [file, setFile] = useState('')
+  const [preview, setPreview] = useState('')
+  const [image, setImage] = useState('')
+  const formData = new FormData()
   
   const titleHandle = (event) => {
     setTitle(event.target.value)
@@ -19,16 +21,17 @@ const Write = () => {
   }
   const loadFile = (event) => {
     const imgFile = event.target.files[0]
-    // console.log(imgFile)
-    setFile(URL.createObjectURL(imgFile))
+    setPreview(URL.createObjectURL(imgFile))
+    formData.append('image', imgFile)
   }
   const deleteFile = (event) => {
-    URL.revokeObjectURL(file)
-    setFile('')
+    URL.revokeObjectURL(preview)
+    setPreview('')
+    setImage([])
   }
 
-  const write = () => {
-    console.log(file)
+  const write = (e) => {
+    e.preventDefault()
     axios({
       method: 'post',
       url: 'http://localhost:8000/posts/',
@@ -38,7 +41,7 @@ const Write = () => {
       data: {
         title: title,
         content: content,
-        // image: file,
+        // image: formData,
       },
     })
       .then((res) => {
@@ -69,9 +72,9 @@ const Write = () => {
       </form>
       <div>
         <p>업로드된 이미지</p>
-        {file && (
+        {preview && (
           <div className='upload_img'>
-            <img style={{width:'300px', height:'300px', objectFit:'contain' }} alt='upload_img' src={file} />
+            <img style={{width:'300px', height:'300px', objectFit:'contain' }} alt='upload_img' src={preview} />
             <button onClick={deleteFile}>삭제</button>
           </div>
         )}

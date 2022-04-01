@@ -203,6 +203,7 @@ const Mypage = () => {
           :
           <Button onClick={() => setEditPW((editPW) => !editPW) }>비밀번호 변경</Button>
         }
+        <Button>판매자 신청</Button>
       </Grid>
       <Grid item md={12}>
         <p>사용자 특성</p>
