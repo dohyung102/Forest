@@ -28,20 +28,6 @@ const Community = () => {
   const [preItems, setPreItems] = useState(0)
   const [items, setItems] = useState(9)
 
-  // 무한 스크롤 API 이용 
-  // eslint-disable-next-line no-unused-vars
-  const API_url = 'https://api.themoviedb.org/3/movie/popular?api_key=7098d034bd3b550d66f794f9b58e3339&language=ko-KR&page='
-  
-  // getPosts
-  // const getPosts = useCallback(async () => {
-  //   setLoading(true)
-  //   await axios.get(`${API_url}${page}`)
-  //   .then((res) => {
-  //     console.log(page)
-  //     setPosts(prevState => [...prevState, ...res.data.results])
-  //   })
-  //   setLoading(false)
-  // }, [page])
   const getPosts = useCallback(async () => {
     setLoading(true)
     await axios.get('http://localhost:8000/posts/')
@@ -53,19 +39,6 @@ const Community = () => {
     setLoading(false)
   }, [preItems, items])
 
-  
-  // dummy data 테스트용 무한스크롤
-  // const [testPosts, setTestPosts] = useState([])
-  
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // const testInfiniteScroll = () => {
-  //   const dummy_result = dummy_posts.slice(preItems, items)
-
-  //   setTestPosts(prevState => [...prevState, ...dummy_result])
-
-  // }
-  
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight
     const scrollTop = document.documentElement.scrollTop
@@ -86,9 +59,6 @@ const Community = () => {
 
   useEffect(() => {
     getPosts()
-    // [getPosts]
-    // testInfiniteScroll()
-    // [items]
   }, [getPosts])
 
   useEffect(() => {
@@ -103,13 +73,9 @@ const Community = () => {
   return (
     <div>
       community page
-      {/* <button><Link to='/post'>글쓰기</Link></button> */}
       <button onClick={ toPost }>글쓰기</button>
-      {/* {dummy_posts.map(post => { */}
-      {/* {testPosts.map((post, idx) => { */}
       {posts.map((post) => {
         return (
-          // <Link to={`/community/${post.id}`} key={post.id} >
             <Grid 
               container 
               spacing={0} 
@@ -147,14 +113,9 @@ const Community = () => {
                 </Grid>
               }
             </Grid>
-          // </Link>
         )
       })}
-      {/* {posts.map((post, idx) => {
-        return(
-          <div style={{height:'45px'}} key={idx}>{post.title}</div>
-        )
-      })} */}
+
     </div>
   );
 };
