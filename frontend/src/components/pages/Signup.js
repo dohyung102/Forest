@@ -63,7 +63,7 @@ const Signup = ({history}) => {
   const signup = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/users/signup/',
+      url: 'http://localhost:8000/api/users/signup/',
       data: {
         email: email,
         nickname: nickname,

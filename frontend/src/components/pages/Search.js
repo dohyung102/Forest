@@ -57,7 +57,7 @@ const Search = () => {
   const [plants, setPlants] = useState(dummy_plants)
 
   useEffect(() => {
-    axios.get('http://localhost:8000/plants/')
+    axios.get('http://localhost:8000/api/plants/')
       .then((res) => {
         setWholePlants(res.data)
       })

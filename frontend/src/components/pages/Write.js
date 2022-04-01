@@ -22,7 +22,7 @@ const Write = () => {
   const loadFile = (event) => {
     const imgFile = event.target.files[0]
     setPreview(URL.createObjectURL(imgFile))
-    formData.append('image', imgFile)
+    setImage(imgFile)
   }
   const deleteFile = (event) => {
     URL.revokeObjectURL(preview)
@@ -31,18 +31,20 @@ const Write = () => {
   }
 
   const write = (e) => {
+    console.log(image)
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('image', image)
+    console.log(formData)
     e.preventDefault()
     axios({
       method: 'post',
-      url: 'http://localhost:8000/posts/',
+      url: 'http://localhost:8000/api/posts/',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        // "Content-Type": `multipart/form-data`
       },
-      data: {
-        title: title,
-        content: content,
-        // image: formData,
-      },
+      data: formData,
     })
       .then((res) => {
         console.log(res)

@@ -37,7 +37,7 @@ const Post = () => {
   }
 
   const testfunc = useCallback(async () => {
-    await axios.get(`http://localhost:8000/posts/${params.post_pk}/`)
+    await axios.get(`http://localhost:8000/api/posts/${params.post_pk}/`)
     .then((res) => {
       console.log(res.data)
       setPostData(res.data)
@@ -74,7 +74,7 @@ const Post = () => {
   const editPost = () => {
     axios({
       method: 'put',
-      url: `http://localhost:8000/posts/${params.post_pk}/`,
+      url: `http://localhost:8000/api/posts/${params.post_pk}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -97,7 +97,7 @@ const Post = () => {
   const deletePost = () => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/posts/${params.post_pk}/`,
+      url: `http://localhost:8000/api/posts/${params.post_pk}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
