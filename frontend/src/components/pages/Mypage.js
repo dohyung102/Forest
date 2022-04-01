@@ -21,7 +21,7 @@ const Mypage = () => {
     // axios 이용해서 서버로 데이터 수정 요청
     axios({
       method: 'patch',
-      url: `http://localhost:8000/accounts/${id}/`,
+      url: `http://localhost:8000/api/accounts/${id}/`,
       data: {
         nickname: nickname,
         gender: gender,
@@ -78,7 +78,7 @@ const Mypage = () => {
   const addFile = () => {
     axios({
       method: 'put',
-      url: `http://localhost:8000/accounts/${id}/`,
+      url: `http://localhost:8000/api/accounts/${id}/`,
       data: {
         profile_image: file
       }
@@ -88,7 +88,7 @@ const Mypage = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/accounts/user/',
+      url: 'http://localhost:8000/api/accounts/user/',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

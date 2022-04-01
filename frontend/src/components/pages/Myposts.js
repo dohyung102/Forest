@@ -19,7 +19,7 @@ const Myposts = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/accounts/user/',
+      url: 'http://localhost:8000/api/accounts/user/',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

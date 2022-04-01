@@ -25,7 +25,7 @@ const Comment = (props) => {
     e.preventDefault();
     axios({
       method: 'post',
-      url: `http://localhost:8000/posts/${params.post_pk}/comment/`,
+      url: `http://localhost:8000/api/posts/${params.post_pk}/comment/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -44,7 +44,7 @@ const Comment = (props) => {
   const editComment = (commentID) => {
     axios({
       method: 'put',
-      url: `http://localhost:8000/posts/${params.post_pk}/comment/${commentID}/`,
+      url: `http://localhost:8000/api/posts/${params.post_pk}/comment/${commentID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -63,7 +63,7 @@ const Comment = (props) => {
   const deleteComment = (commentID) => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/posts/${params.post_pk}/comment/${commentID}/`,
+      url: `http://localhost:8000/api/posts/${params.post_pk}/comment/${commentID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
