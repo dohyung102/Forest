@@ -34,7 +34,7 @@ const Write = () => {
     e.preventDefault()
     axios({
       method: 'post',
-      url: 'http://localhost:8000/posts/',
+      url: 'http://localhost:8000/api/posts/',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },

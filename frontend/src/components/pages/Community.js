@@ -30,7 +30,7 @@ const Community = () => {
 
   const getPosts = useCallback(async () => {
     setLoading(true)
-    await axios.get('http://localhost:8000/posts/')
+    await axios.get('http://localhost:8000/api/posts/')
     .then((res) => {
       console.log(res.data)
       setPosts(prevState => [...prevState, ...res.data.slice(preItems, items)])

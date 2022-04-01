@@ -37,7 +37,7 @@ const Post = () => {
   }
 
   const testfunc = useCallback(async () => {
-    await axios.get(`http://localhost:8000/posts/${params.post_pk}/`)
+    await axios.get(`http://localhost:8000/api/posts/${params.post_pk}/`)
     .then((res) => {
       console.log(res.data)
       setPostData(res.data)

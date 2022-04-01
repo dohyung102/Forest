@@ -35,7 +35,7 @@ const Login = () => {
   const login = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/users/login/',
+      url: 'http://localhost:8000/api/users/login/',
       data: {
         email: email,
         password: password,
