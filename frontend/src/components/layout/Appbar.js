@@ -1,14 +1,14 @@
 import React from 'react';
 // import style from './style.scss'
 import './style.css'
-import { Link } from 'react-router-dom';
 
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-
-
 
 const Appbar = () => {
 
@@ -20,10 +20,11 @@ const Appbar = () => {
   }
 
   return (
-    <header className='layout-header'>
+    <AppBar>
+      <Toolbar>
       <Container maxWidth='md' height='100%' disableGutters>
         {/* 웹 화면 */}
-        <Box sx={{ mx: 1, my: 3, display: { xs: 'none', md: 'flex'}, justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ mx: 1, my: 0.5, display: { xs: 'none', md: 'flex'}, justifyContent: 'space-between', alignItems: 'center' }}>
           <div className='pjt-name' onClick={ homeButton }>
             FOREST
           </div>
@@ -60,8 +61,10 @@ const Appbar = () => {
             FOREST
           </div>
         </Box>
+
       </Container>
-    </header>
+      </Toolbar>
+    </AppBar>
   );
 };
 

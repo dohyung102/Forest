@@ -1,12 +1,13 @@
 .home-content {
   height: 400px;
+  background-image: url('https://www.nongsaro.go.kr/ps/img/curation/bigData_2021/20210929/images/picture13.jpg');
   /* background-color: rgba(0, 0, 0); */
 }
 
-@media screen and (min-width:900px) {
+@media screen and (min-width: 900px) {
   .home-content-img {
     width: 900px;
-    height: 400px;
+    height: 100%;
     display: block;
     object-fit: cover;
     /* opacity: 0.8; */
