@@ -154,7 +154,7 @@ const Post = () => {
           <div>작성자 {postData.user}</div>
           <div>{postData.title}</div>
           <div>{postData.content}</div>
-          <img className='post-img' alt='' src={postData.img} />
+          <img className='post-img' alt='' src={postData.image} />
           <div>작성일자 : {postData.created_date}</div>
         </div>
       }

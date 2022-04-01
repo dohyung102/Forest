@@ -39,7 +39,7 @@ const Search = () => {
   }).map(plant_data => {
     return (
       <Grid key={plant_data.id} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-        <Link to={`/detail/${plant_data.name}`}>
+        <Link to={`/detail/${plant_data.id}`}>
           <img className='home-plant-img' src={plant_data.image_path} alt='plant_img' />
         </Link>
         <p className='home-plant-name'>{plant_data.name}</p>
@@ -47,24 +47,6 @@ const Search = () => {
     )
   })
   
-  // const plant_filter2 = plants.filter(plant => {
-  //   if (search == null)
-  //     return plant
-  //   else if (plant.name.toLowerCase().includes(search.toLowerCase()))
-  //     return plant
-  //   return null;
-  // }).map(plant_data => {
-  //   return (
-  //     <Grid key={plant_data.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-  //       <Link to={`/detail/${plant_data.name}`}>
-  //       {/* <Link to={{ pathname: `/detail/${plant_data.name}`, state: { data: plant_data } }}> */}
-  //         <img className='home-plant-img' src={plant_data.img} alt='plant_img' />
-  //       </Link>
-  //       <p className='home-plant-name'>{plant_data.name}</p>
-  //     </Grid>
-  //   )
-  // })
-
   // front에서 filter 처리할지, back에서 filter 처리해서 가져올지 고민해봐야
   return (
     <div>
