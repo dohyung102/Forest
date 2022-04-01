@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 import { Grid } from '@mui/material';
 
@@ -52,26 +53,44 @@ const Search = () => {
   const [search, setSearch] = useState('')
 
   const [activeCategory, setActiveCategory] = useState('All')
+  const [wholePlants, setWholePlants] = useState([])
   const [plants, setPlants] = useState(dummy_plants)
 
   useEffect(() => {
-    activeCategory === 'All'
-      ? setPlants(dummy_plants)
-      : setPlants(dummy_plants.filter(plant => plant.tag.includes(activeCategory)))
-  }, [activeCategory, dummy_plants])
+    axios.get('http://localhost:8000/plants/')
+      .then((res) => {
+        setWholePlants(res.data)
+      })
+  }, [])
 
-  // const [tagA, setTagA] = useState(false)
-  // const [tagB, setTagB] = useState(false)
+  // useEffect(() => {
+  //   activeCategory === 'All'
+  //     ? setPlants(dummy_plants)
+  //     : setPlants(dummy_plants.filter(plant => plant.tag.includes(activeCategory)))
+  // }, [activeCategory, dummy_plants])
 
   const searchHandle = (event) => {
     setSearch(event.target.value)
   }
 
-  // console.log(tagA)
-  // const tagAHandle = setTagA((tagA) => (!tagA))
-  // const tagBHandle = setTagB((tagB) => (!tagB))
-
-  const plant_filter = plants.filter(plant => {
+  const plant_filter = wholePlants.filter(plant => {
+    if (search == null)
+      return plant
+    else if (plant.name.toLowerCase().includes(search.toLowerCase()))
+      return plant
+    return null;
+  }).map(plant_data => {
+    return (
+      <Grid key={plant_data.id} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+        <Link to={`/detail/${plant_data.name}`}>
+          <img className='home-plant-img' src={plant_data.img} alt='plant_img' />
+        </Link>
+        <p className='home-plant-name'>{plant_data.name}</p>
+      </Grid>
+    )
+  })
+  
+  const plant_filter2 = plants.filter(plant => {
     if (search == null)
       return plant
     else if (plant.name.toLowerCase().includes(search.toLowerCase()))

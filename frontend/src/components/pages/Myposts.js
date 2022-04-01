@@ -1,45 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Grid } from '@mui/material';
 
 import Mynav from '../layout/MypageNavigation'
 
 const Myposts = () => {
 
-  const dummy_userdata = {
-    'email' : 'ssafy@ssafy.com',
-    'nickname' : '김싸피',
-    'gender' : 'F',
-    'birthday' : '2022-03-17',
-    'password' : '',
-    'posts' : [
-      {
-        'title' : 'a',
-        'content' : 'aaaa'
-      },
-      {
-        'title' : 'b',
-        'content' : 'bbbb'
-      },
-      {
-        'title' : 'c',
-        'content' : 'cccc'
-      },
-    ],
-    'reviews' : [
-      {
-        'link' : 'a',
-        'content' : 'aaaa'
-      },
-      {
-        'link' : 'a',
-        'content' : 'bbbb'
-      },
-      {
-        'link' : 'a',
-        'content' : 'cccc'
-      },
-    ],
+  const navigate = useNavigate()
+  // const {state} = useLocation()
+  // console.log('state',state)
+  const [myPost, setMyPost] = useState([])
+
+  const linkToPostDetail = (index) => {
+    navigate(`/community/${index}`, { state: index })
   }
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/accounts/user/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data.post_set)
+        setMyPost(res.data.post_set)
+      })
+      .catch((err) => {
+        console.log('error')
+      })
+  }, [])
 
   return (
     <Grid container>
@@ -52,9 +44,11 @@ const Myposts = () => {
         <p>작성한 게시글</p>
       </Grid>
       <div>
-        {dummy_userdata.posts.map((post, index) => {
+        {myPost.map((post) => {
           return (
-            <div key={index}>
+            <div key={post.id}
+              onClick={(e) => {linkToPostDetail(post.id, e)}}
+            >
               <div>{post.title}</div>
               <div>{post.content}</div>
             </div>

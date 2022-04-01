@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Button, Grid } from '@mui/material';
 
 import './Mypage.css'
@@ -6,51 +7,27 @@ import Mynav from '../layout/MypageNavigation'
 
 const Mypage = () => {
 
-  const dummy_userdata = {
-    'email' : 'ssafy@ssafy.com',
-    'nickname' : '김싸피',
-    'gender' : 'Male',
-    'birthday' : '2022-03-17',
-    'password' : '',
-    'posts' : [
-      {
-        'title' : 'a',
-        'content' : 'aaaa'
-      },
-      {
-        'title' : 'b',
-        'content' : 'bbbb'
-      },
-      {
-        'title' : 'c',
-        'content' : 'cccc'
-      },
-    ],
-    'reviews' : [
-      {
-        'link' : 'a',
-        'content' : 'aaaa'
-      },
-      {
-        'link' : 'a',
-        'content' : 'bbbb'
-      },
-      {
-        'link' : 'a',
-        'content' : 'cccc'
-      },
-    ],
-  }
-
+  const [userData, setUserData] = useState([])
+  
   const [file, setFile] = useState('')
-  const [email, setEmail] = useState(dummy_userdata.email)
-  const [nickname, setNickname] = useState(dummy_userdata.nickname)
-  const [gender, setGender] = useState(dummy_userdata.gender)
-  const [birthday, setBirthday] = useState(dummy_userdata.birthday)
+  // const [email, setEmail] = useState('')
+  const [id, setID] = useState('')
+  const [nickname, setNickname] = useState('')
+  const [gender, setGender] = useState('')
+  const [birthday, setBirthday] = useState(1)
 
   const [edit, setEdit] = useState(false)
   const editProfile = () => {
     // axios 이용해서 서버로 데이터 수정 요청
+    axios({
+      method: 'patch',
+      url: `http://localhost:8000/accounts/${id}/`,
+      data: {
+        nickname: nickname,
+        gender: gender,
+        birthday: birthday,
+      }
+    })
     setEdit((edit) => !edit)
   }
   
@@ -64,9 +41,9 @@ const Mypage = () => {
     setEditPW((editPW) => !editPW)
   }
 
-  const emailHandle = (event) => {
-    setEmail(event.target.value)
-  }
+  // const emailHandle = (event) => {
+  //   setEmail(event.target.value)
+  // }
   const nicknameHandle = (event) => {
     setNickname(event.target.value)
   }
@@ -98,6 +75,38 @@ const Mypage = () => {
     setFile('')
   }
 
+  const addFile = () => {
+    axios({
+      method: 'put',
+      url: `http://localhost:8000/accounts/${id}/`,
+      data: {
+        profile_image: file
+      }
+    })
+  }
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/accounts/user/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res)
+        setUserData(res.data)
+        // setEmail(res.data.email)
+        setID(res.data.id)
+        setNickname(res.data.nickname)
+        setGender(res.data.gender)
+        setBirthday(res.data.birthday)
+      })
+      .catch((err) => {
+        console.log('error')
+      })
+  }, [])
+
   return (
     <Grid container>
       <Grid item md={12}>
@@ -110,6 +119,7 @@ const Mypage = () => {
           <div className='mypage-flex'>
             <img className='mypage-img' alt='upload_img' src={file} />
             <div>
+              <button onClick={addFile}>수정</button>
               <button onClick={deleteFile}>삭제</button>
             </div>
           </div>
@@ -132,7 +142,8 @@ const Mypage = () => {
           <form>
             <div>
               <label htmlFor='email_input'>이메일 : </label>
-              <input type='email' name='email_input' value={email} onChange={ emailHandle } placeholder='이메일' />
+              {/* <input type='email' name='email_input' value={email} onChange={ emailHandle } placeholder='이메일' /> */}
+              { userData.email }
             </div>
             <div>
               <label htmlFor='nickname_input'>닉네임 : </label>
@@ -140,11 +151,11 @@ const Mypage = () => {
             </div>
             <div>
               <label htmlFor='gender_input'>성별 : </label>
-              <input type='email' name='gender_input' value={gender} onChange={ genderHandle } placeholder='이메일' />
+              <input type='email' name='gender_input' value={gender} onChange={ genderHandle } placeholder='성별' />
             </div>
             <div>
               <label htmlFor='birth_input'>생년월일 : </label>
-              <input type='email' name='birth_input' value={birthday} onChange={ birthdayHandle } placeholder='이메일' />
+              <input type='email' name='birth_input' value={birthday ||''} onChange={ birthdayHandle } placeholder='생년월일' />
             </div>
             <Button onClick={editProfile}>수정</Button>
             <Button onClick={() => setEdit((edit) => !edit) }>취소</Button>
@@ -153,19 +164,19 @@ const Mypage = () => {
           <div>
             <div>
               <label htmlFor='email_input'>이메일 : </label>
-              { dummy_userdata.email }
+              { userData.email }
             </div>
             <div>
               <label htmlFor='nickname_input'>닉네임 : </label>
-              { dummy_userdata.nickname }
+              { userData.nickname }
             </div>
             <div>
               <label htmlFor='gender_input'>성별 : </label>
-              { dummy_userdata.gender }
+              { userData.gender }
             </div>
             <div>
               <label htmlFor='birth_input'>생년월일 : </label>
-              { dummy_userdata.birthday }
+              { userData.birthday }
             </div>
             <Button onClick={() => setEdit((edit) => !edit) }>프로필 수정</Button>
           </div>
@@ -176,15 +187,15 @@ const Mypage = () => {
           <form>
             <div>
               <label htmlFor='oriPW_input'>현재비밀번호 : </label>
-              <input type='password' name='oriPW_input' value={originalPW} onChange={ originalPWHandle } placeholder='현재비밀번호' />
+              <input type='password' name='oriPW_input' value={originalPW} onChange={ originalPWHandle } placeholder='현재비밀번호' autoComplete='on' />
             </div>
             <div>
               <label htmlFor='newPW_input'>새 비밀번호 : </label>
-              <input type='password' name='newPW_input' value={newPW} onChange={ newPWHandle } placeholder='새비밀번호' />
+              <input type='password' name='newPW_input' value={newPW} onChange={ newPWHandle } placeholder='새비밀번호' autoComplete='on' />
             </div>
             <div>
               <label htmlFor='newPWConfirm_input'>비밀번호확인 : </label>
-              <input type='password' name='newPWConfirm_input' value={newPWConfirm} onChange={ newPWConfirmHandle } placeholder='비밀번호확인' />
+              <input type='password' name='newPWConfirm_input' value={newPWConfirm} onChange={ newPWConfirmHandle } placeholder='비밀번호확인' autoComplete='on' />
             </div>
             <Button onClick={editPassword}>수정</Button>
             <Button onClick={() => setEditPW((editPW) => !editPW) }>취소</Button>
@@ -192,6 +203,7 @@ const Mypage = () => {
           :
           <Button onClick={() => setEditPW((editPW) => !editPW) }>비밀번호 변경</Button>
         }
+        <Button>판매자 신청</Button>
       </Grid>
       <Grid item md={12}>
         <p>사용자 특성</p>

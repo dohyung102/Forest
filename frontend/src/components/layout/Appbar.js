@@ -1,5 +1,6 @@
-import React from 'react';
-// import style from './style.scss'
+import React, { useState, useEffect } from 'react';
+// import { useRecoilValue } from 'recoil'
+// import { idState } from './state'
 import './style.css'
 import { Link } from 'react-router-dom';
 
@@ -12,11 +13,20 @@ import Button from '@mui/material/Button';
 
 const Appbar = () => {
 
-  // 로그인 정보 받아오면 변경하기
-  const auth = null
+  const [auth, setAuth] = useState(false)
+
+  useEffect(() => {
+    // if (localStorage.getItem('token'))
+    if (localStorage.getItem('token'))
+      setAuth(true)
+  }, [])
 
   const homeButton = () => {
     window.location.replace('/')
+  }
+
+  const logout = () => {
+    localStorage.clear()
   }
 
   return (
@@ -36,7 +46,7 @@ const Appbar = () => {
                 <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>상품정보</Button></li>
                 <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/search'>식물검색</Button></li>
                 <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/community'>커뮤니티</Button></li>
-                <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>로그아웃</Button></li>
+                <li><Button onClick={logout} style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>로그아웃</Button></li>
                 <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/mypage'>마이페이지</Button></li>
               </ul>
               :
