@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Button, Grid } from '@mui/material';
 
 import './Mypage.css'
@@ -9,19 +10,31 @@ const Mypage = () => {
 
   const [userData, setUserData] = useState([])
   
-  const [file, setFile] = useState('')
-  // const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('')
   const [id, setID] = useState('')
   const [nickname, setNickname] = useState('')
   const [gender, setGender] = useState('')
+  const [pw, setPW] = useState('')
   const [birthday, setBirthday] = useState(1)
+  const [profileImage, setProfileImage] = useState('')
+
+  const [preview, setPreview] = useState('')
+  const [image, setImage] = useState('')
+  const formData = new FormData()
+
+  const navigate = useNavigate()
 
   const [edit, setEdit] = useState(false)
   const editProfile = () => {
     // axios 이용해서 서버로 데이터 수정 요청
     axios({
       method: 'patch',
-      url: `http://localhost:8000/api/accounts/${id}/`,
+      // url: `http://localhost:8000/api/accounts/${id}/`,
+      url: 'http://localhost:8000/api/accounts/user/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        // "Content-Type": `multipart/form-data`
+      },
       data: {
         nickname: nickname,
         gender: gender,
@@ -54,6 +67,10 @@ const Mypage = () => {
     setBirthday(event.target.value)
   }
 
+  const pwHandle = (event) => {
+    setPW(event.target.value)
+  }
+
   const originalPWHandle = (event) => {
     setOriginalPW(event.target.value)
   }
@@ -67,23 +84,44 @@ const Mypage = () => {
 
   const loadFile = (event) => {
     const imgFile = event.target.files[0]
-    setFile(URL.createObjectURL(imgFile))
+    setPreview(URL.createObjectURL(imgFile))
+    setImage(imgFile)
   }
 
   const deleteFile = (event) => {
-    URL.revokeObjectURL(file)
-    setFile('')
+    URL.revokeObjectURL(preview)
+    setPreview('')
+    setImage('')
   }
 
-  const addFile = () => {
+  const addFile = (e) => {
+    // formData.append('email', email)
+    // formData.append('nickname', nickname)
+    // formData.append('gender', gender)
+    // formData.append('password',)
+    formData.append('profile_image', image)
+    e.preventDefault()
     axios({
-      method: 'put',
-      url: `http://localhost:8000/api/accounts/${id}/`,
-      data: {
-        profile_image: file
-      }
+      method: 'patch',
+      url: `http://localhost:8000/api/accounts/user/`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        // "Content-Type": `multipart/form-data`
+      },
+      data: formData,
+    })
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
     })
   }
+  
+  const linkToSellerAuth = () => {
+    navigate('/sellerauth')
+  }
+
 
   useEffect(() => {
     axios({
@@ -96,11 +134,12 @@ const Mypage = () => {
       .then((res) => {
         console.log(res)
         setUserData(res.data)
-        // setEmail(res.data.email)
+        setEmail(res.data.email)
         setID(res.data.id)
         setNickname(res.data.nickname)
         setGender(res.data.gender)
         setBirthday(res.data.birthday)
+        setProfileImage(res.data.profile_image)
       })
       .catch((err) => {
         console.log('error')
@@ -114,15 +153,22 @@ const Mypage = () => {
         <Mynav />
       </Grid>
       <Grid item md={6}>
-        {file 
+        {profileImage
           ?
-          <div className='mypage-flex'>
-            <img className='mypage-img' alt='upload_img' src={file} />
-            <div>
-              <button onClick={addFile}>수정</button>
-              <button onClick={deleteFile}>삭제</button>
+          image
+            ?
+            <div className='mypage-flex'>
+              <img className='mypage-img' alt='upload_img' src={preview} />
+              <div>
+                <button onClick={addFile}>수정</button>
+                <button onClick={deleteFile}>삭제</button>
+              </div>
             </div>
-          </div>
+            :
+            <div className='mypage-flex'>
+              <img className='mypage-img' alt='upload_img' src={profileImage} />
+            </div>
+          
           :
           <div className='mypage-img'>
             이미지
@@ -151,11 +197,15 @@ const Mypage = () => {
             </div>
             <div>
               <label htmlFor='gender_input'>성별 : </label>
-              <input type='email' name='gender_input' value={gender} onChange={ genderHandle } placeholder='성별' />
+              <input type='text' name='gender_input' value={gender} onChange={ genderHandle } placeholder='성별' />
             </div>
             <div>
               <label htmlFor='birth_input'>생년월일 : </label>
-              <input type='email' name='birth_input' value={birthday ||''} onChange={ birthdayHandle } placeholder='생년월일' />
+              <input type='text' name='birth_input' value={birthday ||''} onChange={ birthdayHandle } placeholder='생년월일' />
+            </div>
+            <div>
+              <label htmlFor='pw_input'>비밀번호 : </label>
+              <input type='password' name='pw_input' value={pw} onChange={ pwHandle } placeholder='비밀번호' />
             </div>
             <Button onClick={editProfile}>수정</Button>
             <Button onClick={() => setEdit((edit) => !edit) }>취소</Button>
@@ -203,7 +253,7 @@ const Mypage = () => {
           :
           <Button onClick={() => setEditPW((editPW) => !editPW) }>비밀번호 변경</Button>
         }
-        <Button>판매자 신청</Button>
+        <Button onClick={linkToSellerAuth}>판매자 신청</Button>
       </Grid>
       <Grid item md={12}>
         <p>사용자 특성</p>
