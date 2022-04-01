@@ -92,7 +92,3 @@ def find_preference_plants_by_index(index):
     user_preference_vector = user_preference_vector[index:index+10]
     result_dict = user_preference_vector.to_dict('records')
     return result_dict
-
-user_click_data = open('logs/user_call_data')
-print(user_click_data.readlines())
-# plants_data_vectorization()

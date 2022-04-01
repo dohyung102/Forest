@@ -40,7 +40,7 @@ const Search = () => {
     return (
       <Grid key={plant_data.id} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
         <Link to={`/detail/${plant_data.name}`}>
-          <img className='home-plant-img' src={plant_data.img} alt='plant_img' />
+          <img className='home-plant-img' src={plant_data.image_path} alt='plant_img' />
         </Link>
         <p className='home-plant-name'>{plant_data.name}</p>
       </Grid>
