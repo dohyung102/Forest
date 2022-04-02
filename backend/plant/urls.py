@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import PlantViewSet, PlantSearchViewSet
+from .views import PlantViewSet, PlantSearchViewSet, PlantListViewSet
 
 # Store 목록, 등록
-plant_list = PlantViewSet.as_view({
+plant_list = PlantListViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
