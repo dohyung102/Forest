@@ -16,7 +16,7 @@ const Post = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [preview, setPreview] = useState('')
-  const [image, setImage] = useState('')
+  const [setImage] = useState('')
   const formData = new FormData()
   
   const titleHandle = (event) => {

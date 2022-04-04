@@ -19,8 +19,3 @@ const IMG = styled.img`
   width: 500px;
   height: 500px;
 `;
-
-const Container = styled.span`
-  display: flex;
-  direction: column;
-`;

@@ -5,9 +5,9 @@ const SellerAuth = () => {
 
   const [company, setCompany] = useState('')
   const [EID, setEID] = useState('')
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
+  const [name] = useState('')
+  const [phone] = useState('')
+  const [email] = useState('')
 
   const companyHandle = (event) => {
     const companyInput = event.target.value

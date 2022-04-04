@@ -19,6 +19,7 @@ const SellRegist = () => {
           <h2>기본 정보</h2>
           <div className='category'>
             <span>카테고리 </span>
+            <button>목록</button>
           </div>
 
           <br />

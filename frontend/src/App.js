@@ -16,6 +16,10 @@ import Detail from './components/pages/Detail'
 import Product from './components/pages/Product'
 import Store from './components/pages/Store'
 import SellerAuth from "./components/pages/SellerAuth";
+import SellRegist from "./components/pages/SellRegist";
+import Survey from "./components/pages/Survey";
+import CartTest from "./components/pages/CartTest";
+import Carousel from "./components/pages/Carousel";
 
 function App() {
   return (
@@ -37,6 +41,10 @@ function App() {
           <Route path="/community/write" element={<Write />} />
           <Route path="/store" element={<Store />} />
           <Route path="/sellerauth" element={<SellerAuth />} />
+          <Route path="/carttest" element={<CartTest />} />
+          <Route path="/survey" element={<Survey />} />
+          <Route path="/recommend" element={<Carousel />} />
+          <Route path="/sell_regist" element={<SellRegist />} />
         </Routes>
       </div>
     </Router>

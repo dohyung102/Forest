@@ -6,7 +6,7 @@ const ProductTest = () => {
   return (
     <>
       <h1 className="text-center mt-3">All items</h1>
-      <section cl assName="py-4 container">
+      <section className="py-4 container">
         <div className="row justify-content-center">
           {data.product.map((item, index) => {
             return (
