@@ -31,7 +31,7 @@ const Search = () => {
   // const [plants, setPlants] = useState(dummy_plants)
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/plants/').then((res) => {
+    axios.get('https://j6d204.p.ssafy.io/api/plants/').then((res) => {
       console.log(res.data);
       setWholePlants(res.data);
     });
