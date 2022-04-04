@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ const Search = () => {
 
   const [search, setSearch] = useState('')
 
-  const [activeCategory, setActiveCategory] = useState('All')
+  const [setActiveCategory] = useState('All')
   const [wholePlants, setWholePlants] = useState([])
   // const [plants, setPlants] = useState(dummy_plants)
 
