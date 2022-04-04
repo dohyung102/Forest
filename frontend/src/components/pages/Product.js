@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useParams } from 'react-router-dom'
 import { Grid } from '@mui/material';
+import axios from 'axios';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -8,9 +9,14 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
+import Comments from './ProductComments'
 import './Product.css'
 
 const Detail = () => {
+
+  const params = useParams()
+  console.log(params)
+  const [plantData, setPlantData] = useState()
 
   const dummy_plant = {
     'name' : '식물a',
@@ -57,6 +63,27 @@ const Detail = () => {
     ],
   }
 
+
+  const getProduct = useCallback(async () => {
+    const headers = {
+      'Authorization' : `Bearer ${localStorage.getItem('token')}`
+    }
+    await axios.get(`http://localhost:8000/api/products/${params.product_id}/`,
+      {headers : headers}
+    )
+    .then((res) => {
+      console.log(res.data)
+      setPlantData(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [params])
+
+  useEffect(() => {
+    getProduct()
+  }, [getProduct])
+
   const settings = {
     // slide: 'div',
     dots: true,
@@ -77,22 +104,23 @@ const Detail = () => {
       </div>
       <Grid container alignItems='center'>
         <Grid item md={6}>
-          <div className='detail-plant-img'>
-            <img className='detail-plant-img' src={dummy_plant.img} alt='plant_img' />
-          </div>
+          {plantData &&
+            <div className='detail-plant-img'>
+              <img className='detail-plant-img' src={plantData.profile_img} alt='plant_img' />
+            </div>
+          }
         </Grid>
         <Grid item md={6}>
-          <ul className='detail-ul'>
-            <div>{dummy_plant.name}</div>
-            <div>{dummy_plant.tag}</div>
-            <div>{dummy_plant.care}</div>
-            <div>{dummy_plant.size}</div>
-            <div>{dummy_plant.difficulty}</div>
-            <div>{dummy_plant.caution}</div>
-            <div>{dummy_plant.price}</div>
-            <div>{dummy_plant.rate}</div>
-            <div>{dummy_plant.product_link}</div>
-          </ul>
+          {plantData &&
+            <ul className='detail-ul'>
+              <div>{plantData.name}</div>
+              <div>수량 : {plantData.num}</div>
+              <div>가격 : {plantData.price}</div>
+              <div>open_date : {plantData.open_date}</div>
+              <div>close_date : {plantData.close_date}</div>
+              <div>식물 pk : {plantData.id}</div>
+            </ul>
+          }
         </Grid>
       </Grid>
 
@@ -115,10 +143,21 @@ const Detail = () => {
       </div>
       <div>
         <p>상세정보</p>
-        <div>
-          <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' />
-        </div>
+        {plantData &&
+          <div>
+            <div>
+              {plantData.description}
+            </div>
+            <div>
+              이런 이미지도 있으면 좋을거 같은데
+            </div>
+            <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' />
+          </div>
+        }
       </div>
+      {plantData &&
+        <Comments reviews={plantData.review_set} />
+      }
     </div>
   );
 };

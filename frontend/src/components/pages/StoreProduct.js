@@ -1,15 +1,21 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const StoreProduct = (props) => {
+  // console.log(props)
+  const navigate = useNavigate()
+  const moveToPlantDetail = (plant_id) => {
+    navigate(`/product/${plant_id}`)
+  }
 
   const filteredProduct = props.productsList.map(product => {
     return (
-      <Grid item md={4} key={product.name}>
-        <img className='home-plant-img' alt='' src={product.img} />
+      <Grid onClick={() => moveToPlantDetail(product.id)} item md={4} key={product.name}>
+        <img className='home-plant-img' alt='' src={product.profile_image} />
         <p>{product.name}</p>
         <div>
-          태그 : {product.categories}
+          (카테고리) {product.category}
         </div>
       </Grid>
     )

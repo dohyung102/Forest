@@ -121,6 +121,9 @@ const Mypage = () => {
   const linkToSellerAuth = () => {
     navigate('/sellerauth')
   }
+  const linkToSeller = () => {
+    navigate('/seller')
+  }
 
 
   useEffect(() => {
@@ -254,6 +257,7 @@ const Mypage = () => {
           <Button onClick={() => setEditPW((editPW) => !editPW) }>비밀번호 변경</Button>
         }
         <Button onClick={linkToSellerAuth}>판매자 신청</Button>
+        <Button onClick={linkToSeller}>스토어 등록</Button>
       </Grid>
       <Grid item md={12}>
         <p>사용자 특성</p>

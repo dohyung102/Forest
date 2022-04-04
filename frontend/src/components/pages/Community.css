@@ -3,3 +3,28 @@
   height: 96px;
   border-radius: 5px;
 }
+
+/* .community-footer {
+  height: 120px;
+  background-color: green;
+} */
+
+.community-title {
+  font-size: 32px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.community-btn {
+  /* text-align: end; */
+  width: 130px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightgreen;
+  /* color: lightskyblue; */
+  /* color: white; */
+  float: right;
+  margin-bottom: 16px;
+}

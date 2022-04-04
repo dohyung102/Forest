@@ -32,7 +32,8 @@ const Community = () => {
     setLoading(true)
     await axios.get('http://localhost:8000/api/posts/')
     .then((res) => {
-      console.log(res.data)
+      // console.log(res.data.reverse())
+      res.data.reverse()
       setPosts(prevState => [...prevState, ...res.data.slice(preItems, items)])
       // setPosts(prevState => [...prevState, ...res.data.results])
     })
@@ -72,14 +73,27 @@ const Community = () => {
 
   return (
     <div>
-      community page
-      <button onClick={ toPost }>글쓰기</button>
+      <div>
+        <p className='community-title'>
+          커뮤니티
+        </p>
+        <button className='community-btn' onClick={ toPost }>글쓰기</button>
+      </div>
+
       {posts.map((post) => {
         return (
             <Grid 
               container 
-              spacing={0} 
-              sx={{ borderTop:1, borderColor: 'grey.300' }}
+              spacing={0}
+              my={1}
+              sx={{
+                // backgroundColor: 'grey.200',
+                border: 1, 
+                borderRadius: '20px',
+                // borderTop:1, 
+                // borderBottom:1, 
+                borderColor: 'grey.200' 
+              }}
               // justifyContent='center' direction='column'
               style={{ height: '110px' }}
               onClick={(e) => {linkToPostDetail(post.id, e)}}
@@ -100,6 +114,7 @@ const Community = () => {
                 ?
                 <Grid item md={7}>
                   <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>
+                    <div>{post.id}번 게시글</div>
                     <div>{post.title}</div>
                     <div>{post.content}</div>
                   </div>
@@ -107,6 +122,7 @@ const Community = () => {
                 :
                 <Grid item md={9}>
                   <div style={{ display:'flex',flexDirection:'column', justifyContent:'center' }}>
+                    <div>{post.id}번 게시글</div>
                     <div>{post.title}</div>
                     <div>{post.content}</div>
                   </div>
@@ -115,7 +131,10 @@ const Community = () => {
             </Grid>
         )
       })}
-
+      
+      {/* <div className='community-footer'>
+        footer
+      </div> */}
     </div>
   );
 };

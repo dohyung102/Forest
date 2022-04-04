@@ -25,7 +25,7 @@ const Comment = (props) => {
     e.preventDefault();
     axios({
       method: 'post',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/comment/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/comment/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },

@@ -12,6 +12,7 @@ const Post = () => {
   const [edit, setEdit] = useState(false)
 
   const params = useParams()
+  // console.log(params)
 
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -36,8 +37,8 @@ const Post = () => {
     setImage([])
   }
 
-  const testfunc = useCallback(async () => {
-    await axios.get(`http://localhost:8000/api/posts/${params.post_pk}/`)
+  const getPost = useCallback(async () => {
+    await axios.get(`http://localhost:8000/api/posts/${params.post_id}/`)
     .then((res) => {
       console.log(res.data)
       setPostData(res.data)
@@ -68,21 +69,22 @@ const Post = () => {
   // }, [params.post_pk])
   
   useEffect(() => {
-    testfunc()
-  }, [testfunc, edit])
+    getPost()
+  }, [getPost, edit])
     
-  const editPost = () => {
+  const editPost = (event) => {
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('image', image)
+    event.preventDefault()
+
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      data: {
-        title: title,
-        content: content,
-        // image: formData,
-      }
+      data: formData,
     })
     .then((res) => {
       console.log(res)
@@ -97,7 +99,7 @@ const Post = () => {
   const deletePost = () => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
