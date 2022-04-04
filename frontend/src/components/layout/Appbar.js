@@ -38,7 +38,7 @@ const Appbar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar sx={{ bgcolor: 'teal' }}>
       <Toolbar>
         <Container maxWidth="md" height="100%" disableGutters>
           {/* 웹 화면 */}
