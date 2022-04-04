@@ -39,7 +39,7 @@ const SellerAuth = () => {
     event.preventDefault();
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/accounts/getrole/${localStorage.getItem(
+      url: `http://j6d204.p.ssafy.io/api/accounts/getrole/${localStorage.getItem(
         'user_id'
       )}/`,
       headers: {

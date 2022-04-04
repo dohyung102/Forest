@@ -9,7 +9,7 @@ import {
   Box,
   Typography,
   Avatar,
-  Button
+  Button,
 } from '@mui/material';
 
 import Comment from './Comment';
@@ -48,7 +48,7 @@ const Post = () => {
 
   const getPost = useCallback(async () => {
     await axios
-      .get(`http://localhost:8000/api/posts/${params.post_id}/`)
+      .get(`http://j6d204.p.ssafy.io/api/posts/${params.post_id}/`)
       .then((res) => {
         console.log(res.data);
         setPostData(res.data);
@@ -91,7 +91,7 @@ const Post = () => {
 
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/posts/${params.post_id}/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -118,7 +118,7 @@ const Post = () => {
   const deletePost = () => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/posts/${params.post_id}/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -143,9 +143,9 @@ const Post = () => {
       {edit ? (
         <div>
           <form className="">
-            <div className='input-text'>
+            <div className="input-text">
               <label htmlFor="title_input">
-                <h3>제목</h3>  
+                <h3>제목</h3>
               </label>
               <input
                 className="write-title"
@@ -156,23 +156,23 @@ const Post = () => {
                 placeholder="제목을 입력해 주세요."
               />
             </div>
-            <div className='input-text'>
+            <div className="input-text">
               <label htmlFor="content_input">
                 <h3>내용</h3>
               </label>
               <textarea
-                className='write-textbox'
+                className="write-textbox"
                 name="content_input"
                 value={content}
                 onChange={contentHandle}
                 placeholder="내용을 입력해 주세요."
-              >
-              </textarea>
+              ></textarea>
             </div>
-            <div className='input-text'>
+            <div className="input-text">
               <label htmlFor="image">
                 <h3>이미지 첨부하기</h3>
-              </label><br/>
+              </label>
+              <br />
               <input
                 type="file"
                 name="image"
@@ -193,7 +193,9 @@ const Post = () => {
                   alt="upload_img"
                   src={preview}
                 />
-                <Button onClick={deleteFile} variant="outlined" color='error'>삭제</Button>
+                <Button onClick={deleteFile} variant="outlined" color="error">
+                  삭제
+                </Button>
               </div>
             )}
           </div>
@@ -256,18 +258,30 @@ const Post = () => {
         edit ? (
           <div>
             <Link to="/community" style={{ textDecoration: 'none' }}>
-              <Button variant="outlined" >목록으로</Button>
+              <Button variant="outlined">목록으로</Button>
             </Link>
-            <Button onClick={editPost} variant="outlined" color='success'>수정</Button>
-            <Button onClick={cancel} variant="outlined" color='error'>취소</Button>
+            <Button onClick={editPost} variant="outlined" color="success">
+              수정
+            </Button>
+            <Button onClick={cancel} variant="outlined" color="error">
+              취소
+            </Button>
           </div>
         ) : (
           <div>
             <Link to="/community" style={{ textDecoration: 'none' }}>
-            <Button variant="outlined" >목록으로</Button>
+              <Button variant="outlined">목록으로</Button>
             </Link>
-            <Button onClick={() => setEdit(true)} variant="outlined" color='success'>수정</Button>
-            <Button onClick={deletePost} variant="outlined" color='error'>삭제</Button>
+            <Button
+              onClick={() => setEdit(true)}
+              variant="outlined"
+              color="success"
+            >
+              수정
+            </Button>
+            <Button onClick={deletePost} variant="outlined" color="error">
+              삭제
+            </Button>
           </div>
         )
       ) : (

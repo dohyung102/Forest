@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 class SellForm extends Component {
   state = {
-    name: ''
-  }
+    name: '',
+  };
   handleChange = (e) => {
     this.setState({
-      name: e.target.value
-    })
-  }
+      name: e.target.value,
+    });
+  };
   render() {
     return (
       <form>

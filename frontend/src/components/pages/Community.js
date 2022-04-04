@@ -40,7 +40,7 @@ const Community = () => {
 
   const getPosts = useCallback(async () => {
     setLoading(true);
-    await axios.get('http://localhost:8000/api/posts/').then((res) => {
+    await axios.get('http://j6d204.p.ssafy.io/api/posts/').then((res) => {
       // console.log(res.data.reverse())
       res.data.reverse();
       setPosts((prevState) => [
@@ -121,7 +121,7 @@ const Community = () => {
               <Grid item md={2}>
                 <img
                   className="community-post-img"
-                  src={post.image}
+                  src={`http://j6d204.p.ssafy.io/${post.image.substr(7)}`}
                   alt="post_img"
                 />
               </Grid>
