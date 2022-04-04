@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Toolbar from '@mui/material/Toolbar';
 import './App.css';
 
 import Appbar from './components/layout/Appbar';
@@ -7,7 +8,7 @@ import Home from './components/pages/Home';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Mypage from './components/pages/Mypage';
-import Myposts from './components/pages/Myposts';
+import Myposts from './components/pages/MyPosts';
 import Mycomments from './components/pages/MyComments';
 import Search from './components/pages/Search';
 import Community from './components/pages/Community';
@@ -23,11 +24,14 @@ import CartTest from './components/pages/CartTest';
 import Carousel from './components/pages/Carousel';
 import Seller from './components/pages/Seller';
 
+// import Myreviews from '../pages/Myreviews';
+
 function App() {
   return (
     <Router>
       <Appbar />
-      <div className="layout">
+      <Toolbar sx={{ mx: 1, my: 1 }} />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
@@ -35,6 +39,8 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/posts" element={<Myposts />} />
           <Route path="/mypage/comments" element={<Mycomments />} />
+          {/* <Route path="/mypage/reviews" element={<Myreviews />} /> */}
+
           <Route path="/search" element={<Search />} />
           <Route path="/detail/:plant_id" element={<Detail />} />
           <Route path="/product/:product_id" element={<Product />} />
@@ -42,6 +48,7 @@ function App() {
           <Route path="/community/:post_id" element={<Post />} />
           <Route path="/community/write" element={<Write />} />
           <Route path="/store/:store_id" element={<Store />} />
+
           <Route path="/sellerauth" element={<SellerAuth />} />
           <Route path="/carttest" element={<CartTest />} />
           <Route path="/survey" element={<Survey />} />
@@ -49,7 +56,6 @@ function App() {
           <Route path="/sell_regist" element={<SellRegist />} />
           <Route path="/seller" element={<Seller />} />
         </Routes>
-      </div>
       <Footer />
     </Router>
   );
