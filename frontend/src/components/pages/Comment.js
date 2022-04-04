@@ -114,14 +114,15 @@ const Comment = (props) => {
           </Typography>
         </Box>
       <form>
-        <input 
+        <textarea
           className='comment-textbox'
           type='text' 
           name='comment_input' 
           value={comment} 
           onChange={commentHandle} 
           placeholder='이 곳에 댓글 작성'
-        />
+        >
+        </textarea>
         <Box className='button'>
           <Button onClick={createComment} variant="outlined" >댓글 쓰기</Button>
         </Box>
@@ -138,13 +139,14 @@ const Comment = (props) => {
                 // editCommentForm(comment.id)
                 <div>
                   <form>
-                    <input 
+                    <textarea
                       className='comment-textbox'
                       type='text'
                       value={commentEditContent}
                       name='comment_edit'
                       onChange={commentEditHandle}
-                    />
+                    >
+                    </textarea>
                     <Box className='button'>
                       <Button onClick={() => editComment(comment.id)} variant="outlined" color='success'>수정</Button>
                       <Button onClick={() => setCommentPK(0)} variant="outlined" color='error'>취소</Button>

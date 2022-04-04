@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { Box, Button, Typography } from '@mui/material';
+import './Write.css'
 const Write = () => {
   
   function toCommunity() {
@@ -57,23 +58,39 @@ const Write = () => {
 
   return (
     <div className=''>
-      <p>posts</p>
+      <Box 
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 3,
+        }}
+      >
+        <Typography fontWeight="fontWeightBold"  variant="h4">
+          글 작성
+        </Typography>
+      </Box>
       <form className=''>
-        <div>
-          <label htmlFor='title_input'>제목 </label>
-          <input type='text' name='title_input' value={title} onChange={ titleHandle } placeholder='제목' className='' />
+        <div className='input-text'>
+          <label htmlFor='title_input'>
+            <h3>제목</h3>
+          </label>
+          <input className='write-title' type='text' name='title_input' value={title} onChange={ titleHandle } placeholder='제목을 입력해 주세요.'/>
         </div>
-        <div>
-          <label htmlFor='content_input'>내용 </label>
-          <input type='text' name='content_input' value={content} onChange={ contentHandle } placeholder='내용' className='' />
+        <div className='input-text'>
+          <label htmlFor='content_input'>
+            <h3>내용</h3>
+          </label>
+          <textarea className='write-textbox' type='textarea' name='content_input' value={content} onChange={ contentHandle } placeholder='내용을 입력해 주세요.'></textarea>
         </div>
-        <div>
-          <label htmlFor='image'>이미지 첨부하기 </label>
+        <div className='input-text'>
+          <label htmlFor='image' >
+            <h3>이미지 첨부하기</h3>
+          </label><br/>
           <input type='file' name='image' accept='image/*' onChange={ loadFile } />
         </div>
       </form>
       <div>
-        <p>업로드된 이미지</p>
         {preview && (
           <div className='upload_img'>
             <img style={{width:'300px', height:'300px', objectFit:'contain' }} alt='upload_img' src={preview} />
@@ -83,8 +100,8 @@ const Write = () => {
       </div>
       <div>
         {/* <button><Link to='/community'>목록으로</Link></button> */}
-        <button onClick={ toCommunity }>목록으로</button>
-        <button onClick={ write }>글쓰기</button>
+        <Button onClick={ toCommunity } variant="outlined">목록으로</Button>
+        <Button onClick={ write } variant="outlined" color='success'>글쓰기</Button>
       </div>
     </div>
   );

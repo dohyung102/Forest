@@ -143,30 +143,36 @@ const Post = () => {
       {edit ? (
         <div>
           <form className="">
-            <div>
-              <label htmlFor="title_input">제목 </label>
+            <div className='input-text'>
+              <label htmlFor="title_input">
+                <h3>제목</h3>  
+              </label>
               <input
+                className="write-title"
                 type="text"
                 name="title_input"
                 value={title}
                 onChange={titleHandle}
-                placeholder="제목"
-                className=""
+                placeholder="제목을 입력해 주세요."
               />
             </div>
-            <div>
-              <label htmlFor="content_input">내용 </label>
-              <input
-                type="text"
+            <div className='input-text'>
+              <label htmlFor="content_input">
+                <h3>내용</h3>
+              </label>
+              <textarea
+                className='write-textbox'
                 name="content_input"
                 value={content}
                 onChange={contentHandle}
-                placeholder="내용"
-                className=""
-              />
+                placeholder="내용을 입력해 주세요."
+              >
+              </textarea>
             </div>
-            <div>
-              <label htmlFor="image">이미지 첨부하기 </label>
+            <div className='input-text'>
+              <label htmlFor="image">
+                <h3>이미지 첨부하기</h3>
+              </label><br/>
               <input
                 type="file"
                 name="image"
@@ -176,7 +182,6 @@ const Post = () => {
             </div>
           </form>
           <div>
-            <p>업로드된 이미지</p>
             {preview && (
               <div className="upload_img">
                 <img
