@@ -10,6 +10,7 @@ import Login from './components/pages/Login';
 import Mypage from './components/pages/Mypage';
 import Myposts from './components/pages/MyPosts';
 import Mycomments from './components/pages/MyComments';
+import Myreviews from './components/pages/MyReviews';
 import Search from './components/pages/Search';
 import Community from './components/pages/Community';
 import Post from './components/pages/Post';
@@ -25,7 +26,6 @@ import CartTest from './components/pages/CartTest';
 import Carousel from './components/pages/Carousel';
 import Seller from './components/pages/Seller';
 
-// import Myreviews from '../pages/Myreviews';
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/posts" element={<Myposts />} />
           <Route path="/mypage/comments" element={<Mycomments />} />
-          {/* <Route path="/mypage/reviews" element={<Myreviews />} /> */}
+          <Route path="/mypage/reviews" element={<Myreviews />} />
 
           <Route path="/search" element={<Search />} />
           <Route path="/detail/:plant_id" element={<Detail />} />
