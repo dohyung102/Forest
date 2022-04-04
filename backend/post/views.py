@@ -6,7 +6,7 @@ from rest_framework import viewsets, status
 
 
 from .models import Post, Comment
-from .serializers import PostSerializers, CommentSerializers
+from .serializers import PostSerializers, CommentSerializers, PostDetailSerializers
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -35,7 +35,10 @@ class CommentViewSet(viewsets.ModelViewSet):
         post = Post.objects.get(pk=self.kwargs['post_pk'])
         serializer.save(user = self.request.user, post=post)
 
-
+class PostDetailViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostDetailSerializers
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 # class MyPostViewSet(viewsets.ModelViewSet):
 #     user = get_user_model()

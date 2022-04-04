@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Card, CardMedia, Container, Paper } from '@mui/material';
+import { Card, CardMedia, Container, Paper, Box, Typography, Avatar } from '@mui/material';
 
 import Comment from './Comment';
 import './Post.css';
@@ -10,6 +10,7 @@ const Post = () => {
   const navigate = useNavigate();
   const [postData, setPostData] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [userData, setUserData] = useState([]);
 
   const params = useParams();
 
@@ -42,7 +43,7 @@ const Post = () => {
       .then((res) => {
         console.log(res.data);
         setPostData(res.data);
-
+        setUserData(res.data.user);
         setTitle(res.data.title);
         setContent(res.data.content);
       })
@@ -119,6 +120,7 @@ const Post = () => {
   };
 
   return (
+    
     <div>
       post page
       {edit ? (
@@ -176,16 +178,65 @@ const Post = () => {
         </div>
       ) : (
         <div>
-          <div>{postData.id}번 게시글</div>
-          {/* <div>좋아요 기능 보류? : {postData.likes}</div> */}
-          <div>작성자 {postData.user}</div>
-          <div>{postData.title}</div>
-          <div>{postData.content}</div>
-          <img className="post-img" alt="" src={postData.image} />
-          <div>작성일자 : {postData.created_date}</div>
+          <Container maxWidth="md">
+            <Paper elevation={0}>
+              <CardMedia></CardMedia>
+              <Box
+                sx={{
+                  marginY: 2,
+                }}
+              >
+                {postData.idx}번 게시글
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 3
+                }}
+              >
+                <Box>
+                  <Avatar
+                    alt=""
+                    src={userData.profile_image}
+                    sx={{ width: '50px', height: '50px' }}
+                  />
+                </Box>
+                <Box className="post-user-margin">
+                  <Typography component="div" fontWeight="fontWeightBold">
+                    {userData.email}
+                  </Typography>
+                  <Typography>
+                    작성시간 : {postData.created_date}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  marginBottom: 2,
+                }}
+              >
+                <Typography component="div" variant="h4">
+                  {postData.title}
+                </Typography>
+              </Box>
+              <hr></hr>
+              <Box>
+                <Typography component="div">
+                  {postData.content}
+                </Typography>
+              </Box>
+              {/* <div>좋아요 기능 보류? : {post_dummy_data.likes}</div> */}
+              <img className="post-img" alt="" src={postData.image} />
+              <Box>
+                
+              </Box>
+            </Paper>
+          </Container>
         </div>
       )}
-      {postData.user === localStorage.getItem('user') ? (
+      {userData.email === localStorage.getItem('user') ? (
         edit ? (
           <div>
             <Link to="/community">

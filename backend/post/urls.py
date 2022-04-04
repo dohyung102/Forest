@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import PostViewSet, CommentViewSet
+from .views import PostViewSet, CommentViewSet, PostDetailViewSet
 #from .views import MyPostViewSet, MyCommentViewSet
 from rest_framework.routers import DefaultRouter
 
@@ -10,7 +10,7 @@ post_list = PostViewSet.as_view({
 })
 
 # post detail 보여주기, 수정, 삭제
-post_detail = PostViewSet.as_view({
+post_detail = PostDetailViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'delete': 'destroy'
