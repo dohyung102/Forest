@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Write = () => {
   
-  function toCommunity(e) {
+  function toCommunity() {
     window.location.href = '/community'
   }
   
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [file, setFile] = useState('')
+  const [preview, setPreview] = useState('')
+  const [image, setImage] = useState('')
+  const formData = new FormData()
   
   const titleHandle = (event) => {
     setTitle(event.target.value)
@@ -19,12 +21,38 @@ const Write = () => {
   }
   const loadFile = (event) => {
     const imgFile = event.target.files[0]
-    // console.log(imgFile)
-    setFile(URL.createObjectURL(imgFile))
+    setPreview(URL.createObjectURL(imgFile))
+    setImage(imgFile)
   }
   const deleteFile = (event) => {
-    URL.revokeObjectURL(file)
-    setFile('')
+    URL.revokeObjectURL(preview)
+    setPreview('')
+    setImage([])
+  }
+
+  const write = (e) => {
+    console.log(image)
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('image', image)
+    console.log(formData)
+    e.preventDefault()
+    axios({
+      method: 'post',
+      url: 'http://localhost:8000/api/posts/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        // "Content-Type": `multipart/form-data`
+      },
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res)
+        toCommunity()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -46,9 +74,9 @@ const Write = () => {
       </form>
       <div>
         <p>업로드된 이미지</p>
-        {file && (
+        {preview && (
           <div className='upload_img'>
-            <img style={{width:'300px', height:'300px', objectFit:'contain' }} alt='upload_img' src={file} />
+            <img style={{width:'300px', height:'300px', objectFit:'contain' }} alt='upload_img' src={preview} />
             <button onClick={deleteFile}>삭제</button>
           </div>
         )}
@@ -56,7 +84,7 @@ const Write = () => {
       <div>
         {/* <button><Link to='/community'>목록으로</Link></button> */}
         <button onClick={ toCommunity }>목록으로</button>
-        <button>글쓰기</button>
+        <button onClick={ write }>글쓰기</button>
       </div>
     </div>
   );

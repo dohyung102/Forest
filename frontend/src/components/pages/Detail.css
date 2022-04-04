@@ -13,6 +13,12 @@
   width: 180px;
   height: 180px;
   border-radius: 15px;
+  margin: auto;
+}
+
+.detail-similar-name {
+  text-align: center;
+
 }
 
 .slick-prev {
@@ -22,4 +28,16 @@
 .slick-next {
   right: 3% !important;
   z-index: 1;
+}
+
+.slick-prev:before {
+  /* content: "<"; */
+  color: green;
+  font-size: 35px;
+}
+
+.slick-next:before {
+  /* content: ">"; */
+  color: green;
+  font-size: 35px;
 }

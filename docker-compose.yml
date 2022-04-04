@@ -6,17 +6,24 @@ services:
     restart: always
     environment:
       TZ: Asia/Seoul
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     networks:
       - default
   back:
     build: ./backend/
+    command: >
+      bash -c "
+      ./wait-for-it.sh db:3306 -t 3
+      && python manage.py makemigrations 
+      && python manage.py migrate --settings=forest.settings.prod
+      && gunicorn forest.wsgi --bind 0.0.0.0:8000 --env DJANGO_SETTINGS_MODULE=forest.settings.prod
+      "
     restart: always
     environment:
       TZ: Asia/Seoul
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - db
     networks:
@@ -29,7 +36,7 @@ services:
       TZ: Asia/Seoul
     env_file: ./docker/db/.env
     volumes:
-      - ./docker/db/conf.d:/etc/mysql/conf.d
+      # - ./docker/db/conf.d:/etc/mysql/conf.d
       - ./docker/db/data:/var/lib/mysql
       - ./docker/db/initdb.d:/docker-entrypoint-initdb.d
     ports:

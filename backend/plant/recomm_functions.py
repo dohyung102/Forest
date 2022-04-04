@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from .models import Plant
 
 BASE_DATA_DIR = 'plant/data'
 PLANT_VECTOR_DATA = os.path.join(BASE_DATA_DIR, 'plants_vector_data.pkl')
@@ -17,7 +18,9 @@ def similar_plant_calculate():
 
 
 def plants_data_vectorization():
-    plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
+    plants = Plant.objects.values()
+    plants_data = pd.DataFrame(plants).fillna('no')
+    # plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     combine_index = ['watering', 'flower_presence', 'manage_difficulty', 'growth_rate', 'placement']
     plants = plants_data[combine_index]
     plants['all_text'] = plants[combine_index].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
@@ -26,6 +29,7 @@ def plants_data_vectorization():
     counter_vector.fit(plants['all_text'])
     plants_vector = counter_vector.transform(plants['all_text']).toarray()
     feature_names = counter_vector.get_feature_names()
+    # print(plants_vector)
 
     pd.to_pickle(plants_vector, PLANT_VECTOR_DATA)
     pd.to_pickle(feature_names, FEATURE_NAMES)
@@ -35,18 +39,22 @@ def plants_data_vectorization():
 # plants_data_vectorization()
 # similar_plant_calculate()
 def find_similar_plant_by_plant_id(plant_id):
-    plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
+    plants = Plant.objects.values()
+    plants_data = pd.DataFrame(plants).fillna('no')
+    # plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     plants_vector_data = pd.read_pickle(COSINE_SIMILARITY_PLANT_VECTOR_DATA)
     plant_index = plants_data[plants_data['id'] == plant_id].index.values
-
-    similar_plants_vector_data = plants_vector_data[plant_index[0]]
+    if plant_index.size > 0:
+        similar_plants_vector_data = plants_vector_data[plant_index[0]]
+    else:
+        return []
     plants_data['similarity'] = similar_plants_vector_data
     plants_data = plants_data[plants_data['id'] != plant_id]
     result = plants_data.sort_values('similarity', ascending=False)[:10]
     # print(len(result))
     result_dict = result.to_dict('records')
-    # return result_dict
     return result_dict
+
 
 def calculate_recommend_plants_by_user_preference(preference_data):
     data_dict = {
@@ -84,37 +92,3 @@ def find_preference_plants_by_index(index):
     user_preference_vector = user_preference_vector[index:index+10]
     result_dict = user_preference_vector.to_dict('records')
     return result_dict
-# b = find_similar_plant_by_plant_id(1)
-
-# # 데이터 합치기
-# friend_list = [
-#     ['john', 95, 85],
-#     ['jane', 85, 80],
-#     ['nate', 30, 10],
-# ]
-# column_name = ['name', 'midterm', 'finalterm']
-# df = pd.DataFrame.from_records(friend_list, columns=column_name)
-# df2 = pd.DataFrame([
-#     ['ben', 50, 50]
-# ], columns = ['name', 'midterm', 'finalterm'])
-# print(df2)
-
-# # df.append(df2, ignore_index= True) # 이거 없어짐
-# df = pd.concat([df, df2], ignore_index= True)
-# print(df)
-
-# column_name = ['id', 'name', 'character', 'watering', 'light_demand', 'humidity', 'flower_presence', 'flower_color', 'manage_difficulty', 'winter_minimum_temperature', 'growth_rate', 'placement', 'similarity']
-# df = pd.DataFrame.from_records([], columns=column_name)
-# pd.to_pickle(df, USER_PREFERENCE_PLANT_VECTOR_DATA)
-# a = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)
-# a = pd.concat([a, b], ignore_index=True)
-# print(a)
-
-# column_name = ['name', 'midterm', 'finalterm']
-# df = pd.DataFrame.from_records([], columns=column_name)
-# print(len(df))
-# df2 = pd.DataFrame([
-#     ['ben', 50, 50]
-# ], columns = ['name', 'midterm', 'finalterm'])
-# df = pd.concat([df, df2], ignore_index= True)
-# print(df)

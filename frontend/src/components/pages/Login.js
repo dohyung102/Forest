@@ -9,7 +9,6 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -22,7 +21,7 @@ const Login = () => {
     // /---/ => ---가 순서대로 나타나야
     // [0-9] 0에서 9까지 / [a-z] a에서 z까지 / [-_\.] 해당 문자 허용
     // ? 앞의 표현식이 0 or 1회 등장
-    const emailValid = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+    const emailValid = /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 
     if (!emailValid.test(emailInput))
       setEmailError(true)
@@ -30,21 +29,26 @@ const Login = () => {
       setEmailError(false)
   }
   const passwordHandle = (event) => {
-    // console.log(event.target.value)
     setPassword(event.target.value)
   }
 
   const login = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/accounts/login',
+      url: 'http://localhost:8000/api/users/login/',
       data: {
         email: email,
         password: password,
       }
     })
     .then((res) => {
-      console.log(res)
+      if (res.data.access_token) {
+        // console.log(res.data)
+        localStorage.clear()
+        localStorage.setItem('token', res.data.access_token)
+        localStorage.setItem('user_id', res.data.user.id)
+        localStorage.setItem('user', res.data.user.email)
+      }
       alert('login success')
       navigate('/')
       })
@@ -72,7 +76,7 @@ const Login = () => {
       </form>
       <div>
         <Button>비밀번호 찾기</Button>
-        <Link to='/community'><Button>회원가입</Button></Link>
+        <Link to='/signup'><Button>회원가입</Button></Link>
       </div>
       <p>or login with</p>
       <div>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GoogleLogin, GoogleConnect, PreferenceViewSet
+from .views import GoogleLogin, GoogleConnect, PreferenceViewSet, UserViewSet
 # from accounts import views
 
 # preference 등록
@@ -13,6 +13,9 @@ preference_detail = PreferenceViewSet.as_view({
     'delete': 'destroy'
 })
 
+user_get_role = UserViewSet.as_view({
+    'put': 'getrole',
+})
 urlpatterns = [
     # path('google/', GoogleLogin.as_view(), name='google_login'),
     # path('google/connect/', GoogleConnect.as_view(), name='google_connect')
@@ -22,5 +25,5 @@ urlpatterns = [
     # path('google/login/finish/', views.GoogleLogin.as_view(), name='google_login_todjango'),
     path('preference/', preference_list),
     path('preference/<int:pk>/', preference_detail),
-
+    path('getrole/<int:pk>/', user_get_role)
 ]
