@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import Toolbar from '@mui/material/Toolbar';
+
 import Appbar from './components/layout/Appbar';
 import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
@@ -27,6 +29,7 @@ function App() {
   return (
     <Router>
       <Appbar />
+      <Toolbar sx={{ height: '100px', mx: 1, my: 5 }} />
       <div className="layout">
         <Routes>
           <Route path="/" element={<Home />} />

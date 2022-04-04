@@ -1,10 +1,11 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Toolbar from '@mui/material/Toolbar';
 
 import Appbar from './Appbar';
 import Footer from './Footer';
 
-import React from 'react';
 import CartTest from '../pages/CartTest';
 import Carousel from '../pages/Carousel';
 import Survey from '../pages/Survey';
@@ -27,7 +28,7 @@ const Layout = () => {
   return (
     <Router>
       <Appbar />
-      <Toolbar sx={{ mx: 1, my: 1 }} />
+      <Toolbar sx={{ my: 1 }} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/carttest" element={<CartTest />} />
