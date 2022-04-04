@@ -49,8 +49,9 @@ const MyPosts = () => {
             <div key={post.id}
               onClick={() => linkToPostDetail(post.id)}
             >
-              <div>{post.title}</div>
-              <div>{post.content}</div>
+              <div>제목 : {post.title}</div>
+              <div>내용 : {post.content}</div>
+              <div>{post.created_date}</div>
             </div>
           )
         })}

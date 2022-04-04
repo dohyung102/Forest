@@ -46,7 +46,10 @@ const MyComments = () => {
           return (
             <div key={comment.id}>
               {/* <div>{review.post}</div> */}
-              <div onClick={() => toPost(comment.post)}>{comment.content}</div>
+              <div onClick={() => toPost(comment.post)}>
+                <div>댓글 : {comment.content}</div>
+                <div>{comment.create_date}</div>
+              </div>
             </div>
           )
         })}

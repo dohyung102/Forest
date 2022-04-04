@@ -47,8 +47,8 @@ const MyReviews = () => {
             <div key={review.id}
               onClick={() => moveToProduct(review.product)}
             >
-              <div>{review.context}</div>
-              <div>{review.star}</div>
+              <div>리뷰 : {review.context}</div>
+              <div>평점 : {review.star}</div>
               <div>{review.created_date}</div>
             </div>
           )
