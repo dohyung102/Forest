@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import Appbar from './Appbar';
 import Toolbar from '@mui/material/Toolbar';
 
-import Appbar from './Appbar';
-import Footer from './Footer';
+// import Appbar from './Appbar';
+// import Footer from './Footer';
 
 import CartTest from '../pages/CartTest';
 import Carousel from '../pages/Carousel';
@@ -52,4 +53,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+// export default Layout;

@@ -25,6 +25,8 @@ import CartTest from './components/pages/CartTest';
 import Carousel from './components/pages/Carousel';
 import Seller from './components/pages/Seller';
 
+// import Myreviews from '../pages/Myreviews';
+
 function App() {
   return (
     <Router>
@@ -38,6 +40,8 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/posts" element={<Myposts />} />
           <Route path="/mypage/comments" element={<Mycomments />} />
+          {/* <Route path="/mypage/reviews" element={<Myreviews />} /> */}
+
           <Route path="/search" element={<Search />} />
           <Route path="/detail/:plant_id" element={<Detail />} />
           <Route path="/product/:product_id" element={<Product />} />
@@ -45,6 +49,7 @@ function App() {
           <Route path="/community/:post_id" element={<Post />} />
           <Route path="/community/write" element={<Write />} />
           <Route path="/store/:store_id" element={<Store />} />
+
           <Route path="/sellerauth" element={<SellerAuth />} />
           <Route path="/carttest" element={<CartTest />} />
           <Route path="/survey" element={<Survey />} />
