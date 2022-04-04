@@ -31,7 +31,7 @@ function App() {
   return (
     <Router>
       <Appbar />
-      <Toolbar sx={{ height: '100px', mx: 1, my: 5 }} />
+      <Toolbar sx={{ height: '90px', mx: 1, my: 1 }} />
       <div className="layout">
         <Routes>
           <Route path="/" element={<Home />} />
