@@ -9,7 +9,7 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-import Reviews from './ProductComments'
+import Reviews from './ProductReviews'
 import './Product.css'
 
 const Detail = () => {
