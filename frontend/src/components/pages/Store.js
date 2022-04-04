@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import axios from 'axios';
 
 import Product from './StoreProduct'
@@ -90,50 +90,52 @@ const Store = () => {
   // }, [activeCategory, dummy_products])
 
   return (
-    <Grid container>
-      <Grid item md={3}>
-        {storeData &&
-          <div>{storeData.name}</div>
-        }
+    <Container maxWidth='md'>
+      <Grid container>
+        <Grid item md={3}>
+          {storeData &&
+            <div>{storeData.name}</div>
+          }
 
-        {/* 카테고리 부분 해결되면 수정 후 재작성 */}
+          {/* 카테고리 부분 해결되면 수정 후 재작성 */}
 
-        {/* <div>필터</div>
-        <ul>
-          {dummy_categories.map(category => {
-            return(
-              <li key={category}>
-                <button onClick={() => setActiveCategory(category)}>{category}</button>
-              </li>
-            )
-          })}
-          <button onClick={() => setActiveCategory('All')}>전체보기</button>
-          <button onClick={() => setActiveCategory('tall')}>tall</button>
-          <button onClick={() => setActiveCategory('short')}>short</button>
-          <button onClick={() => setActiveCategory('big')}>big</button>
-          <button onClick={() => setActiveCategory('small')}>small</button>
-          <button onClick={() => setActiveCategory('flowery')}>flowery</button>
-        </ul> */}
+          {/* <div>필터</div>
+          <ul>
+            {dummy_categories.map(category => {
+              return(
+                <li key={category}>
+                  <button onClick={() => setActiveCategory(category)}>{category}</button>
+                </li>
+              )
+            })}
+            <button onClick={() => setActiveCategory('All')}>전체보기</button>
+            <button onClick={() => setActiveCategory('tall')}>tall</button>
+            <button onClick={() => setActiveCategory('short')}>short</button>
+            <button onClick={() => setActiveCategory('big')}>big</button>
+            <button onClick={() => setActiveCategory('small')}>small</button>
+            <button onClick={() => setActiveCategory('flowery')}>flowery</button>
+          </ul> */}
 
-        <div>
-          <button>상품등록</button>
-        </div>
-        <div>
-          <button>스토어등록</button>
-        </div>
+          <div>
+            <button>상품등록</button>
+          </div>
+          <div>
+            <button>스토어등록</button>
+          </div>
+        </Grid>
+        <Grid item md={9}>
+          <div>상품</div>
+          {storeData &&
+            <Product 
+              productsList={storeData.product_set}
+            />
+          }
+          {/* <Product 
+            productsList={product}
+          /> */}
+        </Grid>
       </Grid>
-      <Grid item md={9}>
-        <div>상품</div>
-        {storeData &&
-          <Product 
-            productsList={storeData.product_set}
-          />
-        }
-        {/* <Product 
-          productsList={product}
-        /> */}
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 

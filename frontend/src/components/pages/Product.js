@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom'
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import axios from 'axios';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -99,65 +99,67 @@ const Detail = () => {
 
   return (
     <div>
-      <div>
-        product page
-      </div>
-      <Grid container alignItems='center'>
-        <Grid item md={6}>
-          {plantData &&
-            <div className='detail-plant-img'>
-              <img className='detail-plant-img' src={plantData.profile_img} alt='plant_img' />
-            </div>
-          }
-        </Grid>
-        <Grid item md={6}>
-          {plantData &&
-            <ul className='detail-ul'>
-              <div>{plantData.name}</div>
-              <div>수량 : {plantData.num}</div>
-              <div>가격 : {plantData.price}</div>
-              <div>open_date : {plantData.open_date}</div>
-              <div>close_date : {plantData.close_date}</div>
-              <div>식물 pk : {plantData.id}</div>
-            </ul>
-          }
-        </Grid>
-      </Grid>
-
-      <p>유사한 상품 or 판매자의 다른 상품</p>
-      <div>
-        <Slider {...settings}>
-          {dummy_plant.similar.map((plant) => {
-            return (
-              <div key={plant.name}>
-                <Link to={`/product/${plant.name}`}>
-                  <img className='detail-similar-img' src={plant.img} alt='plant_img' />
-                </Link>
-                <div>{plant.name}</div>
-                <div>{plant.price}</div>
-                <div>{plant.rate}</div>
+      <Container maxWidth='md'>
+        <div>
+          product page
+        </div>
+        <Grid container alignItems='center'>
+          <Grid item md={6}>
+            {plantData &&
+              <div className='detail-plant-img'>
+                <img className='detail-plant-img' src={plantData.profile_img} alt='plant_img' />
               </div>
-            )
-          })}
-        </Slider>
-      </div>
-      <div>
-        <p>상세정보</p>
+            }
+          </Grid>
+          <Grid item md={6}>
+            {plantData &&
+              <ul className='detail-ul'>
+                <div>{plantData.name}</div>
+                <div>수량 : {plantData.num}</div>
+                <div>가격 : {plantData.price}</div>
+                <div>open_date : {plantData.open_date}</div>
+                <div>close_date : {plantData.close_date}</div>
+                <div>식물 pk : {plantData.id}</div>
+              </ul>
+            }
+          </Grid>
+        </Grid>
+
+        <p>유사한 상품 or 판매자의 다른 상품</p>
+        <div>
+          <Slider {...settings}>
+            {dummy_plant.similar.map((plant) => {
+              return (
+                <div key={plant.name}>
+                  <Link to={`/product/${plant.name}`}>
+                    <img className='detail-similar-img' src={plant.img} alt='plant_img' />
+                  </Link>
+                  <div>{plant.name}</div>
+                  <div>{plant.price}</div>
+                  <div>{plant.rate}</div>
+                </div>
+              )
+            })}
+          </Slider>
+        </div>
+        <div>
+          <p>상세정보</p>
+          {plantData &&
+            <div>
+              <div>
+                {plantData.description}
+              </div>
+              <div>
+                이런 이미지도 있으면 좋을거 같은데
+              </div>
+              <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' />
+            </div>
+          }
+        </div>
         {plantData &&
-          <div>
-            <div>
-              {plantData.description}
-            </div>
-            <div>
-              이런 이미지도 있으면 좋을거 같은데
-            </div>
-            <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' />
-          </div>
+          <Comments reviews={plantData.review_set} />
         }
-      </div>
-      {plantData &&
-        <Comments reviews={plantData.review_set} />
-      }
+      </Container>
     </div>
   );
 };
