@@ -10,6 +10,8 @@ services:
   nginx_proxy:
     build: ./docker/nginx/
     restart: always
+    environment:
+      - LC_ALL=C.UTF-8
     volumes:
       - ./backend/media:/home/backend/media
       # - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
