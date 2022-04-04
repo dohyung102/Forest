@@ -79,7 +79,7 @@ const Search = () => {
           <Link to={`/detail/${plant_data.id}`}>
             <img
               className="home-plant-img"
-              src={plant_data.image_path}
+              src={`https://j6d204.p.ssafy.io/${plant_data.image_path}`}
               alt="plant_img"
             />
           </Link>
