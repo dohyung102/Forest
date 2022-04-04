@@ -1,12 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { Chip, Container, Grid, IconButton, InputBase, Paper } from '@mui/material';
+import {
+  Chip,
+  Container,
+  Grid,
+  IconButton,
+  InputBase,
+  Paper,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
 
 const Search = () => {
   const [search, setSearch] = useState('');
+
+  const [categoryData, setCategoryData] = useState([
+    { key: 0, label: 'All', onClicked: false },
+    { key: 1, label: 'long', onClicked: false },
+    { key: 2, label: 'short', onClicked: false },
+  ]);
 
   const [activeCategory, setActiveCategory] = useState('All');
   const [wholePlants, setWholePlants] = useState([]);
@@ -29,17 +47,41 @@ const Search = () => {
     setSearch(event.target.value);
   };
 
+  const onClickChip = (chipData) => () => {
+    setCategoryData(
+      categoryData.map((category) =>
+        category.key === chipData.key
+          ? { ...category, onClicked: !category.onClicked }
+          : category
+      )
+    );
+  };
+
   const plant_filter = wholePlants
     .filter((plant) => {
       if (search == null) return plant;
-      else if (plant.name.toLowerCase().includes(search.toLowerCase())) return plant;
+      else if (plant.name.toLowerCase().includes(search.toLowerCase()))
+        return plant;
       return null;
     })
     .map((plant_data) => {
       return (
-        <Grid key={plant_data.id} item md={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Grid
+          key={plant_data.id}
+          item
+          md={3}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <Link to={`/detail/${plant_data.name}`}>
-            <img className="home-plant-img" src={plant_data.image_path} alt="plant_img" />
+            <img
+              className="home-plant-img"
+              src={plant_data.image_path}
+              alt="plant_img"
+            />
           </Link>
           <p className="home-plant-name">{plant_data.name}</p>
         </Grid>
@@ -68,7 +110,15 @@ const Search = () => {
   return (
     <div>
       <Container maxWidth="md">
-        <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}>
+        <Paper
+          component="form"
+          sx={{
+            p: '2px 4px',
+            display: 'flex',
+            alignItems: 'center',
+            width: 400,
+          }}
+        >
           <IconButton disabled sx={{ p: '10px' }} aria-label="menu">
             <SearchIcon />
           </IconButton>
@@ -77,18 +127,42 @@ const Search = () => {
             onChange={searchHandle}
             sx={{ ml: 1, flex: 1 }}
             placeholder="식물 검색"
-            inputProps={{ 'aria-label': 'search google maps' }}
+            inputProps={{ 'aria-label': 'search plant' }}
           />
         </Paper>
-        <input type="text" name="plant_search" placeholder="식물 검색" className="" />
+        {/* <input type="text" name="plant_search" placeholder="식물 검색" className="" /> */}
       </Container>
       <Container maxWidth="md">
-        <div>
-          <Chip label="all" onClick={() => setActiveCategory('All')} />
-          <button onClick={() => setActiveCategory('All')}>all</button>
-          <button onClick={() => setActiveCategory('long')}>long</button>
-          <button onClick={() => setActiveCategory('short')}>short</button>
-        </div>
+        <Paper
+          component="ul"
+          elevation={0}
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            flexWrap: 'wrap',
+            listStyle: 'none',
+            p: 0.5,
+            m: 0,
+          }}
+        >
+          {categoryData.map((data) => {
+            let color;
+
+            if (data.onClicked === false) color = 'default';
+            else color = 'primary';
+
+            return (
+              <ListItem key={data.key}>
+                <Chip
+                  label={data.label}
+                  color={color}
+                  sx={{ width: 100 }}
+                  onClick={onClickChip(data)}
+                />
+              </ListItem>
+            );
+          })}
+        </Paper>
       </Container>
       <Container maxWidth="md">
         <Grid container>{plant_filter}</Grid>
