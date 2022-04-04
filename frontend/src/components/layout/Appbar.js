@@ -45,7 +45,7 @@ const Appbar = () => {
           <Box
             sx={{
               mx: 1,
-              my: 0.5,
+              my: 0,
               display: { xs: 'none', md: 'flex' },
               justifyContent: 'space-between',
               alignItems: 'center',
