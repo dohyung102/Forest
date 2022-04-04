@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 // import axios from 'axios'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
   Avatar,
@@ -36,31 +38,18 @@ const Community = () => {
   const [preItems, setPreItems] = useState(0);
   const [items, setItems] = useState(9);
 
-  // 무한 스크롤 API 이용
-  // eslint-disable-next-line no-unused-vars
-  const API_url =
-    'https://api.themoviedb.org/3/movie/popular?api_key=7098d034bd3b550d66f794f9b58e3339&language=ko-KR&page=';
-
-  // getPosts
-  // const getPosts = useCallback(async () => {
-  //   setLoading(true)
-  //   await axios.get(`${API_url}${page}`)
-  //   .then((res) => {
-  //     console.log(page)
-  //     setPosts(prevState => [...prevState, ...res.data.results])
-  //   })
-  //   setLoading(false)
-  // }, [page])
-
-  // dummy data 테스트용 무한스크롤
-  const [testPosts, setTestPosts] = useState([]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const testInfiniteScroll = () => {
-    const dummy_result = dummy_posts.slice(preItems, items);
-
-    setTestPosts((prevState) => [...prevState, ...dummy_result]);
-  };
+  const getPosts = useCallback(async () => {
+    setLoading(true);
+    await axios.get('http://localhost:8000/api/posts/').then((res) => {
+      console.log(res.data);
+      setPosts((prevState) => [
+        ...prevState,
+        ...res.data.slice(preItems, items),
+      ]);
+      // setPosts(prevState => [...prevState, ...res.data.results])
+    });
+    setLoading(false);
+  }, [preItems, items]);
 
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -74,12 +63,14 @@ const Community = () => {
     }
   };
 
-  // useEffect(() => {
-  // getPosts()
-  // [getPosts]
-  // testInfiniteScroll();
-  // [items]
-  // }, [items, testInfiniteScroll]);
+  const navigate = useNavigate();
+  const linkToPostDetail = (index) => {
+    navigate(`/community/${index}`, { state: index });
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandle);
@@ -88,349 +79,189 @@ const Community = () => {
     };
   });
 
-  const dummy_posts = [
-    {
-      idx: '1',
-      title: '1111',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      created_at: '2022-03-23 16:20',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '2',
-      title: '22222',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 16:30',
-      likes: '2',
-      user: 'user_aa',
-    },
-    {
-      idx: '3',
-      title: '3333',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: 'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
-      created_at: '2022-03-23 17:20',
-      likes: '4',
-      user: 'user_aa',
-    },
-    {
-      idx: '4',
-      title: '4444',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '5',
-      title: '5555',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '6',
-      title: '66666',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '7',
-      title: '7777',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: 'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
-      created_at: '2022-03-23 17:20',
-      likes: '4',
-      user: 'user_aa',
-    },
-    {
-      idx: '8',
-      title: '8888',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '9',
-      title: '9999',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '10',
-      title: '10101010',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '11',
-      title: '11111111',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '1',
-      title: '12121212',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      created_at: '2022-03-23 16:20',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '2',
-      title: '131313',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 16:30',
-      likes: '2',
-      user: 'user_aa',
-    },
-    {
-      idx: '3',
-      title: '141414',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: 'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
-      created_at: '2022-03-23 17:20',
-      likes: '4',
-      user: 'user_aa',
-    },
-    {
-      idx: '4',
-      title: '151515',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '5',
-      title: '161616',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '6',
-      title: '171717',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '7',
-      title: '181818',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: 'https://media.wired.com/photos/5d8aab8bef84070009028d31/master/pass/Plant-Music-1162975190.jpg',
-      created_at: '2022-03-23 17:20',
-      likes: '4',
-      user: 'user_aa',
-    },
-    {
-      idx: '8',
-      title: '191919',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '9',
-      title: '202020',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '10',
-      title: '212121',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-    {
-      idx: '11',
-      title: '222222',
-      content:
-        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-      img: '',
-      created_at: '2022-03-23 18:30',
-      likes: '0',
-      user: 'user_aa',
-    },
-  ];
+  // return (
+  //   <div>
+  //     <Container maxWidth="md">
+  //       community page
+  //       {/* <button><Link to='/post'>글쓰기</Link></button> */}
+  //       <button onClick={toPost}>글쓰기</button>
+  //     </Container>
+  //     <Container maxWidth="md">
+  //       {/* {dummy_posts.map(post => { */}
+  //       {dummy_posts.map((post, idx) => {
+  //         return (
+  //           <Link
+  //             to={`/community/${dummy_posts.idx}`}
+  //             style={{ textDecoration: 'none' }}
+  //           >
+  //             <Divider variant="middle" />
+  //             <Card sx={{ width: '100%', display: 'flex' }}>
+  //               <CardActionArea>
+  //                 <Box
+  //                   sx={{
+  //                     display: 'flex',
+  //                     flexDirection: 'row',
+  //                     alignItems: 'center',
+  //                   }}
+  //                 >
+  //                   <Box>
+  //                     <Typography component="div">
+  //                       <ThumbUpIcon />
+  //                       <Typography component="span" variant="overline">
+  //                         {post.likes}
+  //                       </Typography>
+  //                     </Typography>
+  //                   </Box>
+  //                   <Box>
+  //                     <Avatar
+  //                       variant="rounded"
+  //                       alt=""
+  //                       src={post.img}
+  //                       sx={{ width: '80px', height: '80px' }}
+  //                     />
+  //                   </Box>
+  //                   <Box>
+  //                     <Typography component="div" variant="h5">
+  //                       {post.title}
+  //                     </Typography>
+  //                     <Typography component="div" variant="h6">
+  //                       {post.content}
+  //                     </Typography>
+  //                   </Box>
+  //                 </Box>
+  //               </CardActionArea>
+  //             </Card>
+  //           </Link>
+  //         );
+  //       })}
+  //       {dummy_posts.map((post, idx) => {
+  //         return (
+  //           <Link to={`/community/${post.idx}`}>
+  //             <Grid
+  //               container
+  //               spacing={0}
+  //               sx={{ borderTop: 1, borderColor: 'grey.300' }}
+  //               // justifyContent='center' direction='column'
+  //               key={idx}
+  //               style={{ height: '110px' }}
+  //             >
+  //               {/* 좋아요 */}
+  //               <Grid item md={2}>
+  //                 {post.likes}
+  //               </Grid>
+  //               {/* 이미지 */}
+  //               {post.img && (
+  //                 <Grid item md={2}>
+  //                   <img
+  //                     className="community-post-img"
+  //                     src={post.img}
+  //                     alt="post_img"
+  //                   />
+  //                 </Grid>
+  //               )}
+  //               {/* 컨텐츠 */}
+  //               {post.img ? (
+  //                 <Grid item md={7}>
+  //                   <div
+  //                     style={{
+  //                       display: 'flex',
+  //                       flexDirection: 'column',
+  //                       justifyContent: 'center',
+  //                     }}
+  //                   >
+  //                     <div>{post.title}</div>
+  //                     <div>{post.content}</div>
+  //                   </div>
+  //                 </Grid>
+  //               ) : (
+  //                 <Grid item md={9}>
+  //                   <div
+  //                     style={{
+  //                       display: 'flex',
+  //                       flexDirection: 'column',
+  //                       justifyContent: 'center',
+  //                     }}
+  //                   >
+  //                     <div>{post.title}</div>
+  //                     <div>{post.content}</div>
+  //                   </div>
+  //                 </Grid>
+  //               )}
+  //             </Grid>
+  //           </Link>
+  //         );
+  //       })}
+  //       {posts.map((post, idx) => {
+  //         return (
+  //           <div style={{ height: '45px' }} key={idx}>
+  //             {post.title}
+  //           </div>
+  //         );
+  //       })}
+  //     </Container>
 
   return (
     <div>
-      <Container maxWidth="md">
-        community page
-        {/* <button><Link to='/post'>글쓰기</Link></button> */}
-        <button onClick={toPost}>글쓰기</button>
-      </Container>
-      <Container maxWidth="md">
-        {/* {dummy_posts.map(post => { */}
-        {dummy_posts.map((post, idx) => {
-          return (
-            <Link
-              to={`/community/${dummy_posts.idx}`}
-              style={{ textDecoration: 'none' }}
-            >
-              <Divider variant="middle" />
-              <Card sx={{ width: '100%', display: 'flex' }}>
-                <CardActionArea>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Box>
-                      <Typography component="div">
-                        <ThumbUpIcon />
-                        <Typography component="span" variant="overline">
-                          {post.likes}
-                        </Typography>
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Avatar
-                        variant="rounded"
-                        alt=""
-                        src={post.img}
-                        sx={{ width: '80px', height: '80px' }}
-                      />
-                    </Box>
-                    <Box>
-                      <Typography component="div" variant="h5">
-                        {post.title}
-                      </Typography>
-                      <Typography component="div" variant="h6">
-                        {post.content}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </CardActionArea>
-              </Card>
-            </Link>
-          );
-        })}
-        {dummy_posts.map((post, idx) => {
-          return (
-            <Link to={`/community/${post.idx}`}>
-              <Grid
-                container
-                spacing={0}
-                sx={{ borderTop: 1, borderColor: 'grey.300' }}
-                // justifyContent='center' direction='column'
-                key={idx}
-                style={{ height: '110px' }}
-              >
-                {/* 좋아요 */}
-                <Grid item md={2}>
-                  {post.likes}
-                </Grid>
-                {/* 이미지 */}
-                {post.img && (
-                  <Grid item md={2}>
-                    <img
-                      className="community-post-img"
-                      src={post.img}
-                      alt="post_img"
-                    />
-                  </Grid>
-                )}
-                {/* 컨텐츠 */}
-                {post.img ? (
-                  <Grid item md={7}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <div>{post.title}</div>
-                      <div>{post.content}</div>
-                    </div>
-                  </Grid>
-                ) : (
-                  <Grid item md={9}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <div>{post.title}</div>
-                      <div>{post.content}</div>
-                    </div>
-                  </Grid>
-                )}
+      community page
+      <button onClick={toPost}>글쓰기</button>
+      {posts.map((post) => {
+        return (
+          <Grid
+            container
+            spacing={0}
+            sx={{ borderTop: 1, borderColor: 'grey.300' }}
+            // justifyContent='center' direction='column'
+            style={{ height: '110px' }}
+            onClick={(e) => {
+              linkToPostDetail(post.id, e);
+            }}
+            key={post.id}
+          >
+            {/* 좋아요 */}
+            <Grid item md={2}>
+              {/* {post.likes} */}
+            </Grid>
+            {/* 이미지 */}
+            {post.image && (
+              <Grid item md={2}>
+                <img
+                  className="community-post-img"
+                  src={post.image}
+                  alt="post_img"
+                />
               </Grid>
-            </Link>
-          );
-        })}
-        {posts.map((post, idx) => {
-          return (
-            <div style={{ height: '45px' }} key={idx}>
-              {post.title}
-            </div>
-          );
-        })}
-      </Container>
+            )}
+            {/* 컨텐츠 */}
+            {post.image ? (
+              <Grid item md={7}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div>{post.title}</div>
+                  <div>{post.content}</div>
+                </div>
+              </Grid>
+            ) : (
+              <Grid item md={9}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div>{post.title}</div>
+                  <div>{post.content}</div>
+                </div>
+              </Grid>
+            )}
+          </Grid>
+        );
+      })}
     </div>
   );
 };

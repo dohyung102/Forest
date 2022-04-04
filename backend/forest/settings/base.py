@@ -208,9 +208,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -237,8 +234,8 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True     # 유저가 받은 링크를 클릭하�
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 
 CORS_ORIGIN_WHITELIST = [
-"http://localhost:3000"
-
+    "http://localhost:3000",
+    "https://j6d204.p.ssafy.io"
 ]
 
 # logging
@@ -266,7 +263,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/user_call_data.log'),
+            'filename': os.path.join(BASE_DIR, 'logs/user_call_data'),
             'formatter': 'format'
         },
         # 콘솔(터미널)에 출력
