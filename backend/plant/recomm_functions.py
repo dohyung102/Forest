@@ -1,8 +1,10 @@
 import os
 import pandas as pd
+from django.contrib.auth import get_user_model
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from .models import Plant
+from accounts.models import Preference
 
 BASE_DATA_DIR = 'plant/data'
 PLANT_VECTOR_DATA = os.path.join(BASE_DATA_DIR, 'plants_vector_data.pkl')
@@ -93,6 +95,60 @@ def find_preference_plants_by_index(index):
     result_dict = user_preference_vector.to_dict('records')
     return result_dict
 
+
 user_click_data = open('logs/user_call_data')
-print(user_click_data.readlines())
+#데이터를 다루기쉽게 list타입으로 저장
+logdata = user_click_data.readlines()
+num = len(logdata)
+filedata = [0 for _ in range(num)]
+for i in range(num):
+    #user_id기준으로 데이터 분리
+    a = logdata[i].index('user_id')
+    sample = logdata[i][a:]
+    sample = sample.split()
+    filedata[i] = [int(sample[2][:-1]), int(sample[5])]
+column_name = ['user_id', 'flant_id']
+df = pd.DataFrame.from_records(filedata, columns=column_name)
+print(df)
+
+plants = Plant.objects.all()
+plants_num = plants.count()
+plant_cnt = [0 for _ in range(plants_num+1)]
+
+
+def find_user_data_based_plants_by_user_id(user_id):
+    user = Preference.objects.get(id=user_id)
+    other_users = Preference.objects.filter(
+        watering=user.watering, 
+        flower_presence=user.flower_presence, 
+        manage_difficulty=user.manage_difficulty, 
+        growth_rate=user.growth_rate,
+        placement=user.placement,
+        )
+    ids = other_users.user_id
+    for i in range(len(filedata)):
+        if filedata[i][0] in ids:
+            plant_cnt[filedata[i][1]] += 1
+    sortfile = sorted(filedata)
+    recomm_plant = []
+    for j in range(4):
+        recomm_plant.append(filedata.index(sortfile[j]))
+    return Plant.objects.filter(id in recomm_plant)
+    
+    
+
+
+# friend_list = [
+#     ['john', 25, 'student'],
+#     ['mi', 24, 'student'],
+#     ['ma', 25, 'student'],
+#     ['me', 27, 'student'],
+#     ['jane', 30, 'teacher'],
+#     ['nate', 30, 'developer'],
+# ]
+# column_name = ['name', 'age', 'job']
+# df = pd.DataFrame.from_records(friend_list, columns=column_name)
+# print(df)
+
+
 # plants_data_vectorization()

@@ -1,3 +1,4 @@
+from turtle import fd
 from urllib import response
 from django.shortcuts import render
 from h11 import Response
@@ -9,6 +10,8 @@ from .serializers import PlantSerializers
 from rest_framework.permissions import AllowAny
 import logging
 from .recomm_functions import plants_data_vectorization
+from plant import serializers
+import plant.recomm_functions as rf
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +34,15 @@ class PlantViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             logger.info(f'user_id = {request.user.id}, plant_id = {pk}')
         return super().retrieve(request, pk, *args, **kwargs)
+
+    def recomm(self, request):
+        if request.user.is_authenticated:
+            plants = rf.find_user_data_based_plants_by_user_id(request.user.id)
+            #추천 기반 리턴
+            return Response(plants, status=status.HTTP_200_OK)
+        plants = Plant.objects.order_by('-pk')[:10]
+        serialzers = PlantSerializers(plants, many=True)
+        return Response(serialzers.data, status=status.HTTP_200_OK)
 
 class PlantSearchViewSet(viewsets.ModelViewSet):
     # search = request.GET.get()

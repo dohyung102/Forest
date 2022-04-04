@@ -19,8 +19,13 @@ plant_search = PlantSearchViewSet.as_view({
     'get': 'list'
 })
 
+plant_user_custom = PlantSearchViewSet.as_view({
+    'get': 'recomm'
+})
+
 urlpatterns = [
     path('', plant_list),
     path('<int:pk>/', plant_detail),
+    path('usercustom/', plant_user_custom),
     path('search/', plant_search)
 ]
