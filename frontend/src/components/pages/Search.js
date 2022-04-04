@@ -1,8 +1,7 @@
+import React, { useEffect, useState, useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import React, { useEffect, useState, useCallback } from 'react';
-
 
 import {
   Chip,
@@ -77,7 +76,7 @@ const Search = () => {
             alignItems: 'center',
           }}
         >
-          <Link to={`/detail/${plant_data.name}`}>
+          <Link to={`/detail/${plant_data.id}`}>
             <img
               className="home-plant-img"
               src={plant_data.image_path}
