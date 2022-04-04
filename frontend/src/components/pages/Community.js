@@ -38,7 +38,19 @@ const Community = () => {
   const [preItems, setPreItems] = useState(0);
   const [items, setItems] = useState(9);
 
-  const getPosts = useCallback(async () => {}, [preItems, items]);
+  const getPosts = useCallback(async () => {
+    setLoading(true);
+    await axios.get('http://localhost:8000/api/posts/').then((res) => {
+      // console.log(res.data.reverse())
+      res.data.reverse();
+      setPosts((prevState) => [
+        ...prevState,
+        ...res.data.slice(preItems, items),
+      ]);
+      // setPosts(prevState => [...prevState, ...res.data.results])
+    });
+    setLoading(false);
+  }, [preItems, items]);
 
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight;
