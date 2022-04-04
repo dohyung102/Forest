@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 
 import Mynav from '../layout/MypageNavigation'
 
@@ -34,29 +34,31 @@ const MyPosts = () => {
   }, [])
 
   return (
-    <Grid container>
-      <Grid item md={12}>
-        <p className='mypage-title'>마이페이지</p>
-        <Mynav />
+    <Container maxWidth='md'>
+      <Grid container>
+        <Grid item md={12}>
+          <p className='mypage-title'>마이페이지</p>
+          <Mynav />
+        </Grid>
+        
+        <Grid item md={12}>
+          <p>작성한 게시글</p>
+        </Grid>
+        <div>
+          {myPost.map((post) => {
+            return (
+              <div key={post.id}
+                onClick={() => linkToPostDetail(post.id)}
+              >
+                <div>제목 : {post.title}</div>
+                <div>내용 : {post.content}</div>
+                <div>{post.created_date}</div>
+              </div>
+            )
+          })}
+        </div>
       </Grid>
-      
-      <Grid item md={12}>
-        <p>작성한 게시글</p>
-      </Grid>
-      <div>
-        {myPost.map((post) => {
-          return (
-            <div key={post.id}
-              onClick={() => linkToPostDetail(post.id)}
-            >
-              <div>제목 : {post.title}</div>
-              <div>내용 : {post.content}</div>
-              <div>{post.created_date}</div>
-            </div>
-          )
-        })}
-      </div>
-    </Grid>
+    </Container>
   );
 };
 

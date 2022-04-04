@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,29 +32,31 @@ const MyComments = () => {
   }, [])
 
   return (
-    <Grid container>
-      <Grid item md={12}>
-        <p className='mypage-title'>마이페이지</p>
-        <Mynav />
-      </Grid>
-      
-      <Grid item md={12}>
-        <p>작성한 리뷰</p>
-      </Grid>
-      <div>
-        {myComments.map(comment => {
-          return (
-            <div key={comment.id}>
-              {/* <div>{review.post}</div> */}
-              <div onClick={() => toPost(comment.post)}>
-                <div>댓글 : {comment.content}</div>
-                <div>{comment.create_date}</div>
+    <Container maxWidth='md'>
+      <Grid container>
+        <Grid item md={12}>
+          <p className='mypage-title'>마이페이지</p>
+          <Mynav />
+        </Grid>
+        
+        <Grid item md={12}>
+          <p>작성한 리뷰</p>
+        </Grid>
+        <div>
+          {myComments.map(comment => {
+            return (
+              <div key={comment.id}>
+                {/* <div>{review.post}</div> */}
+                <div onClick={() => toPost(comment.post)}>
+                  <div>댓글 : {comment.content}</div>
+                  <div>{comment.create_date}</div>
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
-    </Grid>
+            )
+          })}
+        </div>
+      </Grid>
+    </Container>
   );
 };
 
