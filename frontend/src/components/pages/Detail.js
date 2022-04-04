@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'
 import { Grid } from '@mui/material';
 
 import Slider from 'react-slick'
@@ -7,78 +7,40 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import './Detail.css'
+import axios from 'axios';
 
 const Detail = () => {
 
-  const dummy_plant = {
-    'name' : '식물a',
-    'img' : 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-    'tag' : 'long',
-    'care' : '관리방법',
-    'size' : 'tall',
-    'difficulty' : '5',
-    'caution' : '주의사항',
-    'price' : '19,900',
-    'rate' : '4',
-    'product_link' : 'https://www.naver.com/',
-    'similar' : [
-      {
-        'name':'유사식물a',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'20,000',
-        'rate':'4'
-      },
-      {
-        'name':'유사식물b',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'30,000',
-        'rate':'3'
-      },
-      {
-        'name':'유사식물c',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'10,000',
-        'rate':'5'
-      },
-      {
-        'name':'유사식물e',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'10,000',
-        'rate':'5'
-      },
-      {
-        'name':'유사식물f',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'10,000',
-        'rate':'5'
-      },
-    ],
-  }
+  const navigate = useNavigate()
+  const params = useParams()
+  const [plantData, setPlantData] = useState({})
+  const [similar, setSimilar] = useState()
 
-  // similar_plant
-  // const similar_plant = dummy_plant.similar.map(plant => {
-  //   return (
-  //     // <Grid container>
-  //       // <Grid key={plant.name} item md={3} sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-  //       <div>
-  //         <Link to={`/detail/${plant.name}`}>
-  //           <img className='home-plant-img' src={plant.img} alt='plant_img' />
-  //         </Link>
-  //         <p className='home-plant-name'>{plant.name}</p>
-  //         <p className='home-plant-name'>{plant.price}</p>
-  //         <p className='home-plant-name'>{plant.rate}</p>
-  //       </div>
-  //       // </Grid>
-  //     // </Grid>
-  //   )
-  // })
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `http://localhost:8000/api/plants/${params.plant_id}/`,
+    })
+      .then((res) => {
+        console.log('res.data', res.data)
+        setPlantData(res.data)
+        setSimilar(res.data.similar_plants)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [params.plant_id])
+
+  const toSimilarPlant = (id) => {
+    navigate(`/detail/${id}`)
+  }
 
   const settings = {
     slide: 'div',
-    dots: true,
+    // dots: true,
     infinite: true,
-    speed: 500,
-    arrows : true,
+    speed: 1000,
+    // arrows : true,
     slidesToShow: 4,
     slidesToScroll: 4,
     draggable : false,
@@ -94,42 +56,40 @@ const Detail = () => {
       <Grid container alignItems='center'>
         <Grid item md={6}>
           <div className='detail-plant-img'>
-            <img className='detail-plant-img' src={dummy_plant.img} alt='plant_img' />
+            <img className='detail-plant-img' src={plantData.image_path} alt='plant_img' />
           </div>
         </Grid>
         <Grid item md={6}>
-          <ul className='detail-ul'>
-            <div>{dummy_plant.name}</div>
-            <div>{dummy_plant.tag}</div>
-            <div>{dummy_plant.care}</div>
-            <div>{dummy_plant.size}</div>
-            <div>{dummy_plant.difficulty}</div>
-            <div>{dummy_plant.caution}</div>
-            <div>{dummy_plant.price}</div>
-            <div>{dummy_plant.rate}</div>
-            <div>{dummy_plant.product_link}</div>
-          </ul>
+          <div className='detail-ul'>
+            <div>{plantData.name}</div>
+            <div>{plantData.character}</div>
+            <div>{plantData.watering}</div>
+            <div>{plantData.light_demand}</div>
+            <div>{plantData.humidity}</div>
+            <div>{plantData.manage_difficulty}</div>
+            <div>{plantData.growth_rate}</div>
+          </div>
         </Grid>
       </Grid>
 
       <p>유사한 식물</p>
-      <div>
-        <Slider {...settings}>
-          {dummy_plant.similar.map((plant) => {
-            return (
-              <div key={plant.name}>
-                <Link to={`/detail/${plant.name}`}>
-                  <img className='detail-similar-img' src={plant.img} alt='plant_img' />
-                </Link>
-                <div>{plant.name}</div>
-                <div>{plant.price}</div>
-                <div>{plant.rate}</div>
-              </div>
-            )
-          })}
-        </Slider>
-
-      </div>
+      <Slider {...settings}>
+        {similar
+        &&
+        similar.map((plant) => {
+          return (
+            <div 
+              className='detail-similar'
+              key={plant.name} 
+              onClick={() => toSimilarPlant(plant.id)}
+            >
+              <img className='detail-similar-img' src={'http://localhost:8000/media/' + plant.image_path} alt='plant_img' />
+              <div className='detail-similar-name'>{plant.name}</div>
+            </div>
+          )
+        })
+        }
+      </Slider>
     </div>
   );
 };
