@@ -12,8 +12,8 @@ const ItemsCard = (props) => {
         />
 
         <div className="card-body text-center">
-          <h5 className="card-title">{props.title}</h5>
           <h5 className="card">${props.price}</h5>
+          <h5 className="card-title">{props.title}</h5>
 
           <button
             className="btn btn-success"

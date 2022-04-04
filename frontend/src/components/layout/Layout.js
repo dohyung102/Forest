@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from 'react';
 import Appbar from './Appbar';
-import Cart from '../pages/Cart'
+import CartTest from '../pages/CartTest'
 import Carousel from '../pages/Carousel'
 import Survey from '../pages/Survey'
 import SellRegist from '../pages/SellRegist'
-import React from 'react';
 import Home from '../pages/Home'
 import Signup from '../pages/Signup'
 import Login from '../pages/Login'
@@ -27,7 +26,7 @@ const Layout = () => {
       <div className='layout'>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<CartTest />} />
+          <Route path="/carttest" element={<CartTest />} />
           <Route path="/sell_regist" element={<SellRegist />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="/recommend" element={<Carousel />} />

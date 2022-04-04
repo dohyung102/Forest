@@ -3,19 +3,19 @@ import React from 'react';
 import './style.css'
 import { Link } from 'react-router-dom';
 
-import AppBar from '@mui/material/AppBar';
+// import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+// import Toolbar from '@mui/material/Toolbar';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import Menu from '@mui/material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { color, fontSize } from '@mui/system';
+// import Tooltip from '@mui/material/Tooltip';
+// import MenuItem from '@mui/material/MenuItem';
+// import { color, fontSize } from '@mui/system';
 
 
 
@@ -46,10 +46,6 @@ return (
               <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/community'>커뮤니티</Button></li>
               <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }}>로그아웃</Button></li>
               <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/mypage'>마이페이지</Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/cart">장바구니</Link></Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/survey">설문조사</Link></Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/recommend">추천식물</Link></Button></li>
-              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/sell_regist">판매상품 등록</Link></Button></li>
             </ul>
             :
             <ul className='layout-ul'>
@@ -58,13 +54,17 @@ return (
               <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/community'>커뮤니티</Button></li>
               <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/login'>로그인</Button></li>
               <li><Button style={{ fontWeight: 'bold', fontSize: '16px', color: 'gray' }} component={Link} to='/signup'>회원가입</Button></li>
+              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/carttest">장바구니</Link></Button></li>
+              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/survey">설문조사</Link></Button></li>
+              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/recommend">추천식물</Link></Button></li>
+              <li><Button style={{ fontweight: 'bold', fontsize: '16px', color: 'white' }}><Link to="/sell_regist">판매상품 등록</Link></Button></li>
             </ul>
           }
         </nav>
         {/* <div>userinfo</div> */}
       </Box>
 
-        {/* 모바일 화면 */}
+        {/* 모바일 화면
         <div className="appbar">
           <Box sx={{ display: { xs: 'flex', md: 'none'}}}>
             
@@ -91,7 +91,7 @@ return (
             </ul>
           </Box>
           
-        </div>
+        </div> */}
       </Container>
     </header>
   );
