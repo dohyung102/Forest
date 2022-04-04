@@ -80,7 +80,7 @@ const Search = () => {
             <img
               className="home-plant-img"
               src={`http://j6d204.p.ssafy.io/${plant_data.image_path.substr(
-                6
+                7
               )}`}
               alt="plant_img"
             />
