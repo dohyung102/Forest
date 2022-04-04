@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
+import { Container, Typography, Avatar, Button } from '@mui/material';
+import { Box } from '@mui/system';
+import './Comment.css';
 
 const Comment = (props) => {
 
@@ -8,6 +11,7 @@ const Comment = (props) => {
   const navigate = useNavigate()
   // const { state } = useLocation()
   const [comment, setComment] = useState('')
+  // const [userData, setUserData] = useState([])
   const [commentPK, setCommentPK] = useState(0)
   const [commentEditContent, setCommentEditContent] = useState('')
 
@@ -35,6 +39,7 @@ const Comment = (props) => {
     })
       .then((res) => {
         console.log(res)
+        setComment('')
       })
       .catch((err) => {
         console.log(err)
@@ -44,7 +49,7 @@ const Comment = (props) => {
   const editComment = (commentID) => {
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/comment/${commentID}/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/comment/${commentID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -63,7 +68,7 @@ const Comment = (props) => {
   const deleteComment = (commentID) => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/comment/${commentID}/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/comment/${commentID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -99,17 +104,29 @@ const Comment = (props) => {
 
   return (
     <div>
-      댓글목록
+        <Box 
+          sx={{
+            marginY: 2,
+          }}
+          >
+          <Typography fontWeight="fontWeightBold" variant="h6">
+            댓글
+          </Typography>
+        </Box>
       <form>
         <input 
+          className='comment-textbox'
           type='text' 
           name='comment_input' 
           value={comment} 
           onChange={commentHandle} 
-          placeholder='이 곳에 댓글 작성' 
+          placeholder='이 곳에 댓글 작성'
         />
-        <button onClick={createComment}>댓글 쓰기</button>
+        <Box className='button'>
+          <Button onClick={createComment} variant="outlined" >댓글 쓰기</Button>
+        </Box>
       </form>
+      <hr/>
       <div>
         {props.comment.comment_set 
           &&
@@ -122,28 +139,54 @@ const Comment = (props) => {
                 <div>
                   <form>
                     <input 
+                      className='comment-textbox'
                       type='text'
                       value={commentEditContent}
                       name='comment_edit'
                       onChange={commentEditHandle}
                     />
-                    <button onClick={() => editComment(comment.id)}>수정</button>
-                    <button onClick={() => setCommentPK(0)}>취소</button>
+                    <Box className='button'>
+                      <Button onClick={() => editComment(comment.id)} variant="outlined" color='success'>수정</Button>
+                      <Button onClick={() => setCommentPK(0)} variant="outlined" color='error'>취소</Button>
+                    </Box>
                   </form>
                 </div>
                 :
                 <div>
-                  {comment.user} | {comment.content} | {comment.create_date}
-                  {localStorage.getItem('user') === comment.user
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginBottom: 3,
+                    }}
+                  >
+                    <Box>
+                      <Avatar
+                        alt=""
+                        src={comment.user.profile_image}
+                        sx={{ width: '50px', height: '50px' }}
+                      />
+                    </Box>
+                    <Box className="post-user-margin">
+                      <Typography component="div" fontWeight="fontWeightBold">
+                        {comment.user.email}
+                      </Typography>
+                      <Typography>{comment.content}</Typography>
+                    </Box>
+                  </Box>
+                  {localStorage.getItem('user') === comment.user.email
                     && 
                     <div>
-                      {/* <button onClick={() => setCommentPK(comment.id)}>수정</button> */}
-                      <button onClick={() => editFunc(comment)}>수정</button>
-                      <button onClick={() => deleteComment(comment.id)}>삭제</button>
-                    </div>                
-                  }
+                      <Box className='button'>
+                        <Button onClick={() => editFunc(comment)} variant="outlined" color='success'>수정</Button>
+                        <Button onClick={() => deleteComment(comment.id)} variant="outlined" color='error'>삭제</Button>
+                      </Box>
+                    </div>   
+                  }         
                 </div>
               }
+              <hr/>
             </div>
           )
         })}

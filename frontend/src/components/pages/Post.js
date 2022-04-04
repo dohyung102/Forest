@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   Avatar,
+  Button
 } from '@mui/material';
 
 import Comment from './Comment';
@@ -51,6 +52,7 @@ const Post = () => {
       .then((res) => {
         console.log(res.data);
         setPostData(res.data);
+        setUserData(res.data.user);
 
         setTitle(res.data.title);
         setContent(res.data.content);
@@ -138,7 +140,6 @@ const Post = () => {
 
   return (
     <div>
-      post page
       {edit ? (
         <div>
           <form className="">
@@ -187,7 +188,7 @@ const Post = () => {
                   alt="upload_img"
                   src={preview}
                 />
-                <button onClick={deleteFile}>삭제</button>
+                <Button onClick={deleteFile} variant="outlined" color='error'>삭제</Button>
               </div>
             )}
           </div>
@@ -202,7 +203,7 @@ const Post = () => {
                   marginY: 2,
                 }}
               >
-                {postData.idx}번 게시글
+                {postData.id}번 게시글
               </Box>
               <Box
                 sx={{
@@ -249,19 +250,19 @@ const Post = () => {
       {userData.email === localStorage.getItem('user') ? (
         edit ? (
           <div>
-            <Link to="/community">
-              <button>목록으로</button>
+            <Link to="/community" style={{ textDecoration: 'none' }}>
+              <Button variant="outlined" >목록으로</Button>
             </Link>
-            <button onClick={editPost}>수정하기</button>
-            <button onClick={cancel}>취소하기</button>
+            <Button onClick={editPost} variant="outlined" color='success'>수정</Button>
+            <Button onClick={cancel} variant="outlined" color='error'>취소</Button>
           </div>
         ) : (
           <div>
-            <Link to="/community">
-              <button>목록으로</button>
+            <Link to="/community" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined" >목록으로</Button>
             </Link>
-            <button onClick={() => setEdit(true)}>수정하기</button>
-            <button onClick={deletePost}>삭제하기</button>
+            <Button onClick={() => setEdit(true)} variant="outlined" color='success'>수정</Button>
+            <Button onClick={deletePost} variant="outlined" color='error'>삭제</Button>
           </div>
         )
       ) : (
