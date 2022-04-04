@@ -31,11 +31,11 @@ const Write = () => {
   }
 
   const write = (e) => {
-    console.log(image)
+    // console.log(image)
     formData.append('title', title)
     formData.append('content', content)
     formData.append('image', image)
-    console.log(formData)
+    // console.log(formData)
     e.preventDefault()
     axios({
       method: 'post',

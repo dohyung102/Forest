@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 const SellerAuth = () => {
 
+  const navigate = useNavigate()
   const [company, setCompany] = useState('')
   const [EID, setEID] = useState('')
   const [name] = useState('')
@@ -21,20 +23,21 @@ const SellerAuth = () => {
 
   const nameHandle = (event) => {
     const nameInput = event.target.value
-    setCompany(nameInput)
+    setName(nameInput)
   }
   
   const phoneHandle = (event) => {
     const phoneInput = event.target.value
-    setEID(phoneInput)
+    setPhone(phoneInput)
   }
   
   const emailHandle = (event) => {
     const emailInput = event.target.value
-    setEID(emailInput)
+    setEmail(emailInput)
   }
 
-  const getAuth = () => {
+  const getAuth = (event) => {
+    event.preventDefault()
     axios({
       method: 'put',
       url: `http://localhost:8000/api/accounts/getrole/${localStorage.getItem('user_id')}/`,
@@ -44,7 +47,9 @@ const SellerAuth = () => {
     })
       .then((res) => {
         console.log(res)
+        alert('판매자 신청이 완료되었습니다.')
         // 판매자 등록화면으로
+        navigate('/seller')
       })
       .catch((err) => {
         console.log(err)
@@ -72,11 +77,11 @@ const SellerAuth = () => {
           <input type='text' name='name' value={name} onChange={nameHandle} placeholder='담당자 이름' />
         </div>
         <div>
-          <label htmlFor='phone'>사업자 등록번호</label>
+          <label htmlFor='phone'>담당자 연락처</label>
           <input type='number' name='phone' value={phone} onChange={phoneHandle} placeholder='담당자 연락처' />
         </div>
         <div>
-          <label htmlFor='email'>사업자 등록번호</label>
+          <label htmlFor='email'>담당자 이메일</label>
           <input type='email' name='email' value={email} onChange={emailHandle} placeholder='담당자 이메일' />
         </div>
         <button onClick={getAuth}>등록하기</button>

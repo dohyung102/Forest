@@ -14,7 +14,7 @@ const Signup = ({history}) => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   // eslint-disable-next-line no-unused-vars
-  const [gender, setGender] = useState('0')
+  const [gender, setGender] = useState('')
 
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)

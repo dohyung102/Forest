@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import { Grid } from '@mui/material';
+import axios from 'axios';
 
 import Product from './StoreProduct'
 
 const Store = () => {
+
+  const params = useParams()
+  const [storeData, setStoreData] = useState()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const dummy_products = [
@@ -61,17 +66,39 @@ const Store = () => {
     'All','tall','short','big','small','flowery'
   ]
 
+  const getStore = useCallback(async () => {
+    await axios.get(`http://localhost:8000/api/stores/${params.store_id}/`)
+    .then((res) => {
+      console.log(res.data)
+      setStoreData(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [params])
+
   useEffect(() => {
-    activeCategory === 'All'
-      ? setProduct(dummy_products)
-      : setProduct(dummy_products.filter((product) => product.categories.includes(activeCategory)))
-  }, [activeCategory, dummy_products])
+    getStore()
+  }, [getStore])
+
+
+  // 카테고리 부분 해결되면 수정 후 재작성
+  // useEffect(() => {
+  //   activeCategory === 'All'
+  //     ? setProduct(dummy_products)
+  //     : setProduct(dummy_products.filter((product) => product.categories.includes(activeCategory)))
+  // }, [activeCategory, dummy_products])
 
   return (
     <Grid container>
       <Grid item md={3}>
-        <div>판매자명</div>
-        <div>필터</div>
+        {storeData &&
+          <div>{storeData.name}</div>
+        }
+
+        {/* 카테고리 부분 해결되면 수정 후 재작성 */}
+
+        {/* <div>필터</div>
         <ul>
           {dummy_categories.map(category => {
             return(
@@ -86,7 +113,8 @@ const Store = () => {
           <button onClick={() => setActiveCategory('big')}>big</button>
           <button onClick={() => setActiveCategory('small')}>small</button>
           <button onClick={() => setActiveCategory('flowery')}>flowery</button>
-        </ul>
+        </ul> */}
+
         <div>
           <button>상품등록</button>
         </div>
@@ -96,9 +124,14 @@ const Store = () => {
       </Grid>
       <Grid item md={9}>
         <div>상품</div>
-        <Product 
+        {storeData &&
+          <Product 
+            productsList={storeData.product_set}
+          />
+        }
+        {/* <Product 
           productsList={product}
-        />
+        /> */}
       </Grid>
     </Grid>
   );

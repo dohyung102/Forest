@@ -20,13 +20,13 @@ const Post = () => {
   const [edit, setEdit] = useState(false);
   const [userData, setUserData] = useState([]);
 
-  const params = useParams();
-
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [preview, setPreview] = useState('');
   const [image, setImage] = useState('');
   const formData = new FormData();
+  const params = useParams();
+  // console.log(params)
 
   const titleHandle = (event) => {
     setTitle(event.target.value);
@@ -45,13 +45,13 @@ const Post = () => {
     setImage([]);
   };
 
-  const testfunc = useCallback(async () => {
+  const getPost = useCallback(async () => {
     await axios
-      .get(`http://localhost:8000/api/posts/${params.post_pk}/`)
+      .get(`http://localhost:8000/api/posts/${params.post_id}/`)
       .then((res) => {
         console.log(res.data);
         setPostData(res.data);
-        setUserData(res.data.user);
+
         setTitle(res.data.title);
         setContent(res.data.content);
       })
@@ -78,22 +78,31 @@ const Post = () => {
   // }, [params.post_pk])
 
   useEffect(() => {
-    testfunc();
-  }, [testfunc, edit]);
+    getPost();
+  }, [getPost, edit]);
 
-  const editPost = () => {
+  const editPost = (event) => {
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('image', image);
+    event.preventDefault();
+
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      data: {
-        title: title,
-        content: content,
-        // image: formData,
-      },
+      data: formData,
     })
+      .then((res) => {
+        console.log(res);
+        setEdit(false);
+        // navigate(`/community/${params.post_pk}/`)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       .then((res) => {
         console.log(res);
         setEdit(false);
@@ -107,7 +116,7 @@ const Post = () => {
   const deletePost = () => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/posts/${params.post_pk}/`,
+      url: `http://localhost:8000/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

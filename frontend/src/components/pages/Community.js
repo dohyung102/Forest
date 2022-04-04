@@ -38,29 +38,16 @@ const Community = () => {
   const [preItems, setPreItems] = useState(0);
   const [items, setItems] = useState(9);
 
-  const getPosts = useCallback(async () => {
-    setLoading(true);
-    await axios.get('http://localhost:8000/api/posts/').then((res) => {
-      console.log(res.data);
-      setPosts((prevState) => [
-        ...prevState,
-        ...res.data.slice(preItems, items),
-      ]);
-      // setPosts(prevState => [...prevState, ...res.data.results])
-    });
-    setLoading(false);
-  }, [preItems, items]);
+  const getPosts = useCallback(async () => {}, [preItems, items]);
 
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
-    if (scrollHeight - scrollTop === clientHeight && !loading) {
-      setPreItems(items);
-      setItems((items) => items + 9);
+    setPreItems(items);
+    setItems((items) => items + 9);
 
-      setPage((page) => page + 1);
-    }
+    setPage((page) => page + 1);
   };
 
   const navigate = useNavigate();
@@ -202,14 +189,27 @@ const Community = () => {
 
   return (
     <div>
-      community page
-      <button onClick={toPost}>글쓰기</button>
+      <div>
+        <p className="community-title">커뮤니티</p>
+        <button className="community-btn" onClick={toPost}>
+          글쓰기
+        </button>
+      </div>
+
       {posts.map((post) => {
         return (
           <Grid
             container
             spacing={0}
-            sx={{ borderTop: 1, borderColor: 'grey.300' }}
+            my={1}
+            sx={{
+              // backgroundColor: 'grey.200',
+              border: 1,
+              borderRadius: '20px',
+              // borderTop:1,
+              // borderBottom:1,
+              borderColor: 'grey.200',
+            }}
             // justifyContent='center' direction='column'
             style={{ height: '110px' }}
             onClick={(e) => {
@@ -219,7 +219,11 @@ const Community = () => {
           >
             {/* 좋아요 */}
             <Grid item md={2}>
-              {/* {post.likes} */}
+              <img
+                className="community-post-img"
+                src={post.image}
+                alt="post_img"
+              />
             </Grid>
             {/* 이미지 */}
             {post.image && (
@@ -241,6 +245,7 @@ const Community = () => {
                     justifyContent: 'center',
                   }}
                 >
+                  <div>{post.id}번 게시글</div>
                   <div>{post.title}</div>
                   <div>{post.content}</div>
                 </div>
@@ -254,6 +259,7 @@ const Community = () => {
                     justifyContent: 'center',
                   }}
                 >
+                  <div>{post.id}번 게시글</div>
                   <div>{post.title}</div>
                   <div>{post.content}</div>
                 </div>
@@ -262,6 +268,10 @@ const Community = () => {
           </Grid>
         );
       })}
+
+      {/* <div className='community-footer'>
+        footer
+      </div> */}
     </div>
   );
 };
