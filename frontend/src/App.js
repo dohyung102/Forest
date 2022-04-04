@@ -17,6 +17,7 @@ import Write from './components/pages/Write';
 import Detail from './components/pages/Detail';
 import Product from './components/pages/Product';
 import Store from './components/pages/Store';
+import StoreMain from './components/pages/StoreMain';
 import SellerAuth from './components/pages/SellerAuth';
 import SellRegist from './components/pages/SellRegist';
 import Survey from './components/pages/Survey';
@@ -47,6 +48,7 @@ function App() {
           <Route path="/community" element={<Community />} />
           <Route path="/community/:post_id" element={<Post />} />
           <Route path="/community/write" element={<Write />} />
+          <Route path="/store" element={<StoreMain />} />
           <Route path="/store/:store_id" element={<Store />} />
 
           <Route path="/sellerauth" element={<SellerAuth />} />

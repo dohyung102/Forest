@@ -1,145 +1,214 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
-const ProductComments = (props) => {
+const ProductReviews = (props) => {
 
-  // 에러 잡는 중
-  
-  // console.log(props)
-  // const params = useParams()
-  // const navigate = useNavigate()
-  // const [comment, setComment] = useState('')
-  // const [commentPK, setCommentPK] = useState(0)
-  // const [commentEditContent, setCommentEditContent] = useState('')
+  console.log(props)
+  const [reviewData, setReviewData] = useState()
+  const params = useParams()
+  const navigate = useNavigate()
+  // const [title, setTitle] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [review, setReview] = useState('')
+  const [star, setStar] = useState(5)
+  const [reviewPK, setReviewPK] = useState(0)
+  const [reviewEditContent, setReviewEditContent] = useState('')
+  const [reviewEditStar, setReviewEditStar] = useState('')
 
-  // const commentHandle = (event) => {
-  //   const commentInput = event.target.value
-  //   setComment(commentInput)
+  // const titleHandle = (event) => {
+  //   const titleInput = event.target.value
+  //   setTitle(titleInput)
   // }
 
-  // const commentEditHandle = (event) => {
-  //   const editInput = event.target.value
-  //   setCommentEditContent(editInput)
-  // }
+  const reviewHandle = (event) => {
+    const reviewInput = event.target.value
+    setReview(reviewInput)
+  }
 
-  // const createComment = (e) => {
-  //   e.preventDefault();
-  //   axios({
-  //     method: 'post',
-  //     url: `http://localhost:8000/api/posts/${params.post_pk}/comment/`,
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`
-  //     },
-  //     data: {
-  //       content: comment
-  //     }
+  const starHandle = (event) => {
+    const starInput = event.target.value
+    setStar(starInput)
+  }
+
+  const reviewEditHandle = (event) => {
+    const editInput = event.target.value
+    setReviewEditContent(editInput)
+  }
+
+  const starEditHandle = (event) => {
+    const editInput = event.target.value
+    setReviewEditStar(editInput)
+  }
+
+  const createReview = (event) => {
+    event.preventDefault()
+    console.log(props.loading)
+    props.setLoading(true)
+    console.log(props.loading)
+    axios({
+      method: 'post',
+      url: `http://localhost:8000/api/products/${params.product_id}/review/`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: {
+        context: review,
+        star: star,
+      }
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      
+    props.setLoading(false)
+    console.log(props.loading)
+  }
+
+  const editReview = (reviewID) => {
+    axios({
+      method: 'put',
+      url: `http://localhost:8000/api/products/${params.product_id}/review/${reviewID}/`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: {
+        context: reviewEditContent,
+        star: reviewEditStar
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const deleteReview = (reviewID) => {
+    axios({
+      method: 'delete',
+      url: `http://localhost:8000/api/products/${params.product_id}/review/${reviewID}/`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+    })
+      .then((res) => {
+        // navigate(`/community/${params.post_pk}`)
+        console.log('delete complete')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const editFunc = (review) => {
+    setReviewPK(review.id)
+    setReviewEditContent(review.context)
+    setReviewEditStar(review.star)
+  }
+
+  // const getReviews = useCallback(async () => {
+  //   const headers = {
+  //     'Authorization' : `Bearer ${localStorage.getItem('token')}`
+  //   }
+  //   await axios.get(`http://localhost:8000/api/products/${params.product_id}/`,
+  //     {headers : headers}
+  //   )
+  //   .then((res) => {
+  //     console.log(res.data.review_set)
+  //     setReviewData(res.data.review_set)
   //   })
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
-
-  // const editComment = (commentID) => {
-  //   axios({
-  //     method: 'put',
-  //     url: `http://localhost:8000/api/posts/${params.post_pk}/comment/${commentID}/`,
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`
-  //     },
-  //     data: {
-  //       content: commentEditContent
-  //     }
+  //   .catch((err) => {
+  //     console.log(err)
   //   })
-  //     .then((res) => {
-  //       console.log(res.data)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
+  // }, [params])
 
-  // const deleteComment = (commentID) => {
-  //   axios({
-  //     method: 'delete',
-  //     url: `http://localhost:8000/api/posts/${params.post_pk}/comment/${commentID}/`,
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`
-  //     },
-  //   })
-  //     .then((res) => {
-  //       // navigate(`/community/${params.post_pk}`)
-  //       console.log('delete complete')
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
-
-  // const editFunc = (comment) => {
-  //   setCommentPK(comment.id)
-  //   setCommentEditContent(comment.content)
-  // }
+  // useEffect(() => {
+  //   getReviews()
+  // }, [getReviews])
 
   return (
-    // 에러 잡는 중
-    <div></div>
-    // <div>
-    //   댓글목록
-    //   <form>
-    //     <input 
-    //       type='text' 
-    //       name='comment_input' 
-    //       value={comment} 
-    //       onChange={commentHandle} 
-    //       placeholder='이 곳에 댓글 작성' 
-    //     />
-    //     <button onClick={createComment}>댓글 쓰기</button>
-    //   </form>
-    //   <div>
-    //     {props.comment.comment_set 
-    //       &&
-    //       props.comment.comment_set.map((comment) => {
-    //       return(
-    //         <div key={comment.id}>
-    //           {commentPK === comment.id
-    //             ?
-    //             <div>
-    //               <form>
-    //                 <input 
-    //                   type='text'
-    //                   value={commentEditContent}
-    //                   name='comment_edit'
-    //                   // onChange={commentEditHandle}
-    //                 />
-    //                 {/* <button onClick={() => editComment(comment.id)}>수정</button> */}
-    //                 <button>수정</button>
-    //                 {/* <button onClick={() => setCommentPK(0)}>취소</button> */}
-    //                 <button>취소</button>
-    //               </form>
-    //             </div>
-    //             :
-    //             <div>
-    //               {comment.user} | {comment.content} | {comment.create_date}
-    //               {localStorage.getItem('user') === comment.user
-    //                 && 
-    //                 <div>
-    //                   {/* <button onClick={() => setCommentPK(comment.id)}>수정</button> */}
-    //                   {/* <button onClick={() => editFunc(comment)}>수정</button> */}
-    //                   {/* <button onClick={() => deleteComment(comment.id)}>삭제</button> */}
-    //                 </div>                
-    //               }
-    //             </div>
-    //           }
-    //         </div>
-    //       )
-    //     })}
-    //   </div>
-    // </div>
+    <div>
+      리뷰 목록
+      <form>
+        {/* <input 
+          type='text' 
+          name='title_input' 
+          value={title} 
+          onChange={titleHandle} 
+          placeholder='이 곳에 제목 작성' 
+        /> */}
+        <input 
+          type='text' 
+          name='review_input' 
+          value={review} 
+          onChange={reviewHandle} 
+          placeholder='이 곳에 리뷰 작성' 
+        />
+        <input 
+          type='number' 
+          name='star_input' 
+          value={star} 
+          onChange={starHandle} 
+          min='0'
+          max='5'
+          placeholder='이 곳에 평점 작성' 
+        />
+        <button onClick={createReview}>리뷰 작성</button>
+      </form>
+      <div>
+        {props.reviews
+          &&
+          props.reviews.map((review) => {
+          return(
+            <div key={review.id}>
+              {reviewPK === review.id
+                ?
+                <div>
+                  <form>
+                    <input 
+                      type='text'
+                      value={reviewEditContent}
+                      name='review_edit'
+                      onChange={reviewEditHandle}
+                    />
+                    <input 
+                      type='number'
+                      value={reviewEditStar}
+                      name='star_edit'
+                      onChange={starEditHandle}
+                      min='0'
+                      max='5'
+                    />
+                    <button onClick={() => editReview(review.id)}>수정</button>
+                    {/* <button>수정</button> */}
+                    <button onClick={() => setReviewPK(0)}>취소</button>
+                    {/* <button>취소</button> */}
+                  </form>
+                </div>
+                :
+                <div>
+                  {review.user} | {review.context} | {review.create_date} | {review.star}
+                  {localStorage.getItem('user') === review.user
+                    && 
+                    <div>
+                      <button onClick={() => setReviewPK(review.id)}>수정</button>
+                      <button onClick={() => editFunc(review)}>수정</button>
+                      <button onClick={() => deleteReview(review.id)}>삭제</button>
+                    </div>                
+                  }
+                </div>
+              }
+            </div>
+          )
+        })}
+      </div>
+    </div>
   );
 };
 
-export default ProductComments;
+export default ProductReviews;

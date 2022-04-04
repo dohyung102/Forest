@@ -9,7 +9,7 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-import Comments from './ProductComments'
+import Reviews from './ProductComments'
 import './Product.css'
 
 const Detail = () => {
@@ -17,6 +17,7 @@ const Detail = () => {
   const params = useParams()
   console.log(params)
   const [plantData, setPlantData] = useState()
+  const [loading, setLoading] = useState(false)
 
   const dummy_plant = {
     'name' : '식물a',
@@ -82,7 +83,7 @@ const Detail = () => {
 
   useEffect(() => {
     getProduct()
-  }, [getProduct])
+  }, [getProduct, loading])
 
   const settings = {
     // slide: 'div',
@@ -157,7 +158,8 @@ const Detail = () => {
           }
         </div>
         {plantData &&
-          <Comments reviews={plantData.review_set} />
+          <Reviews reviews={plantData.review_set} loading={loading} setLoading={setLoading} />
+          // <Reviews />
         }
       </Container>
     </div>
