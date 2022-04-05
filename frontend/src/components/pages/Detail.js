@@ -86,7 +86,9 @@ const Detail = () => {
               >
                 <img
                   className="detail-similar-img"
-                  src={`http://j6d204.p.ssafy.io/${plant.image_path.substr(7)}`}
+                  src={`http://j6d204.p.ssafy.io/backend/media/${plant.image_path.substr(
+                    7
+                  )}`}
                   alt="plant_img"
                 />
                 <div className="detail-similar-name">{plant.name}</div>
