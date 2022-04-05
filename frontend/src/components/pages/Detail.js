@@ -17,6 +17,7 @@ const Detail = () => {
   const [similar, setSimilar] = useState();
 
   useEffect(() => {
+    console.log(params.plant_id);
     axios({
       method: 'get',
       url: `http://j6d204.p.ssafy.io/api/plants/${params.plant_id}/`,
@@ -56,7 +57,7 @@ const Detail = () => {
           <div className="detail-plant-img">
             <img
               className="detail-plant-img"
-              src={`http://j6d204.p.ssafy.io/${plantData.image_path.substr(7)}`}
+              src={`http://j6d204.p.ssafy.io/${plantData.image_path}`}
               alt="plant_img"
             />
           </div>
