@@ -36,12 +36,11 @@ class PlantViewSet(viewsets.ModelViewSet):
     serializer_class = PlantSerializers
     permission_classes = [AllowAny]
 
-    def list(self, request):
-        plants = Plant.objects.all()
-        plants.image_path = plants.image_path[7:]
+    # def list(self, request):
+    #     plants = Plant.objects.all()
 
-        serialzers = PlantListSerializers(plants, many=True)
-        return Response(serialzers.data, status=status.HTTP_200_OK) 
+    #     serialzers = PlantListSerializers(plants, many=True)
+    #     return Response(serialzers.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk, *args, **kwargs):
         if request.user.is_authenticated:

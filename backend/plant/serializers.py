@@ -1,4 +1,5 @@
 from dataclasses import field
+from matplotlib import use
 from rest_framework import serializers
 from .models import Plant
 from .recomm_functions import find_similar_plant_by_plant_id
@@ -12,7 +13,7 @@ class ProductSerializers(serializers.ModelSerializer):
 
 
 class PlantListSerializers(serializers.ModelSerializer):
-    
+    image_path = serializers.ImageField(use_url=False)   
     class Meta:
         model = Plant
         fields = '__all__'
