@@ -1,76 +1,150 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import styled from 'styled-components';
-import './Survey.css'
+import './Survey.css';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 // import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Survey = () => {
+  
+  const navigate = useNavigate();
   // const history = useHistory();
 
-  const [isClick, setIsClick] = useState(false)
-  const [isUnclick, setIsUnclick] = useState(false)
+  const [watering, setWatering] = React.useState('');
+  const [flowerPresence, setFlowerPresence] = React.useState('');
+  const [manageDifficulty, setManageDifficulty] = React.useState('');
+  const [growthRate, setGrowthRate] = React.useState('');
+  const [placement, setPlacement] = React.useState('');
 
-  const toggleClick = () => {
-    setIsClick(!isClick);
+  const wateringHandleChange = (event, newWatering) => {
+    // let waterTemp = newWatering.join().toString();
+    setWatering(newWatering);
+    console.log(newWatering)
+  };
+
+  const flowerPresenceHandleChange = (event, newFlowerPresence) => {
+    setFlowerPresence(newFlowerPresence);
+    console.log(newFlowerPresence)
+  };
+
+  const manageDifficultyHandleChange = (event, newManageDifficulty) => {
+    setManageDifficulty(newManageDifficulty);
+    console.log(newManageDifficulty)
+  };
+
+  const growthRateHandleChange = (event, newGrowthRate) => {
+    setGrowthRate(newGrowthRate);
+    console.log(newGrowthRate)
+  };
+
+  const placementHandleChange = (event, newPlacement) => {
+    setPlacement(newPlacement);
+    console.log(newPlacement)
+  };
+
+
+  const survey = () => {
+    axios({
+      method: 'post',
+      url: 'http://j6d204.p.ssafy.io/api/accounts/preference/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: {
+        watering: watering.join(),
+        flower_presence: flowerPresence.join(),
+        manage_difficulty: manageDifficulty.join(),
+        growth_rate: growthRate.join(),
+        placement: placement.join(),
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        alert('survey completed')
+        navigate('/recommend')
+      })
+      .catch((err) => {
+        console.log(err)
+      })    
   }
-
-  const toggleUnclick = () => {
-    setIsUnclick(!isUnclick);
-  }
-
-  // const survey = () => {
-  //   axios({
-  //     method: 'post',
-  //     url: 'http://localhost:8000/api/$/',
-  //     data: {
-  //       flower: flower,
-  //       speed: speed,
-  //       size: size,
-  //     }
-  //   })
-  //     .then((res) => {
-  //       console.log(res)
-  //       alert('survey completed')
-  //       navigate('/recommend')
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })    
-  // }
 
   return (
     <div>
       <h1>선호하는 환경을 입력해주세요</h1>
+      <h3>물 주기</h3>
+      <ToggleButtonGroup
+        color="primary"
+        value={watering}
+
+        onChange={wateringHandleChange}
+      >
+        <ToggleButton value="0">식물을 물 속에 두고 편하게 키우고 싶어요</ToggleButton>
+        <ToggleButton value="1">한달에 한 두번 물을 주고 싶어요</ToggleButton>
+        <ToggleButton value="2">주에 한 번 정도 물을 주고 싶어요</ToggleButton>
+        <ToggleButton value="3">주에 두 번 정도는 물을 주는게 좋아요</ToggleButton>
+        <ToggleButton value="4">매일 신경쓰면서 자주 물을 주는게 좋아요</ToggleButton>
+      </ToggleButtonGroup>
+      
+
+      <h3>꽃의 유무</h3>
+      <ToggleButtonGroup
+        color="primary"
+        value={flowerPresence}
+
+        onChange={flowerPresenceHandleChange}
+      >
+        <ToggleButton value="0">있었으면 좋겠어요</ToggleButton>
+        <ToggleButton value="1">없는 게 좋아요</ToggleButton>
+        <ToggleButton value="2">상관없어요</ToggleButton>
+      </ToggleButtonGroup>
+
       <h3>관리 난이도</h3>
-      <button style={isClick ? {backgroundColor: 'green', color: 'white'} : {backgroundColor: 'white', color: 'black'}} onClick={isClick ? toggleUnclick : toggleClick}>쉬워요</button>
-      &nbsp;&nbsp;
-      <button style={isClick ? {backgroundColor: 'green', color: 'white'} : {backgroundColor: 'white', color: 'black'}} onClick={isClick ? toggleUnclick : toggleClick}>어려워요</button>
+      <ToggleButtonGroup
+        color="primary"
+        value={manageDifficulty}
 
+        onChange={manageDifficultyHandleChange}
+      >
+        <ToggleButton value="0">쉬워요</ToggleButton>
+        <ToggleButton value="1">보통이에요</ToggleButton>
+        <ToggleButton value="2">어려워요</ToggleButton>
+        <ToggleButton value="3">엄청 어려워요</ToggleButton>
+      </ToggleButtonGroup>
 
-      <h3>꽃 유무</h3>
-      <button>있었으면 좋겠어요</button>
-      &nbsp;&nbsp;
-      <button>없는 게 좋아요</button>
-      &nbsp;&nbsp;
-      <button>상관없어요</button>
+      <h3>성장 빠르기</h3>
+      <ToggleButtonGroup
+        color="primary"
+        value={growthRate}
 
-      <h3>성장 속도</h3>
-      <button>느려요</button>
-      &nbsp;&nbsp;
-      <button>빨라요</button>
+        onChange={growthRateHandleChange}
+      >
+        <ToggleButton value="0">느린게 좋아요</ToggleButton>
+        <ToggleButton value="1">평범한게 좋아요</ToggleButton>
+        <ToggleButton value="2">빠른게 좋아요</ToggleButton>
+      </ToggleButtonGroup>
 
-      <h3>크기</h3>
-      <button>작아요</button>
-      &nbsp;&nbsp;
-      <button>적당해요</button>
-      &nbsp;&nbsp;
-      <button>커요</button>
+      <h3>배치 장소</h3>
+      <ToggleButtonGroup
+        color="primary"
+        value={placement}
+
+        onChange={placementHandleChange}
+      >
+        <ToggleButton value="0">거실 안쪽에 두고 싶어요</ToggleButton>
+        <ToggleButton value="1">거실 창가 쪽에 두고 싶어요</ToggleButton>
+        <ToggleButton value="2">발코니 안쪽에 두고 싶어요</ToggleButton>
+        <ToggleButton value="3">발코니 창가 쪽에 두고 싶어요</ToggleButton>
+      </ToggleButtonGroup>
+
       <br></br><br></br><br></br><br></br>
       <p>
         <button
           // onClick={ () => {
           // history.goBack();}}
           >뒤로 가기</button>
-        <button type='submit'>확인</button>
+        <button type='submit' onClick={survey}>확인</button>
       </p>
     </div>
   )
