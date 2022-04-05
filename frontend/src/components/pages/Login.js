@@ -35,7 +35,7 @@ const Login = () => {
   const login = () => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/api/users/login/',
+      url: 'http://j6d204.p.ssafy.io/api/users/login/',
       data: {
         email: email,
         password: password,
