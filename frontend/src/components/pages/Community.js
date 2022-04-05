@@ -38,7 +38,19 @@ const Community = () => {
   const [preItems, setPreItems] = useState(0);
   const [items, setItems] = useState(9);
 
-  const getPosts = useCallback(async () => {}, [preItems, items]);
+  const getPosts = useCallback(async () => {
+    setLoading(true);
+    await axios.get('http://j6d204.p.ssafy.io/api/posts/').then((res) => {
+      // console.log(res.data.reverse())
+      res.data.reverse();
+      setPosts((prevState) => [
+        ...prevState,
+        ...res.data.slice(preItems, items),
+      ]);
+      // setPosts(prevState => [...prevState, ...res.data.results])
+    });
+    setLoading(false);
+  }, [preItems, items]);
 
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -65,127 +77,6 @@ const Community = () => {
       window.removeEventListener('scroll', scrollHandle);
     };
   });
-
-  // return (
-  //   <div>
-  //     <Container maxWidth="md">
-  //       community page
-  //       {/* <button><Link to='/post'>글쓰기</Link></button> */}
-  //       <button onClick={toPost}>글쓰기</button>
-  //     </Container>
-  //     <Container maxWidth="md">
-  //       {/* {dummy_posts.map(post => { */}
-  //       {dummy_posts.map((post, idx) => {
-  //         return (
-  //           <Link
-  //             to={`/community/${dummy_posts.idx}`}
-  //             style={{ textDecoration: 'none' }}
-  //           >
-  //             <Divider variant="middle" />
-  //             <Card sx={{ width: '100%', display: 'flex' }}>
-  //               <CardActionArea>
-  //                 <Box
-  //                   sx={{
-  //                     display: 'flex',
-  //                     flexDirection: 'row',
-  //                     alignItems: 'center',
-  //                   }}
-  //                 >
-  //                   <Box>
-  //                     <Typography component="div">
-  //                       <ThumbUpIcon />
-  //                       <Typography component="span" variant="overline">
-  //                         {post.likes}
-  //                       </Typography>
-  //                     </Typography>
-  //                   </Box>
-  //                   <Box>
-  //                     <Avatar
-  //                       variant="rounded"
-  //                       alt=""
-  //                       src={post.img}
-  //                       sx={{ width: '80px', height: '80px' }}
-  //                     />
-  //                   </Box>
-  //                   <Box>
-  //                     <Typography component="div" variant="h5">
-  //                       {post.title}
-  //                     </Typography>
-  //                     <Typography component="div" variant="h6">
-  //                       {post.content}
-  //                     </Typography>
-  //                   </Box>
-  //                 </Box>
-  //               </CardActionArea>
-  //             </Card>
-  //           </Link>
-  //         );
-  //       })}
-  //       {dummy_posts.map((post, idx) => {
-  //         return (
-  //           <Link to={`/community/${post.idx}`}>
-  //             <Grid
-  //               container
-  //               spacing={0}
-  //               sx={{ borderTop: 1, borderColor: 'grey.300' }}
-  //               // justifyContent='center' direction='column'
-  //               key={idx}
-  //               style={{ height: '110px' }}
-  //             >
-  //               {/* 좋아요 */}
-  //               <Grid item md={2}>
-  //                 {post.likes}
-  //               </Grid>
-  //               {/* 이미지 */}
-  //               {post.img && (
-  //                 <Grid item md={2}>
-  //                   <img
-  //                     className="community-post-img"
-  //                     src={post.img}
-  //                     alt="post_img"
-  //                   />
-  //                 </Grid>
-  //               )}
-  //               {/* 컨텐츠 */}
-  //               {post.img ? (
-  //                 <Grid item md={7}>
-  //                   <div
-  //                     style={{
-  //                       display: 'flex',
-  //                       flexDirection: 'column',
-  //                       justifyContent: 'center',
-  //                     }}
-  //                   >
-  //                     <div>{post.title}</div>
-  //                     <div>{post.content}</div>
-  //                   </div>
-  //                 </Grid>
-  //               ) : (
-  //                 <Grid item md={9}>
-  //                   <div
-  //                     style={{
-  //                       display: 'flex',
-  //                       flexDirection: 'column',
-  //                       justifyContent: 'center',
-  //                     }}
-  //                   >
-  //                     <div>{post.title}</div>
-  //                     <div>{post.content}</div>
-  //                   </div>
-  //                 </Grid>
-  //               )}
-  //             </Grid>
-  //           </Link>
-  //         );
-  //       })}
-  //       {posts.map((post, idx) => {
-  //         return (
-  //           <div style={{ height: '45px' }} key={idx}>
-  //             {post.title}
-  //           </div>
-  //         );
-  //       })}
-  //     </Container>
 
   return (
     <div>
@@ -230,7 +121,7 @@ const Community = () => {
               <Grid item md={2}>
                 <img
                   className="community-post-img"
-                  src={post.image}
+                  src={`http://j6d204.p.ssafy.io/${post.image.substr(7)}`}
                   alt="post_img"
                 />
               </Grid>

@@ -9,12 +9,10 @@ from .models import Preference, User
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
-    gender = serializers.CharField()
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
         data['nickname'] = self._validated_data.get('nickname', '')
-        data['gender'] = self._validated_data.get('gender', '')
         return data
     
     class Meta:

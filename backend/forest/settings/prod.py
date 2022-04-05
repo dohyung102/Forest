@@ -13,5 +13,5 @@ DATABASES = {
         'PASSWORD': 'ssafy', 
         'HOST': 'db', 
         'PORT': '3306',
-     } 
+     }
 }

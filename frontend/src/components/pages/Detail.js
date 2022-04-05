@@ -19,7 +19,7 @@ const Detail = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `http://localhost:8000/api/plants/${params.plant_id}/`,
+      url: `http://j6d204.p.ssafy.io/api/plants/${params.plant_id}/`,
     })
       .then((res) => {
         console.log('res.data', res.data);
@@ -56,7 +56,7 @@ const Detail = () => {
           <div className="detail-plant-img">
             <img
               className="detail-plant-img"
-              src={plantData.image_path}
+              src={`http://j6d204.p.ssafy.io/${plantData.image_path.substr(7)}`}
               alt="plant_img"
             />
           </div>
@@ -86,7 +86,7 @@ const Detail = () => {
               >
                 <img
                   className="detail-similar-img"
-                  src={'http://localhost:8000/media/' + plant.image_path}
+                  src={`http://j6d204.p.ssafy.io/${plant.image_path.substr(7)}`}
                   alt="plant_img"
                 />
                 <div className="detail-similar-name">{plant.name}</div>

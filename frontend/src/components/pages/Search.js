@@ -31,7 +31,7 @@ const Search = () => {
   // const [plants, setPlants] = useState(dummy_plants)
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/plants/').then((res) => {
+    axios.get('http://j6d204.p.ssafy.io/api/plants/').then((res) => {
       console.log(res.data);
       setWholePlants(res.data);
     });
@@ -79,7 +79,9 @@ const Search = () => {
           <Link to={`/detail/${plant_data.id}`}>
             <img
               className="home-plant-img"
-              src={plant_data.image_path}
+              src={`http://j6d204.p.ssafy.io/${plant_data.image_path.substr(
+                7
+              )}`}
               alt="plant_img"
             />
           </Link>

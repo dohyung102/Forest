@@ -1,0 +1,24 @@
+.comment-textbox {
+    width: 100%;
+    height: 100px;
+}
+
+hr{
+    height: 1px;
+    background-color: #ccc;
+    border: none;
+}
+
+.button {
+    margin:1px;
+}
+
+.write-textbox {
+    width: 100%;
+    height: 100px;
+}
+
+.write-form {
+    margin-left: 50px;
+    margin-right: 50px;
+}

@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   Avatar,
+  Button,
 } from '@mui/material';
 
 import Comment from './Comment';
@@ -47,10 +48,11 @@ const Post = () => {
 
   const getPost = useCallback(async () => {
     await axios
-      .get(`http://localhost:8000/api/posts/${params.post_id}/`)
+      .get(`http://j6d204.p.ssafy.io/api/posts/${params.post_id}/`)
       .then((res) => {
         console.log(res.data);
         setPostData(res.data);
+        setUserData(res.data.user);
 
         setTitle(res.data.title);
         setContent(res.data.content);
@@ -89,7 +91,7 @@ const Post = () => {
 
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/posts/${params.post_id}/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -116,7 +118,7 @@ const Post = () => {
   const deletePost = () => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/posts/${params.post_id}/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -138,34 +140,39 @@ const Post = () => {
 
   return (
     <div>
-      post page
       {edit ? (
         <div>
           <form className="">
-            <div>
-              <label htmlFor="title_input">제목 </label>
+            <div className="input-text">
+              <label htmlFor="title_input">
+                <h3>제목</h3>
+              </label>
               <input
+                className="write-title"
                 type="text"
                 name="title_input"
                 value={title}
                 onChange={titleHandle}
-                placeholder="제목"
-                className=""
+                placeholder="제목을 입력해 주세요."
               />
             </div>
-            <div>
-              <label htmlFor="content_input">내용 </label>
-              <input
-                type="text"
+            <div className="input-text">
+              <label htmlFor="content_input">
+                <h3>내용</h3>
+              </label>
+              <textarea
+                className="write-textbox"
                 name="content_input"
                 value={content}
                 onChange={contentHandle}
-                placeholder="내용"
-                className=""
-              />
+                placeholder="내용을 입력해 주세요."
+              ></textarea>
             </div>
-            <div>
-              <label htmlFor="image">이미지 첨부하기 </label>
+            <div className="input-text">
+              <label htmlFor="image">
+                <h3>이미지 첨부하기</h3>
+              </label>
+              <br />
               <input
                 type="file"
                 name="image"
@@ -175,7 +182,6 @@ const Post = () => {
             </div>
           </form>
           <div>
-            <p>업로드된 이미지</p>
             {preview && (
               <div className="upload_img">
                 <img
@@ -187,7 +193,9 @@ const Post = () => {
                   alt="upload_img"
                   src={preview}
                 />
-                <button onClick={deleteFile}>삭제</button>
+                <Button onClick={deleteFile} variant="outlined" color="error">
+                  삭제
+                </Button>
               </div>
             )}
           </div>
@@ -202,7 +210,7 @@ const Post = () => {
                   marginY: 2,
                 }}
               >
-                {postData.idx}번 게시글
+                {postData.id}번 게시글
               </Box>
               <Box
                 sx={{
@@ -249,19 +257,31 @@ const Post = () => {
       {userData.email === localStorage.getItem('user') ? (
         edit ? (
           <div>
-            <Link to="/community">
-              <button>목록으로</button>
+            <Link to="/community" style={{ textDecoration: 'none' }}>
+              <Button variant="outlined">목록으로</Button>
             </Link>
-            <button onClick={editPost}>수정하기</button>
-            <button onClick={cancel}>취소하기</button>
+            <Button onClick={editPost} variant="outlined" color="success">
+              수정
+            </Button>
+            <Button onClick={cancel} variant="outlined" color="error">
+              취소
+            </Button>
           </div>
         ) : (
           <div>
-            <Link to="/community">
-              <button>목록으로</button>
+            <Link to="/community" style={{ textDecoration: 'none' }}>
+              <Button variant="outlined">목록으로</Button>
             </Link>
-            <button onClick={() => setEdit(true)}>수정하기</button>
-            <button onClick={deletePost}>삭제하기</button>
+            <Button
+              onClick={() => setEdit(true)}
+              variant="outlined"
+              color="success"
+            >
+              수정
+            </Button>
+            <Button onClick={deletePost} variant="outlined" color="error">
+              삭제
+            </Button>
           </div>
         )
       ) : (

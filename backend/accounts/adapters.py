@@ -8,12 +8,9 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user = super().save_user(request, user, form, False)
         # 추가 저장 필드
         nickname = data.get('nickname')
-        gender = data.get('gender')
 
         if nickname:
             user.nickname = nickname
-        if gender:
-            user.gender = gender
 
         user.save()
         return user

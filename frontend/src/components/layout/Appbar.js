@@ -38,14 +38,14 @@ const Appbar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar sx={{ bgcolor: 'teal' }}>
       <Toolbar>
         <Container maxWidth="md" height="100%" disableGutters>
           {/* 웹 화면 */}
           <Box
             sx={{
               mx: 1,
-              my: 0.5,
+              my: 0,
               display: { xs: 'none', md: 'flex' },
               justifyContent: 'space-between',
               alignItems: 'center',
