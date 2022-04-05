@@ -13,7 +13,7 @@ class ProductSerializers(serializers.ModelSerializer):
 
 
 class PlantListSerializers(serializers.ModelSerializer):
-    # image_path = serializers.ImageField(use_url=False)   
+    image_path = serializers.ImageField(use_url=False)   
     class Meta:
         model = Plant
         fields = '__all__'
