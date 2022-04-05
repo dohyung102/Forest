@@ -57,7 +57,7 @@ const Detail = () => {
           <div className="detail-plant-img">
             <img
               className="detail-plant-img"
-              src={`http://j6d204.p.ssafy.io/${plantData.image_path}`}
+              src={`http://j6d204.p.ssafy.io/${plantData.image_path.substr(7)}`}
               alt="plant_img"
             />
           </div>
@@ -87,9 +87,7 @@ const Detail = () => {
               >
                 <img
                   className="detail-similar-img"
-                  src={`http://j6d204.p.ssafy.io/backend/media/${plant.image_path.substr(
-                    7
-                  )}`}
+                  src={`http://j6d204.p.ssafy.io/backend/media/${plant.image_path}`}
                   alt="plant_img"
                 />
                 <div className="detail-similar-name">{plant.name}</div>
