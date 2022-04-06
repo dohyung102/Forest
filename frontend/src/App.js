@@ -24,6 +24,7 @@ import Survey from './components/pages/Survey';
 import CartTest from './components/pages/CartTest';
 import Carousel from './components/pages/Carousel';
 import Seller from './components/pages/Seller';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import Myreviews from '../pages/Myreviews';
 

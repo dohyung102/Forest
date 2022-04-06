@@ -22,7 +22,7 @@ class CommentSerializers(serializers.ModelSerializer):
 
 class PostSerializers(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
-
+    
     class Meta:
         model = Post
         fields = '__all__'
