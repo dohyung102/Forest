@@ -13,6 +13,7 @@ post_list = PostViewSet.as_view({
 post_detail = PostDetailViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
+    
     'delete': 'destroy'
 })
 
