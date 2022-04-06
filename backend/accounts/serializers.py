@@ -38,6 +38,7 @@ class CustomUserDetailSerializer(UserDetailsSerializer):
     wishlist_set = WishlistSerializers(read_only=True, many=True)
     preference_set = PreferenceSerializer(read_only=True, many=True)
     review_set = ReviewSerializers(read_only=True, many=True)
+    store_set = serializers.ReadOnlyField(source = 'store.pk')
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
