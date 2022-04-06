@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios'
 
 const Seller = () => {
 
   const navigate = useNavigate()
+  const { state } = useLocation()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [preview, setPreview] = useState('')
@@ -21,6 +22,7 @@ const Seller = () => {
   }
   const loadFile = (event) => {
     const imgFile = event.target.files[0]
+    console.log('img',imgFile)
     setPreview(URL.createObjectURL(imgFile))
     setImage(imgFile)
   }
@@ -29,6 +31,18 @@ const Seller = () => {
     setPreview('')
     setImage([])
   }
+
+  useEffect(() => {
+    if (state) {
+      setName(state.name)
+      setDescription(state.description)
+      const img = state.profile_image
+      console.log(img)
+      setPreview(img)
+      // setImage([img])
+      // console.log('image',image)cd f
+    }
+  }, [state])
 
   const createStore = (event) => {
     formData.append('name', name)
@@ -53,9 +67,33 @@ const Seller = () => {
       })
   }
 
+  const editStore = (event) => {
+    formData.append('name', name)
+    formData.append('description', description)
+    if (image)
+      formData.append('profile_image', image)
+    event.preventDefault()
+
+    axios({
+      method: 'put',
+      url: `http://localhost:8000/api/stores/${state.id}/`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res)
+        navigate(`/store/${res.data.id}`)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
     <div>
-      사업자 등록
+      <div>스토어 등록</div>
       <form>
         <div>
           <label htmlFor='name'>브랜드명</label>
@@ -78,7 +116,12 @@ const Seller = () => {
             </div>
           </div>
         )}
-        <button onClick={createStore}>등록하기</button>
+        {state
+          ?
+          <button onClick={editStore}>수정하기</button>
+          :
+          <button onClick={createStore}>등록하기</button>
+        }
       </form>
     </div>
   );

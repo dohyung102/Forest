@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Grid } from '@mui/material';
 
+import './Store.css'
+
 const StoreMain = () => {
 
   const [storeList, setStoreList] = useState([])
@@ -30,9 +32,13 @@ const StoreMain = () => {
 
   const storeGrid = storeList.map(store => {
     return (
-      <Grid onClick={() => moveToStore(store.id)} item md={4} key={store.id}>
-        <img className='home-plant-img' alt='store-profile' src={store.profile_image} />
-        <p>{store.name}</p>
+      <Grid 
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+        onClick={() => moveToStore(store.id)} item md={4} key={store.id}>
+        {/* <div> */}
+        <img className='store-main-img' alt='store-profile' src={store.profile_image} />
+        <div className='store-main-name'>{store.name}</div>
+        {/* </div> */}
       </Grid>
     )
   })
@@ -40,7 +46,7 @@ const StoreMain = () => {
   return (
     <div>
       <Container maxWidth='md'>
-        <div>
+        <div className='store-main-title'>
           스토어
         </div>
         <Grid
