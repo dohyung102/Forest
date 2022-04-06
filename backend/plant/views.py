@@ -6,7 +6,7 @@ from matplotlib.pyplot import cla
 from rest_framework import viewsets, status
 
 from .models import Plant
-from .serializers import PlantSerializers, PlantListSerializers
+from .serializers import PlantSerializers, PlantListSerializers, PlantNameSerializers
 from rest_framework.permissions import AllowAny
 import logging
 from .recomm_functions import plants_data_vectorization
@@ -73,6 +73,16 @@ class PlantRecommViewSet(viewsets.ModelViewSet):
             return Response(plants, status=status.HTTP_200_OK)
         plants = Plant.objects.order_by('?')[:10]
         serialzers = PlantListSerializers(plants, many=True)
+        return Response(serialzers.data, status=status.HTTP_200_OK)
+
+class PlantNameViewSet(viewsets.ModelViewSet):
+    queryset = Plant.objects.all()
+    serializer_class = PlantNameSerializers
+    permission_classes = [AllowAny]
+
+    def names(self, request):
+        plants = Plant.objects.all()
+        serialzers = PlantNameSerializers(plants, many=True)
         return Response(serialzers.data, status=status.HTTP_200_OK)
 
 
