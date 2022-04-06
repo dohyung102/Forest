@@ -248,7 +248,11 @@ const Post = () => {
                 <Typography component="div">{postData.content}</Typography>
               </Box>
               {/* <div>좋아요 기능 보류? : {post_dummy_data.likes}</div> */}
-              <img className="post-img" alt="" src={postData.image} />
+              <img
+                className="post-img"
+                alt=""
+                src={`http://j6d204.d.ssafy.io/backend/media/${postData.image}`}
+              />
               <Box></Box>
             </Paper>
           </Container>

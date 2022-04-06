@@ -9,7 +9,7 @@ from accounts.models import User
 class Post(models.Model):
     title = models.CharField(default='', max_length=50)
     content = models.CharField(default='', max_length=50)
-    image = models.ImageField(upload_to='images/posts/', null=True, blank=True, default='', max_length=50)
+    image = models.ImageField(upload_to='images/posts/', null=True, blank=True)
     tag = models.CharField(default='', null=True, max_length=50)
     created_date = models.DateField(auto_now_add=True)
 
