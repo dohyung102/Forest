@@ -132,6 +132,50 @@ const Appbar = () => {
                       마이페이지
                     </Button>
                   </li>
+                  <li>
+                    <Button
+                      style={{
+                        fontweight: 'bold',
+                        fontsize: '16px',
+                        color: 'white',
+                      }}
+                    >
+                      <Link to="/carttest">장바구니</Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      style={{
+                        fontweight: 'bold',
+                        fontsize: '16px',
+                        color: 'white',
+                      }}
+                    >
+                      <Link to="/survey">설문조사</Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      style={{
+                        fontweight: 'bold',
+                        fontsize: '16px',
+                        color: 'white',
+                      }}
+                    >
+                      <Link to="/recommend">추천식물</Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      style={{
+                        fontweight: 'bold',
+                        fontsize: '16px',
+                        color: 'white',
+                      }}
+                    >
+                      <Link to="/sell_regist">판매상품 등록</Link>
+                    </Button>
+                  </li>
                 </ul>
               ) : (
                 <ul className="layout-ul">
@@ -198,50 +242,6 @@ const Appbar = () => {
                       to="/signup"
                     >
                       회원가입
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
-                    >
-                      <Link to="/carttest">장바구니</Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
-                    >
-                      <Link to="/survey">설문조사</Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
-                    >
-                      <Link to="/recommend">추천식물</Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
-                    >
-                      <Link to="/sell_regist">판매상품 등록</Link>
                     </Button>
                   </li>
                 </ul>
