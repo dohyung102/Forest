@@ -122,6 +122,9 @@ const Mypage = () => {
   const linkToSeller = () => {
     navigate('/seller');
   };
+  const linkToStore = (store_id) => {
+    navigate(`/store/${store_id}`);
+  };
 
   useEffect(() => {
     axios({
@@ -302,7 +305,10 @@ const Mypage = () => {
           </Button>
         )}
         <Button onClick={linkToSellerAuth}>판매자 신청</Button>
-        <Button onClick={linkToSeller}>스토어 등록</Button>
+        {userData.store_set
+          ? <Button onClick={() => linkToStore(userData.store_set)}>스토어 가기</Button>
+          : <Button onClick={linkToSeller}>스토어 등록</Button>
+        }
       </Grid>
       <Grid item md={12}>
         <p>사용자 특성</p>
