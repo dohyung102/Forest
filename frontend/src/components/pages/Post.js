@@ -84,7 +84,7 @@ const Post = () => {
   }, [getPost, edit]);
 
   const editPost = (event) => {
-    const formData = {}
+    const formData = useState([])
     if (image) {
       const formData = new FormData();
       formData.append('image', image);

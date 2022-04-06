@@ -20,7 +20,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/plants/usercustom/')
+    axios.get('http://j6d204.p.ssafy.io/api/plants/usercustom/')
     .then((res) => {
       console.log(res.data);
       setRecommPlants(res.data);
@@ -35,7 +35,7 @@ const Home = () => {
   const plant_data = recommPlants.map((plant) => {
     return (
       <Grid key={plant.name} item md={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img className="home-plant-img" src={`http://j6d204.p.ssafy.io/backend${plant.image_path}`}  alt="plant_img" />
+        <img className="home-plant-img" src={`http://j6d204.p.ssafy.io/backend/media/${plant.image_path}`}  alt="plant_img" />
         <div className="home-plant-name">{plant.name}</div>
       </Grid>
     );
