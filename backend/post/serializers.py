@@ -22,7 +22,7 @@ class CommentSerializers(serializers.ModelSerializer):
 
 class PostSerializers(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
-    image = serializers.ImageField(use_url=False)
+    # image = serializers.ImageField(use_url=False)
 
     class Meta:
         model = Post
