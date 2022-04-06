@@ -39,8 +39,8 @@ const Write = () => {
     e.preventDefault();
     axios({
       method: 'post',
-      // url: 'http://j6d204.p.ssafy.io/api/posts/',
-      url: 'http://127.0.0.1:8000/api/posts/',
+      url: 'http://j6d204.p.ssafy.io/api/posts/',
+      // url: 'http://127.0.0.1:8000/api/posts/',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         // "Content-Type": `multipart/form-data`

@@ -20,7 +20,7 @@ const Post = () => {
   const [postData, setPostData] = useState([]);
   const [edit, setEdit] = useState(false);
   const [userData, setUserData] = useState([]);
-
+  const formData = new FormData();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [preview, setPreview] = useState('');
@@ -38,7 +38,7 @@ const Post = () => {
   const loadFile = (event) => {
     const imgFile = event.target.files[0];
     setPreview(URL.createObjectURL(imgFile));
-    formData.append('image', imgFile);
+    setImage(imgFile);
   };
   const deleteFile = (event) => {
     URL.revokeObjectURL(preview);
@@ -84,12 +84,7 @@ const Post = () => {
   }, [getPost, edit]);
 
   const editPost = (event) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const formData = useState([]);
-    if (image) {
-      const formData = new FormData();
-      formData.append('image', image);
-    }
+    formData.append('image', image);
     formData.append('title', title);
     formData.append('content', content);
     event.preventDefault();
