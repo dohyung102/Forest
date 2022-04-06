@@ -33,7 +33,11 @@ class PlantSerializers(serializers.ModelSerializer):
         return similart_plants
 
 class PlantNameSerializers(serializers.ModelSerializer):
+    label = serializers.SerializerMethodField()
        
     class Meta:
         model = Plant
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'label']
+
+    def get_label(self, obj):
+        return obj.name
