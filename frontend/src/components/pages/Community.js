@@ -91,30 +91,38 @@ const Community = () => {
           <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>게시글</th>
-              <th>제목</th>
-              <th>이미지주소</th>
+              <th width='10%'>글 번호</th>
+              <th width='10%'>썸네일</th>
+              <th width='50%'>제목</th>
+              <th width='15%'>작성일</th>
+              <th width='10%'>작성자</th>
             </tr>
           </thead>
       {posts.map((post) => {
         return (
-
           <tbody>
-            <tr>
+            <tr onClick={(e) => {
+                linkToPostDetail(post.id, e);
+              }}>
               <td>{post.id}</td>
-              
               <td>
                 {post.image ? (<td> 
                   <img
                   className="community-post-img"
-                  src={post.image}
+                  src={`http://j6d204.p.ssafy.io/backend/media/${post.image}`}
                   alt="post_img"
-                /></td>) : (<td>이미지없음</td>)}
-                
+                  /></td>) : (<td>이미지x</td>)}
               </td>
+            {/* <Grid
+              onClick={(e) => {
+                linkToPostDetail(post.id, e);
+              }}
+              key={post.id}
+              >
+            </Grid> */}
               <td>{post.title}</td>
-              <td>{post.image}</td>
+              <td>{post.created_date}</td>
+              <td>{post.user}</td>
             </tr>
           </tbody>
   
