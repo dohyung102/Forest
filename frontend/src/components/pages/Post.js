@@ -251,7 +251,7 @@ const Post = () => {
               <img
                 className="post-img"
                 alt=""
-                src={`backend/media/${postData.image}`}
+                src={`http://j6d204.d.ssafy.io/backend/media/${postData.image}`}
               />
               <Box></Box>
             </Paper>
