@@ -22,6 +22,7 @@ class PlantListSerializers(serializers.ModelSerializer):
 class PlantSerializers(serializers.ModelSerializer):
     similar_plants = serializers.SerializerMethodField()
     product_set = ProductSerializers(read_only=True, many=True)
+    image_path = serializers.ImageField(use_url=False)   
 
     class Meta:
         model = Plant
