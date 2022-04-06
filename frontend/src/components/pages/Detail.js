@@ -15,6 +15,7 @@ const Detail = () => {
   const params = useParams();
   const [plantData, setPlantData] = useState({});
   const [similar, setSimilar] = useState();
+  const [product, setProduct] = useState();
 
   useEffect(() => {
     axios({
@@ -25,6 +26,7 @@ const Detail = () => {
         console.log('res.data', res.data);
         setPlantData(res.data);
         setSimilar(res.data.similar_plants);
+        setProduct(res.data.product_set);
       })
       .catch((err) => {
         console.log(err);
@@ -33,6 +35,10 @@ const Detail = () => {
 
   const toSimilarPlant = (id) => {
     navigate(`/detail/${id}`);
+  };
+
+  const toProduct = (id) => {
+    navigate(`/product/${id}`);
   };
 
   const settings = {
@@ -90,6 +96,27 @@ const Detail = () => {
                   alt="plant_img"
                 />
                 <div className="detail-similar-name">{plant.name}</div>
+              </div>
+            );
+          })}
+      </Slider>
+
+      <p>상품 목록</p>
+      <Slider {...settings}>
+        {product &&
+          product.map((product) => {
+            return (
+              <div
+                className="detail-similar"
+                key={product.name}
+                onClick={() => toProduct(product.id)}
+              >
+                <img
+                  className="detail-similar-img"
+                  src={product.profile_image}
+                  alt="plant_img"
+                />
+                <div className="detail-similar-name">{product.name}</div>
               </div>
             );
           })}
