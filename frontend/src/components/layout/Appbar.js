@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 // import { useRecoilValue } from 'recoil'
 // import { idState } from './state'
 import './style.css';
@@ -10,7 +11,7 @@ import Box from '@mui/material/Box';
 // import Typography from '@mui/material/Typography';
 // import Menu from '@mui/material/Menu';
 // import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -36,6 +37,34 @@ const Appbar = () => {
     localStorage.clear();
     setAuth(false)
   };
+
+  const navigate = useNavigate()
+  const createProduct = () => {
+    axios({
+      method: 'get',
+      url: 'http://j6d204.p.ssafy.io/api/accounts/user/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (!res.data.role) {
+          alert('판매자 신청을 해주세요.')
+          navigate('/sellerauth')
+        }
+        else if (!res.data.store_set) {
+          alert('스토어 등록을 해주세요.')
+          navigate('/seller')
+        }
+        else {
+          navigate('/sell_regist')
+        }
+      })
+      .catch((err) => {
+        console.log('error');
+      });
+    
+  }
 
   return (
     <AppBar sx={{ bgcolor: 'teal' }}>
@@ -64,6 +93,7 @@ const Appbar = () => {
                         fontSize: '16px',
                         color: 'gray',
                       }}
+                      onClick={createProduct}
                     >
                       상품등록
                     </Button>

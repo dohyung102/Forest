@@ -28,6 +28,9 @@
   width: 350px;
   height: 30px;
   font-size: 16px;
+  /* border: 1; */
+  /* border-radius: 1px; */
+  padding: 0;
 }
 
 .seller-input-area {
@@ -40,4 +43,8 @@
   width: 120px;
   height: 40px;
   float: right;
+}
+
+.seller-date {
+  margin-bottom: 15px;
 }
