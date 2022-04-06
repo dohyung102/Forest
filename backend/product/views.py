@@ -3,7 +3,7 @@ from rest_framework import viewsets
 
 from .serializers import ProductSerializers, BuySerializers, WishlistSerializers, ReviewSerializers
 from .models import Product, Buy, Wishlist, Review
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.
@@ -11,6 +11,7 @@ from .permissions import IsOwnerOrReadOnly
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
+    permission_classes = [AllowAny]
 
 
 class BuyViewSet(viewsets.ModelViewSet):

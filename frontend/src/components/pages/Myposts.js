@@ -35,12 +35,8 @@ const MyPosts = () => {
   return (
     <Grid container>
       <Grid item md={12}>
-        <p className="mypage-title">마이페이지</p>
+      <h2 className="mypage-title">마이페이지</h2>
         <Mynav />
-      </Grid>
-
-      <Grid item md={12}>
-        <p>작성한 게시글</p>
       </Grid>
       <div>
         {myPost.map((post) => {

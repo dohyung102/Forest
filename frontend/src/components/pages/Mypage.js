@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Button, Container, Grid } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { Avatar, Button, Grid } from '@mui/material';
 
 import './Mypage.css';
 import Mynav from '../layout/MypageNavigation';
+import { fontSize } from '@mui/system';
 
 const Mypage = () => {
   const [userData, setUserData] = useState([]);
@@ -101,7 +102,7 @@ const Mypage = () => {
     e.preventDefault();
     axios({
       method: 'patch',
-      url: `http://j6d204.p.ssafy.io/api/accounts/user/`,
+      url: `http://localhost:8000/api/accounts/user/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         // "Content-Type": `multipart/form-data`
@@ -121,6 +122,9 @@ const Mypage = () => {
   };
   const linkToSeller = () => {
     navigate('/seller');
+  };
+  const linkToStore = (store_id) => {
+    navigate(`/store/${store_id}`);
   };
 
   useEffect(() => {
@@ -149,46 +153,25 @@ const Mypage = () => {
   return (
     <Grid container>
       <Grid item md={12}>
-        <p className="mypage-title">마이페이지</p>
+        <h2 className="mypage-title">마이페이지</h2>
         <Mynav />
       </Grid>
-      <Grid item md={6}>
-        {profileImage ? (
-          image ? (
-            <div className="mypage-flex">
-              <img className="mypage-img" alt="upload_img" src={preview} />
-              <div>
-                <button onClick={addFile}>수정</button>
-                <button onClick={deleteFile}>삭제</button>
-              </div>
-            </div>
-          ) : (
-            <div className="mypage-flex">
-              <img className="mypage-img" alt="upload_img" src={profileImage} />
-            </div>
-          )
-        ) : (
-          <div className="mypage-img">이미지</div>
-        )}
-        <form>
-          <label htmlFor="image">이미지 첨부하기 </label>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={loadFile}
-          />
-        </form>
+      <Grid item container md={6} justifyContent='center'>
+      <Avatar
+        alt=""
+        src={profileImage}
+        sx={{ width: '250px', height: '250px' }}
+      />
       </Grid>
       <Grid item md={6}>
-        <p>기본정보</p>
+        <div style={{fontSize:'20px', marginBottom:'20px'}}>기본정보</div>
+        
         {/* 반복문으로 어떻게 출력 못할까? */}
 
         {edit ? (
           <form>
-            <div>
+            <div style={{marginBottom:'5px'}}>
               <label htmlFor="email_input">이메일 : </label>
-              {/* <input type='email' name='email_input' value={email} onChange={ emailHandle } placeholder='이메일' /> */}
               {userData.email}
             </div>
             <div>
@@ -199,6 +182,7 @@ const Mypage = () => {
                 value={nickname}
                 onChange={nicknameHandle}
                 placeholder="닉네임"
+                style={{height:'20px', width:'150px'}}
               />
             </div>
             <div>
@@ -208,101 +192,58 @@ const Mypage = () => {
                 name="gender_input"
                 value={gender}
                 onChange={genderHandle}
-                placeholder="성별"
+                placeholder="M or W"
+                style={{height:'20px', width:'50px'}}
               />
             </div>
-            <div>
+            <div style={{marginBottom:'15px'}}>
               <label htmlFor="birth_input">생년월일 : </label>
               <input
                 type="text"
                 name="birth_input"
                 value={birthday || ''}
                 onChange={birthdayHandle}
-                placeholder="생년월일"
+                placeholder="YYYY-MM-DD"
+                style={{height:'20px', width:'100px'}}
               />
             </div>
-            <div>
-              <label htmlFor="pw_input">비밀번호 : </label>
-              <input
-                type="password"
-                name="pw_input"
-                value={pw}
-                onChange={pwHandle}
-                placeholder="비밀번호"
-              />
-            </div>
-            <Button onClick={editProfile}>수정</Button>
-            <Button onClick={() => setEdit((edit) => !edit)}>취소</Button>
+            <Button onClick={editProfile} variant="outlined" color='success' style={{marginBottom:'20px', marginRight:'10px'}}>수정</Button>
+            <Button onClick={() => setEdit((edit) => !edit)} variant="outlined" color='error' style={{marginBottom:'20px'}}>취소</Button>
           </form>
         ) : (
           <div>
-            <div>
+            <div style={{marginBottom:'5px'}}>
               <label htmlFor="email_input">이메일 : </label>
               {userData.email}
             </div>
-            <div>
+            <div style={{marginBottom:'5px'}}>
               <label htmlFor="nickname_input">닉네임 : </label>
               {userData.nickname}
             </div>
-            <div>
+            <div style={{marginBottom:'5px'}}>
               <label htmlFor="gender_input">성별 : </label>
               {userData.gender}
             </div>
-            <div>
+            <div style={{marginBottom:'15px'}}>
               <label htmlFor="birth_input">생년월일 : </label>
               {userData.birthday}
             </div>
-            <Button onClick={() => setEdit((edit) => !edit)}>
+            <Button onClick={() => setEdit((edit) => !edit)} variant="outlined" style={{marginBottom:'20px'}}>
               프로필 수정
             </Button>
           </div>
         )}
-
-        {editPW ? (
-          <form>
-            <div>
-              <label htmlFor="oriPW_input">현재비밀번호 : </label>
-              <input
-                type="password"
-                name="oriPW_input"
-                value={originalPW}
-                onChange={originalPWHandle}
-                placeholder="현재비밀번호"
-                autoComplete="on"
-              />
-            </div>
-            <div>
-              <label htmlFor="newPW_input">새 비밀번호 : </label>
-              <input
-                type="password"
-                name="newPW_input"
-                value={newPW}
-                onChange={newPWHandle}
-                placeholder="새비밀번호"
-                autoComplete="on"
-              />
-            </div>
-            <div>
-              <label htmlFor="newPWConfirm_input">비밀번호확인 : </label>
-              <input
-                type="password"
-                name="newPWConfirm_input"
-                value={newPWConfirm}
-                onChange={newPWConfirmHandle}
-                placeholder="비밀번호확인"
-                autoComplete="on"
-              />
-            </div>
-            <Button onClick={editPassword}>수정</Button>
-            <Button onClick={() => setEditPW((editPW) => !editPW)}>취소</Button>
-          </form>
-        ) : (
-          <Button onClick={() => setEditPW((editPW) => !editPW)}>
-            비밀번호 변경
-          </Button>
+        {userData.role ? (
+          userData.store_set ? (
+            <Link to={`/store/${userData.store_set}`} style={{ textDecoration: 'none' }}>
+              <Button variant="outlined">내 스토어 보기</Button>
+            </Link>
+          ) : (
+            <Button onClick={linkToSeller} variant="outlined">스토어 등록</Button>
+          )
+            ) : (
+          <Button onClick={linkToSellerAuth} variant="outlined">판매자 신청</Button>
         )}
-        <Button onClick={linkToSellerAuth}>판매자 신청</Button>
-        <Button onClick={linkToSeller}>스토어 등록</Button>
       </Grid>
       <Grid item md={12}>
         <p>사용자 특성</p>

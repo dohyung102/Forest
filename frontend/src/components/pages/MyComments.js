@@ -33,13 +33,10 @@ const MyComments = () => {
   return (
     <Grid container>
       <Grid item md={12}>
-        <p className="mypage-title">마이페이지</p>
+        <h2 className="mypage-title">마이페이지</h2>
         <Mynav />
       </Grid>
 
-      <Grid item md={12}>
-        <p>작성한 리뷰</p>
-      </Grid>
       <div>
         {myComments.map((comment) => {
           return (

@@ -25,7 +25,7 @@ const Post = () => {
   const [content, setContent] = useState('');
   const [preview, setPreview] = useState('');
   const [image, setImage] = useState('');
-  const formData = new FormData();
+  
   const params = useParams();
   // console.log(params)
 
@@ -84,9 +84,13 @@ const Post = () => {
   }, [getPost, edit]);
 
   const editPost = (event) => {
+    const formData = {}
+    if (image) {
+      const formData = new FormData();
+      formData.append('image', image);
+    } 
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('image', image);
     event.preventDefault();
 
     axios({
