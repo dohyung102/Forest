@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, Divider } from '@mui/material';
 import axios from 'axios';
 
 import Product from './StoreProduct';
@@ -74,13 +74,16 @@ const Store = () => {
 
           <div className='store-btn-div'>
             {storeData && storeData.user === localStorage.getItem('user') &&
-              <button onClick={editStore} className='store-btn'>스토어변경</button>
+              <div className='store-btn-list'>
+                <button onClick={editStore} className='store-btn'>스토어변경</button>
+                <button className='store-btn'>상품등록</button>
+              </div>
             }
-            <button className='store-btn'>상품등록</button>
           </div>
         </Grid>
         <Grid item md={9}>
-          <div className='store-title'>상품 목록</div>
+          <div className='store-main-title'>상품 목록</div>
+          <Divider sx={{my: 4}} light variant="middle" />
           {storeData &&
             <Product 
               productsList={storeData.product_set}
