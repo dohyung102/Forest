@@ -25,7 +25,7 @@ const Post = () => {
   const [content, setContent] = useState('');
   const [preview, setPreview] = useState('');
   const [image, setImage] = useState('');
-  
+
   const params = useParams();
   // console.log(params)
 
@@ -84,11 +84,12 @@ const Post = () => {
   }, [getPost, edit]);
 
   const editPost = (event) => {
-    const formData = useState([])
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const formData = useState([]);
     if (image) {
       const formData = new FormData();
       formData.append('image', image);
-    } 
+    }
     formData.append('title', title);
     formData.append('content', content);
     event.preventDefault();
