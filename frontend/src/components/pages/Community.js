@@ -112,7 +112,7 @@ const Community = () => {
                     <td>
                       <img
                         className="community-post-img"
-                        src={`http://j6d204.p.ssafy.io/backend/${post.image}`}
+                        src={`http://j6d204.p.ssafy.io/backend${post.image}`}
                         alt="post_img"
                       />
                     </td>
