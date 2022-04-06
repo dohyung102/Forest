@@ -13,7 +13,9 @@ const Store = () => {
   const [productSet, setProductSet] = useState([])
   // const [activeCategory, setActiveCategory] = useState('All')
   // const [product, setProduct] = useState(dummy_products)
-
+  const changeImage = (e) => {
+    e.target.src = 'http://j6d204.p.ssafy.io/backend/media/images/no_image.jpg'
+  }
   // const dummy_categories = [
   //   'All','tall','short','big','small','flowery'
   // ]
@@ -45,9 +47,10 @@ const products = productSet
       >
         <Link to={`/product/${products.id}`} style={{marginBottom:'5px'}}>
           <img
-            className="home-plant-img"
+            className="product-img"
             src={`http://j6d204.p.ssafy.io/backend/media/${products.profile_image}`}
-            alt="product_img"
+            alt="no_image"
+            onError={changeImage}
           />
         </Link>
         <Grid>{products.name}</Grid>

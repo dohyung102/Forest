@@ -123,16 +123,20 @@ def find_user_data_based_plants_by_user_id(user_id):
         manage_difficulty=user.manage_difficulty, 
         growth_rate=user.growth_rate,
         placement=user.placement,
-        )
-    ids = other_users.user_id
+        ).values_list('id', flat=True)
+    # ids = other_users.user_id
     for i in range(len(filedata)):
-        if filedata[i][0] in ids:
+        if filedata[i][0] in other_users:
             plant_cnt[filedata[i][1]] += 1
     sortfile = sorted(filedata)
+    n = len(sortfile)
+    if n > 5:
+        n = 5
     recomm_plant = []
-    for j in range(4):
+    for j in range(n):
         recomm_plant.append(filedata.index(sortfile[j]))
-    return Plant.objects.filter(id in recomm_plant)
+    # print(Plant.objects.filter(id__in=recomm_plant))
+    return Plant.objects.filter(id__in=recomm_plant)
 
 
 # friend_list = [

@@ -31,3 +31,12 @@
   height: 40px;
   font-size: 16px;
 }
+
+.product-img
+{
+  /* background-image:url('http://127.0.0.1:8000/media/images/no_image.jpg'); */
+  height: 180px;
+  width: 180px;
+  border-radius: 15px;
+  margin: auto;;
+}
