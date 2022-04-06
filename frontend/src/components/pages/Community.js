@@ -87,8 +87,7 @@ const Community = () => {
           글쓰기
         </button>
       </div>
-
-          <Table striped bordered hover>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th width='10%'>글 번호</th>
