@@ -135,29 +135,28 @@ const ProductReviews = (props) => {
     <div>
       리뷰 목록
       <form>
-        {/* <input 
-          type='text' 
-          name='title_input' 
-          value={title} 
-          onChange={titleHandle} 
-          placeholder='이 곳에 제목 작성' 
-        /> */}
-        <input 
-          type='text' 
-          name='review_input' 
-          value={review} 
-          onChange={reviewHandle} 
-          placeholder='이 곳에 리뷰 작성' 
-        />
-        <input 
-          type='number' 
-          name='star_input' 
-          value={star} 
-          onChange={starHandle} 
-          min='0'
-          max='5'
-          placeholder='이 곳에 평점 작성' 
-        />
+        <div>
+          <label htmlFor="review_input">리뷰 </label>
+          <input 
+            type='text' 
+            name='review_input' 
+            value={review} 
+            onChange={reviewHandle} 
+            placeholder='이 곳에 리뷰 작성' 
+          />
+        </div>
+        <div>
+          <label htmlFor="star_input">평점 </label>
+          <input 
+            type='number' 
+            name='star_input' 
+            value={star} 
+            onChange={starHandle} 
+            min='0'
+            max='5'
+            placeholder='이 곳에 평점 작성' 
+          />
+        </div>
         <button onClick={createReview}>리뷰 작성</button>
       </form>
       <div>
@@ -170,24 +169,28 @@ const ProductReviews = (props) => {
                 ?
                 <div>
                   <form>
-                    <input 
-                      type='text'
-                      value={reviewEditContent}
-                      name='review_edit'
-                      onChange={reviewEditHandle}
-                    />
-                    <input 
-                      type='number'
-                      value={reviewEditStar}
-                      name='star_edit'
-                      onChange={starEditHandle}
-                      min='0'
-                      max='5'
-                    />
+                    <div>
+                      <label htmlFor="review_edit">리뷰 </label>
+                      <input 
+                        type='text'
+                        value={reviewEditContent}
+                        name='review_edit'
+                        onChange={reviewEditHandle}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="star_edit">평점 </label>
+                      <input 
+                        type='number'
+                        value={reviewEditStar}
+                        name='star_edit'
+                        onChange={starEditHandle}
+                        min='0'
+                        max='5'
+                      />
+                    </div>
                     <button onClick={() => editReview(review.id)}>수정</button>
-                    {/* <button>수정</button> */}
                     <button onClick={() => setReviewPK(0)}>취소</button>
-                    {/* <button>취소</button> */}
                   </form>
                 </div>
                 :

@@ -18,52 +18,7 @@ const Detail = () => {
   console.log(params)
   const [plantData, setPlantData] = useState()
   const [loading, setLoading] = useState(false)
-
-  const dummy_plant = {
-    'name' : '식물a',
-    'img' : 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-    'tag' : 'long',
-    'care' : '관리방법',
-    'size' : 'tall',
-    'difficulty' : '5',
-    'caution' : '주의사항',
-    'price' : '19,900',
-    'rate' : '4',
-    'product_link' : 'https://www.naver.com/',
-    'similar' : [
-      {
-        'name':'유사식물a',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'20,000',
-        'rate':'4'
-      },
-      {
-        'name':'유사식물b',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'30,000',
-        'rate':'3'
-      },
-      {
-        'name':'유사식물c',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'10,000',
-        'rate':'5'
-      },
-      {
-        'name':'유사식물e',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'10,000',
-        'rate':'5'
-      },
-      {
-        'name':'유사식물f',
-        'img':'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        'price':'10,000',
-        'rate':'5'
-      },
-    ],
-  }
-
+  const [storeProduct, setStoreProduct] = useState()
 
   const getProduct = useCallback(async () => {
     const headers = {
@@ -81,9 +36,24 @@ const Detail = () => {
     })
   }, [params])
 
+  const getStore = useCallback(async () => {
+    await axios.get(`http://localhost:8000/api/stores/${plantData.store}/`)
+    .then((res) => {
+      console.log(res.data.product_set)
+      setStoreProduct(res.data.product_set)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [plantData])
+
   useEffect(() => {
     getProduct()
   }, [getProduct, loading])
+
+  useEffect(() => {
+    getStore()
+  }, [getStore])
 
   const settings = {
     // slide: 'div',
@@ -120,24 +90,22 @@ const Detail = () => {
                 <div>가격 : {plantData.price}</div>
                 <div>open_date : {plantData.open_date}</div>
                 <div>close_date : {plantData.close_date}</div>
-                <div>식물 pk : {plantData.id}</div>
+                <div>식물 pk : {plantData.plant}</div>
               </ul>
             }
           </Grid>
         </Grid>
 
-        <p>유사한 상품 or 판매자의 다른 상품</p>
+        <p>판매자의 다른 상품</p>
         <div>
           <Slider {...settings}>
-            {dummy_plant.similar.map((plant) => {
+            {storeProduct && storeProduct.map((product) => {
               return (
-                <div key={plant.name}>
-                  <Link to={`/product/${plant.name}`}>
-                    <img className='detail-similar-img' src={plant.img} alt='plant_img' />
+                <div key={product.product_id}>
+                  <Link to={`/product/${product.id}`}>
+                    <img className='detail-similar-img' src={product.profile_image} alt='plant_img' />
+                    <div>{product.name}</div>
                   </Link>
-                  <div>{plant.name}</div>
-                  <div>{plant.price}</div>
-                  <div>{plant.rate}</div>
                 </div>
               )
             })}
@@ -150,16 +118,15 @@ const Detail = () => {
               <div>
                 {plantData.description}
               </div>
-              <div>
+              {/* <div>
                 이런 이미지도 있으면 좋을거 같은데
               </div>
-              <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' />
+              <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' /> */}
             </div>
           }
         </div>
         {plantData &&
           <Reviews reviews={plantData.review_set} loading={loading} setLoading={setLoading} />
-          // <Reviews />
         }
       </Container>
     </div>
