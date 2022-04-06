@@ -71,7 +71,7 @@ def calculate_recommend_plants_by_user_preference(preference_data):
     for index in combine_index:
         integer_list = list(preference_data[index].split(','))
         for i in integer_list:
-            all_text += data_dict[index][i]
+            all_text += data_dict[index][int(i)]
 
     feature_names = pd.read_pickle(FEATURE_NAMES)
     counter_vector = CountVectorizer(vocabulary=feature_names)
