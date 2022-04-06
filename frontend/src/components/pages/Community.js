@@ -109,11 +109,7 @@ const Community = () => {
                 {post.image ? (<td> 
                   <img
                   className="community-post-img"
-<<<<<<< Updated upstream
                   src={`http://j6d204.p.ssafy.io/backend/media/${post.image}`}
-=======
-                  src={`http://j6d204.p.ssafy.io/backend/media${post.image}`}
->>>>>>> Stashed changes
                   alt="post_img"
                   /></td>) : (<td>이미지x</td>)}
               </td>
