@@ -17,6 +17,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ChatIcon from '@mui/icons-material/Chat';
 
 import './Community.css';
+import { Table } from "react-bootstrap"
 
 // 참고 링크
 // https://slog.website/post/8
@@ -87,78 +88,118 @@ const Community = () => {
         </button>
       </div>
 
+          <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th width='10%'>글 번호</th>
+              <th width='10%'>썸네일</th>
+              <th width='50%'>제목</th>
+              <th width='15%'>작성일</th>
+              <th width='10%'>작성자</th>
+            </tr>
+          </thead>
       {posts.map((post) => {
         return (
-          <Grid
-            container
-            spacing={0}
-            my={1}
-            sx={{
-              // backgroundColor: 'grey.200',
-              border: 1,
-              borderRadius: '20px',
-              // borderTop:1,
-              // borderBottom:1,
-              borderColor: 'grey.200',
-            }}
-            // justifyContent='center' direction='column'
-            style={{ height: '110px' }}
-            onClick={(e) => {
-              linkToPostDetail(post.id, e);
-            }}
-            key={post.id}
-          >
-            {/* 좋아요 */}
-            <Grid item md={2}>
-              <img
-                className="community-post-img"
-                src={post.image}
-                alt="post_img"
-              />
-            </Grid>
-            {/* 이미지 */}
-            {post.image && (
-              <Grid item md={2}>
-                <img
+          <tbody>
+            <tr onClick={(e) => {
+                linkToPostDetail(post.id, e);
+              }}>
+              <td>{post.id}</td>
+              <td>
+                {post.image ? (<td> 
+                  <img
                   className="community-post-img"
-                  src={`http://j6d204.p.ssafy.io/${post.image.substr(7)}`}
+                  src={`http://j6d204.p.ssafy.io/backend/media/${post.image}`}
                   alt="post_img"
-                />
-              </Grid>
-            )}
-            {/* 컨텐츠 */}
-            {post.image ? (
-              <Grid item md={7}>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <div>{post.id}번 게시글</div>
-                  <div>{post.title}</div>
-                  <div>{post.content}</div>
-                </div>
-              </Grid>
-            ) : (
-              <Grid item md={9}>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <div>{post.id}번 게시글</div>
-                  <div>{post.title}</div>
-                  <div>{post.content}</div>
-                </div>
-              </Grid>
-            )}
-          </Grid>
+                  /></td>) : (<td>이미지x</td>)}
+              </td>
+            {/* <Grid
+              onClick={(e) => {
+                linkToPostDetail(post.id, e);
+              }}
+              key={post.id}
+              >
+            </Grid> */}
+              <td>{post.title}</td>
+              <td>{post.created_date}</td>
+              <td>{post.user}</td>
+            </tr>
+          </tbody>
+  
+
+          // <Grid
+          //   container
+          //   spacing={0}
+          //   my={1}
+          //   sx={{
+          //     // backgroundColor: 'grey.200',
+          //     border: 1,
+          //     borderRadius: '20px',
+          //     // borderTop:1,
+          //     // borderBottom:1,
+          //     borderColor: 'grey.200',
+          //   }}
+          //   // justifyContent='center' direction='column'
+          //   style={{ height: '110px' }}
+          //   onClick={(e) => {
+          //     linkToPostDetail(post.id, e);
+          //   }}
+          //   key={post.id}
+          // >
+            
+          //   {/* 좋아요 */}
+          //   <Grid item md={2}>
+          //     <img
+          //       className="community-post-img"
+          //       src={post.image}
+          //       alt="post_img"
+          //     />
+          //     {post.image}
+          //   </Grid>
+          //   {/* 이미지 */}
+          //   {post.image && (
+          //     <Grid item md={2}>
+          //       <img
+          //         className="community-post-img"
+          //         src={`http://j6d204.p.ssafy.io/${post.image.substr(7)}`}
+          //         alt="post_img"
+          //       />
+          //     </Grid>
+          //   )}
+          //   {/* 컨텐츠 */}
+          //   {post.image ? (
+          //     <Grid item md={7}>
+          //       <div
+          //         style={{
+          //           display: 'flex',
+          //           flexDirection: 'column',
+          //           justifyContent: 'center',
+          //         }}
+          //       >
+          //         <div>{post.id}번 게시글</div>
+          //         <div>{post.title}</div>
+          //         <div>{post.content}</div>
+          //       </div>
+          //     </Grid>
+          //   ) : (
+          //     <Grid item md={9}>
+          //       <div
+          //         style={{
+          //           display: 'flex',
+          //           flexDirection: 'column',
+          //           justifyContent: 'center',
+          //         }}
+          //       >
+          //         <div>{post.id}번 게시글</div>
+          //         <div>{post.title}</div>
+          //         <div>{post.content}</div>
+          //       </div>
+          //     </Grid>
+          //   )}
+          // </Grid>
         );
       })}
+      </Table>
 
       {/* <div className='community-footer'>
         footer
