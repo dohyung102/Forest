@@ -48,7 +48,7 @@ const ProductReviews = (props) => {
     console.log(props.loading)
     axios({
       method: 'post',
-      url: `http://localhost:8000/api/products/${params.product_id}/review/`,
+      url: `http://j6d204.p.ssafy.io/api/products/${params.product_id}/review/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -71,7 +71,7 @@ const ProductReviews = (props) => {
   const editReview = (reviewID) => {
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/products/${params.product_id}/review/${reviewID}/`,
+      url: `http://j6d204.p.ssafy.io/api/products/${params.product_id}/review/${reviewID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -91,7 +91,7 @@ const ProductReviews = (props) => {
   const deleteReview = (reviewID) => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/products/${params.product_id}/review/${reviewID}/`,
+      url: `http://j6d204.p.ssafy.io/api/products/${params.product_id}/review/${reviewID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -115,7 +115,7 @@ const ProductReviews = (props) => {
   //   const headers = {
   //     'Authorization' : `Bearer ${localStorage.getItem('token')}`
   //   }
-  //   await axios.get(`http://localhost:8000/api/products/${params.product_id}/`,
+  //   await axios.get(`http://j6d204.p.ssafy.io/api/products/${params.product_id}/`,
   //     {headers : headers}
   //   )
   //   .then((res) => {

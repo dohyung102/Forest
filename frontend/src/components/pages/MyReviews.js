@@ -17,7 +17,7 @@ const MyReviews = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/api/accounts/user/',
+      url: 'http://j6d204.p.ssafy.io/api/accounts/user/',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

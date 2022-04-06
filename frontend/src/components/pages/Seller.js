@@ -75,7 +75,7 @@ const Seller = () => {
 
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/stores/${state.id}/`,
+      url: `http://j6d204.p.ssafy.io/api/stores/${state.id}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

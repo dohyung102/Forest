@@ -101,7 +101,7 @@ const Mypage = () => {
     e.preventDefault();
     axios({
       method: 'patch',
-      url: `http://localhost:8000/api/accounts/user/`,
+      url: `http://j6d204.p.ssafy.io/api/accounts/user/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         // "Content-Type": `multipart/form-data`
@@ -126,7 +126,7 @@ const Mypage = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/api/accounts/user/',
+      url: 'http://j6d204.p.ssafy.io/api/accounts/user/',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

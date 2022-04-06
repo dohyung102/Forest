@@ -29,7 +29,7 @@ const Comment = (props) => {
     e.preventDefault();
     axios({
       method: 'post',
-      url: `http://localhost:8000/api/posts/${params.post_id}/comment/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/comment/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -49,7 +49,7 @@ const Comment = (props) => {
   const editComment = (commentID) => {
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/posts/${params.post_id}/comment/${commentID}/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/comment/${commentID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -68,7 +68,7 @@ const Comment = (props) => {
   const deleteComment = (commentID) => {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/api/posts/${params.post_id}/comment/${commentID}/`,
+      url: `http://j6d204.p.ssafy.io/api/posts/${params.post_id}/comment/${commentID}/`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },

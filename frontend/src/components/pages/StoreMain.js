@@ -16,7 +16,7 @@ const StoreMain = () => {
   
   const getStores = useCallback(async () => {
 
-    await axios.get('http://localhost:8000/api/stores/')
+    await axios.get('http://j6d204.p.ssafy.io/api/stores/')
     .then((res) => {
       console.log(res.data)
       setStoreList(res.data)

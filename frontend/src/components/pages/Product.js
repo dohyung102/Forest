@@ -38,7 +38,7 @@ const Detail = () => {
   }, [params]);
 
   const getStore = useCallback(async () => {
-    await axios.get(`http://localhost:8000/api/stores/${plantData.store}/`)
+    await axios.get(`http://j6d204.p.ssafy.io/api/stores/${plantData.store}/`)
     .then((res) => {
       console.log(res.data.product_set)
       setStoreProduct(res.data.product_set)
