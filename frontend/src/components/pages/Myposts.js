@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 
 import Mynav from '../layout/MypageNavigation';
 

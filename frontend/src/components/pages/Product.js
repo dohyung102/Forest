@@ -9,58 +9,16 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import Comments from './ProductComments';
-import './Product.css';
+import Reviews from './ProductReviews'
+import './Product.css'
 
 const Detail = () => {
-  const params = useParams();
-  console.log(params);
-  const [plantData, setPlantData] = useState();
 
-  const dummy_plant = {
-    name: '식물a',
-    img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-    tag: 'long',
-    care: '관리방법',
-    size: 'tall',
-    difficulty: '5',
-    caution: '주의사항',
-    price: '19,900',
-    rate: '4',
-    product_link: 'https://www.naver.com/',
-    similar: [
-      {
-        name: '유사식물a',
-        img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        price: '20,000',
-        rate: '4',
-      },
-      {
-        name: '유사식물b',
-        img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        price: '30,000',
-        rate: '3',
-      },
-      {
-        name: '유사식물c',
-        img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        price: '10,000',
-        rate: '5',
-      },
-      {
-        name: '유사식물e',
-        img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        price: '10,000',
-        rate: '5',
-      },
-      {
-        name: '유사식물f',
-        img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        price: '10,000',
-        rate: '5',
-      },
-    ],
-  };
+  const params = useParams()
+  console.log(params)
+  const [plantData, setPlantData] = useState()
+  const [loading, setLoading] = useState(false)
+  const [storeProduct, setStoreProduct] = useState()
 
   const getProduct = useCallback(async () => {
     const headers = {
@@ -79,9 +37,24 @@ const Detail = () => {
       });
   }, [params]);
 
+  const getStore = useCallback(async () => {
+    await axios.get(`http://localhost:8000/api/stores/${plantData.store}/`)
+    .then((res) => {
+      console.log(res.data.product_set)
+      setStoreProduct(res.data.product_set)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [plantData])
+
   useEffect(() => {
-    getProduct();
-  }, [getProduct]);
+    getProduct()
+  }, [getProduct, loading])
+
+  useEffect(() => {
+    getStore()
+  }, [getStore])
 
   const settings = {
     // slide: 'div',
@@ -123,44 +96,40 @@ const Detail = () => {
             </ul>
           )}
         </Grid>
-      </Grid>
 
-      <p>유사한 상품 or 판매자의 다른 상품</p>
-      <div>
-        <Slider {...settings}>
-          {dummy_plant.similar.map((plant) => {
-            return (
-              <div key={plant.name}>
-                <Link to={`/product/${plant.name}`}>
-                  <img
-                    className="detail-similar-img"
-                    src={plant.img}
-                    alt="plant_img"
-                  />
-                </Link>
-                <div>{plant.name}</div>
-                <div>{plant.price}</div>
-                <div>{plant.rate}</div>
+        <p>판매자의 다른 상품</p>
+        <div>
+          <Slider {...settings}>
+            {storeProduct && storeProduct.map((product) => {
+              return (
+                <div key={product.product_id}>
+                  <Link to={`/product/${product.id}`}>
+                    <img className='detail-similar-img' src={product.profile_image} alt='plant_img' />
+                    <div>{product.name}</div>
+                  </Link>
+                </div>
+              )
+            })}
+          </Slider>
+        </div>
+        <div>
+          <p>상세정보</p>
+          {plantData &&
+            <div>
+              <div>
+                {plantData.description}
               </div>
-            );
-          })}
-        </Slider>
-      </div>
-      <div>
-        <p>상세정보</p>
-        {plantData && (
-          <div>
-            <div>{plantData.description}</div>
-            <div>이런 이미지도 있으면 좋을거 같은데</div>
-            <img
-              className="product-img"
-              src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg"
-              alt="product"
-            />
-          </div>
-        )}
-      </div>
-      {plantData && <Comments reviews={plantData.review_set} />}
+              {/* <div>
+                이런 이미지도 있으면 좋을거 같은데
+              </div>
+              <img className='product-img' src='https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/164559381797134024.jpg' alt='product' /> */}
+            </div>
+          }
+        </div>
+        {plantData &&
+          <Reviews reviews={plantData.review_set} loading={loading} setLoading={setLoading} />
+        }
+      </Grid>
     </div>
   );
 };
