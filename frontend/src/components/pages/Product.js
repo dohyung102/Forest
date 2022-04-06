@@ -32,7 +32,7 @@ const Detail = () => {
         headers: headers,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setPlantData(res.data);
       })
       .catch((err) => {
@@ -43,7 +43,7 @@ const Detail = () => {
   const getStore = useCallback(async () => {
     await axios.get(`http://j6d204.p.ssafy.io/api/stores/${plantData.store}/`)
     .then((res) => {
-      console.log('store_data',res.data.product_set)
+      // console.log('store_data',res.data.product_set)
       setStoreProduct([res.data.product_set])
     })
     .catch((err) => {
@@ -65,6 +65,22 @@ const Detail = () => {
 
   const toStore = (store_id) => {
     navigate(`/store/${store_id}`)
+  }
+
+  const addToCart = () => {
+    axios({
+      method: 'post',
+      url: `http://j6d204.p.ssafy.io/api/products/${plantData.id}/wishlist/`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
   
   // const toProduct = (id) => {
@@ -130,6 +146,12 @@ const Detail = () => {
                   onClick={() => toDetail(plantData.plant)}
                 >
                   식물 정보 보러 가기
+                </button>
+                <button 
+                  className='product-btn'
+                  onClick={addToCart}
+                >
+                  장바구니 담기
                 </button>
               </div>
             </ul>
