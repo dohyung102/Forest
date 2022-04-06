@@ -71,22 +71,21 @@ def calculate_recommend_plants_by_user_preference(preference_data):
     for index in combine_index:
         integer_list = list(preference_data[index].split(','))
         for i in integer_list:
-            all_text += data_dict[index][i]
+            all_text += data_dict[index][int(i)] + ' '
 
     feature_names = pd.read_pickle(FEATURE_NAMES)
     counter_vector = CountVectorizer(vocabulary=feature_names)
-    user_preference_vector = counter_vector.transform(all_text).toarray()
-
+    user_preference_vector = counter_vector.transform([all_text]).toarray()
     plants_vecter_data = pd.read_pickle(PLANT_VECTOR_DATA)
     similarity = cosine_similarity(plants_vecter_data, user_preference_vector)
 
     plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     plants_data['similarity'] = similarity
     result = plants_data.sort_values('similarity', ascending=False)[:10]
-
     user_preference_vector = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)
     start_index = len(user_preference_vector)
     user_preference_vector = pd.concat([user_preference_vector, result], ignore_index=True)
+    pd.to_pickle(user_preference_vector, USER_PREFERENCE_PLANT_VECTOR_DATA)
     return start_index
 
 def find_preference_plants_by_index(index):
@@ -134,8 +133,6 @@ def find_user_data_based_plants_by_user_id(user_id):
     for j in range(4):
         recomm_plant.append(filedata.index(sortfile[j]))
     return Plant.objects.filter(id in recomm_plant)
-    
-    
 
 
 # friend_list = [
