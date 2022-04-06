@@ -12,9 +12,10 @@ const MypageNavigation = () => {
   return (
     <div>
       <ul className='nav-ul'>
-        <li onClick={(e) => {profileNavigate('', e)}}>프로필</li>
-        <li onClick={(e) => {profileNavigate('/posts', e)}}>내 글</li>
-        <li onClick={(e) => {profileNavigate('/comments', e)}}>내 댓글</li>
+        <li onClick={() => {profileNavigate('')}}>프로필</li>
+        <li onClick={() => {profileNavigate('/posts')}}>내 글</li>
+        <li onClick={() => {profileNavigate('/comments')}}>내 댓글</li>
+        <li onClick={() => {profileNavigate('/reviews')}}>내 리뷰</li>
       </ul>
     </div>
   );

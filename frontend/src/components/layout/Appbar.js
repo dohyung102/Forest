@@ -25,9 +25,8 @@ const Appbar = () => {
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
-    // if (localStorage.getItem('token'))
     if (localStorage.getItem('token')) setAuth(true);
-  }, []);
+  }, [auth, localStorage.getItem('token')]);
 
   const homeButton = () => {
     window.location.replace('/');
@@ -35,6 +34,7 @@ const Appbar = () => {
 
   const logout = () => {
     localStorage.clear();
+    setAuth(false)
   };
 
   return (
@@ -75,8 +75,10 @@ const Appbar = () => {
                         fontSize: '16px',
                         color: 'gray',
                       }}
+                      component={Link}
+                      to="/store"
                     >
-                      상품정보
+                      스토어
                     </Button>
                   </li>
                   <li>
@@ -107,6 +109,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
+                      onClick={logout}
                       style={{
                         fontWeight: 'bold',
                         fontSize: '16px',

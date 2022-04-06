@@ -11,9 +11,9 @@ const StoreProduct = (props) => {
 
   const filteredProduct = props.productsList.map(product => {
     return (
-      <Grid onClick={() => moveToPlantDetail(product.id)} item md={4} key={product.name}>
-        <img className='home-plant-img' alt='' src={product.profile_image} />
-        <p>{product.name}</p>
+      <Grid onClick={() => moveToPlantDetail(product.id)} item md={4} key={product.id}>
+        <img className='store-main-img' alt='product-profile' src={product.profile_image} />
+        <div className='store-main-name'>{product.name}</div>
         <div>
           (카테고리) {product.category}
         </div>
