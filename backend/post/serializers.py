@@ -11,6 +11,7 @@ class UserSerializers(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+#test
 class CommentSerializers(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
     # user = serializers.ReadOnlyField(source='user.email')
