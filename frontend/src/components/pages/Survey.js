@@ -65,7 +65,7 @@ const Survey = () => {
       .then((res) => {
         console.log(res)
         localStorage.setItem('ref', res.data.id)
-        alert('survey completed')
+        alert('설문 조사 완료')
         navigate('/recommend')
       })
       .catch((err) => {

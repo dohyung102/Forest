@@ -55,11 +55,11 @@ const Signup = ({ history }) => {
 
   const emailCheck = () => {
     setEmailBtnCheck(true);
-    alert('email checked');
+    alert('이메일 확인 완료');
   };
   const nicknameCheck = () => {
     setNicknameBtnCheck(true);
-    alert('nickname checked');
+    alert('닉네임 확인 완료');
   };
 
   const signup = () => {
@@ -76,7 +76,7 @@ const Signup = ({ history }) => {
     })
       .then((res) => {
         console.log(res);
-        alert('signup completed');
+        alert('회원가입 성공');
         navigate('/login');
       })
       .catch((err) => {

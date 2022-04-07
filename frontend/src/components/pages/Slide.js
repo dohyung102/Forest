@@ -14,7 +14,6 @@ const Slide = () => {
   }
 
   useEffect(() => {
-
     axios({
       method: 'get',
       url: `http://j6d204.p.ssafy.io/api/accounts/preference/${localStorage.getItem('ref')}/`,
@@ -28,6 +27,8 @@ const Slide = () => {
     })
     .catch((err) => {
       console.log('error');
+      alert('설문 조사를 먼저 진행해주세요.')
+      navigate('/survey')
     });
 }, []);
   return (
