@@ -23,7 +23,7 @@ services:
     environment:
       TZ: Asia/Seoul
     volumes:
-      - ./backend:/app
+      - ./backend/media:/app/media
     expose:
       - "8000"
     depends_on:
