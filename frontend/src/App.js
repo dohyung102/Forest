@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import Toolbar from '@mui/material/Toolbar';
+// import Toolbar from '@mui/material/Toolbar';
 
 import Appbar from './components/layout/Appbar';
 import Footer from './components/layout/Footer';
@@ -34,7 +34,7 @@ function App() {
   return (
     <Router>
       <Appbar />
-      <Toolbar sx={{ height: '90px', mx: 1, my: 1 }} />
+      {/* <Toolbar sx={{ height: '100px', mx: 1, my: 1 }} /> */}
       <div className="layout">
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import axios from 'axios';
-import { Grid, Button, Box, Card, Container, CardMedia, CardContent } from '@mui/material';
-import { fontFamily, fontSize } from '@mui/system';
+import { Grid, Button, 
+  // Box, Card, 
+  Container, 
+  // CardMedia, CardContent 
+} from '@mui/material';
+// import { fontFamily, fontSize } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
@@ -17,6 +21,29 @@ const Home = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     draggable: false,
+    responsive: [
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        }
+      },
+      {
+        breakpoint: 620,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 415,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      },
+    ]
   };
   const navigate = useNavigate();
   const toPlant = (id) => {
@@ -90,7 +117,7 @@ const Home = () => {
         <Grid >
           <p className="home-plant-title">추천 식물</p>
           <Slider 
-            {...settings} 
+            {...settings}
           >
             {plant_data}
           </Slider>

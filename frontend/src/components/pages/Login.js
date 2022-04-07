@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
 import axios from 'axios';
 
@@ -7,6 +7,9 @@ import './LoginSignup.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation()
+  // const authData = location.state
+  console.log({location})
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +52,8 @@ const Login = () => {
           localStorage.setItem('role', res.data.user.role);
           localStorage.setItem('store', res.data.user.store_set);
         }
-        alert('login success');
+        alert('로그인 성공');
+
         navigate('/');
       })
       .catch((err) => {
@@ -59,7 +63,7 @@ const Login = () => {
 
   return (
     <div className="login-signup-flex">
-      <p>로그인</p>
+      <div className='login-signup-title'>로그인</div>
       <form className="login-signup-form">
         {/* <label htmlFor='email_input'>이메일 </label> */}
         <input
@@ -95,17 +99,17 @@ const Login = () => {
         </button>
       </form>
       <div>
-        <Button>비밀번호 찾기</Button>
+        {/* <Button>비밀번호 찾기</Button> */}
         <Link to="/signup">
           <Button>회원가입</Button>
         </Link>
       </div>
-      <p>or login with</p>
+      {/* <p>or login with</p>
       <div>
         <Button>Naver 로그인 버튼</Button>
         <Button>Google 로그인 버튼</Button>
         <Button>Kakao 로그인 버튼</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

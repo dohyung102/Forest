@@ -1,10 +1,13 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { styled } from '@mui/material/styles';
+import React, { 
+  useEffect, useState, 
+  // useCallback 
+} from 'react';
+// import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import {
-  Chip,
+  // Chip,
   Container,
   Grid,
   IconButton,
@@ -13,20 +16,20 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const ListItem = styled('li')(({ theme }) => ({
-  margin: theme.spacing(0.5),
-}));
+// const ListItem = styled('li')(({ theme }) => ({
+//   margin: theme.spacing(0.5),
+// }));
 
 const Search = () => {
   const [search, setSearch] = useState('');
 
-  const [categoryData, setCategoryData] = useState([
-    { key: 0, label: 'All', onClicked: false },
-    { key: 1, label: 'long', onClicked: false },
-    { key: 2, label: 'short', onClicked: false },
-  ]);
+  // const [categoryData, setCategoryData] = useState([
+  //   { key: 0, label: 'All', onClicked: false },
+  //   { key: 1, label: 'long', onClicked: false },
+  //   { key: 2, label: 'short', onClicked: false },
+  // ]);
 
-  const [activeCategory, setActiveCategory] = useState('All');
+  // const [activeCategory, setActiveCategory] = useState('All');
   const [wholePlants, setWholePlants] = useState([]);
   // const [plants, setPlants] = useState(dummy_plants)
 
@@ -47,15 +50,15 @@ const Search = () => {
     setSearch(event.target.value);
   };
 
-  const onClickChip = (chipData) => () => {
-    setCategoryData(
-      categoryData.map((category) =>
-        category.key === chipData.key
-          ? { ...category, onClicked: !category.onClicked }
-          : category
-      )
-    );
-  };
+  // const onClickChip = (chipData) => () => {
+  //   setCategoryData(
+  //     categoryData.map((category) =>
+  //       category.key === chipData.key
+  //         ? { ...category, onClicked: !category.onClicked }
+  //         : category
+  //     )
+  //   );
+  // };
 
   const plant_filter = wholePlants
     .filter((plant) => {
@@ -124,10 +127,10 @@ const Search = () => {
             flexWrap: 'wrap',
             listStyle: 'none',
             p: 0.5,
-            m: 0,
+            my: 1,
           }}
         >
-          {categoryData.map((data) => {
+          {/* {categoryData.map((data) => {
             let color;
 
             if (data.onClicked === false) color = 'default';
@@ -143,7 +146,7 @@ const Search = () => {
                 />
               </ListItem>
             );
-          })}
+          })} */}
         </Paper>
       </Container>
       <Container maxWidth="md">

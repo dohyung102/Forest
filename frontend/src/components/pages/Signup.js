@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -80,7 +80,7 @@ const Signup = ({ history }) => {
 
   return (
     <div className="login-signup-flex">
-      <p>회원가입</p>
+      <div className='login-signup-title'>회원가입</div>
       <form className="login-signup-form">
         <input
           type="email"
@@ -167,10 +167,10 @@ const Signup = ({ history }) => {
           회원가입
         </button>
       </form>
-      <div>
+      {/* <div>
         <Button>이미 아이디가 있으신가요? / 아이디 찾기??</Button>
         <Button>뒤로가기?</Button>
-      </div>
+      </div> */}
     </div>
   );
 };
