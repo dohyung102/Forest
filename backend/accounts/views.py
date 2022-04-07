@@ -113,12 +113,12 @@ class PreferenceViewSet(viewsets.ModelViewSet):
     serializer_class = PreferenceSerializer
 
     def create(self, request):
-        serialzer = PreferenceSerializer(data=request.data)
-        if serialzer.is_valid(raise_exception=True):
+        serializer = PreferenceSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
             index = calculate_recommend_plants_by_user_preference(request.data)
-            serialzer.save(index = index, user=request.user)
-            user_preference_plants = find_preference_plants_by_index(index)
-            return Response(user_preference_plants, status=status.HTTP_201_CREATED)
+            serializer.save(index = index, user=request.user)
+            # user_preference_plants = find_preference_plants_by_index(index)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk):
         preference = Preference.objects.get(pk=pk)
