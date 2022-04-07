@@ -12,8 +12,9 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView, SocialConnectView
 
-from accounts.models import User, Preference
-from .serializers import CustomUserDetailSerializer, PreferenceSerializer, UserGetRoleSerializer
+from accounts.models import User, Preference, PreferPlant
+from plant.models import Plant
+from .serializers import CustomUserDetailSerializer, PreferenceSerializer, UserGetRoleSerializer, PreferPlantSerializer
 
 from plant.recomm_functions import calculate_recommend_plants_by_user_preference, find_preference_plants_by_index
 
@@ -115,16 +116,21 @@ class PreferenceViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = PreferenceSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            index = calculate_recommend_plants_by_user_preference(request.data)
-            serializer.save(index = index, user=request.user)
+            index, id_list = calculate_recommend_plants_by_user_preference(request.data)
+            preference = serializer.save(index = index, user=request.user)
+            for plant_id in id_list:
+                plant = Plant.objects.get(id=plant_id)
+                preferplant = PreferPlant(preference=preference, plant=plant)
+                preferplant.save()
             # user_preference_plants = find_preference_plants_by_index(index)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def retrieve(self, request, pk):
-        preference = Preference.objects.get(pk=pk)
-        index = preference.index
-        user_preference_plants = find_preference_plants_by_index(index)
-        return Response(user_preference_plants, status=status.HTTP_200_OK)
+    # def retrieve(self, request, pk):
+    #     # preference = Preference.objects.get(pk=pk)
+    #     # index = preference.index
+    #     # user_preference_plants = find_preference_plants_by_index(index)
+
+    #     return Response(user_preference_plants, status=status.HTTP_200_OK)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

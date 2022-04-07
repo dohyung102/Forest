@@ -4,8 +4,8 @@ from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 from post.serializers import PostSerializers, CommentSerializers
 from product.serializers import BuySerializers, WishlistSerializers, ReviewSerializers
-
-from .models import Preference, User
+from plant.serializers import PlantListSerializers
+from .models import Preference, User, PreferPlant
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
@@ -20,8 +20,18 @@ class CustomRegisterSerializer(RegisterSerializer):
         fields = '__all__'
 
 
+class PreferPlantSerializer(serializers.ModelSerializer):
+    preference = serializers.ReadOnlyField(source='preference.id')
+    plant = PlantListSerializers(read_only=True)
+
+    class Meta:
+        model = PreferPlant
+        fields = '__all__'
+
+
 class PreferenceSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
+    preferPlant = PreferPlantSerializer(read_only=True, many=True)
 
     class Meta:
         model = Preference
@@ -67,3 +77,5 @@ class UserGetRoleSerializer(serializers.ModelSerializer):
         model = User
         fields = ['role']
         read_only_fields = ['role']
+
+

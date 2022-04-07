@@ -71,16 +71,16 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative' }}>당신을 위한 반려식물</Grid>
-          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative' }}>추천 한번</Grid>
-          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative' }}>받아보시겠어요?</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>당신을 위한 반려식물</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>추천 한번</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>받아보시겠어요?</Grid>
           <Grid item style={{height: '20px' }}> </Grid>
           <Grid item>
             <Button style={{color: 'white', fontSize: '16px' }}>
             {auth ? ( 
-              <Link to="/survey" style={{color: 'white', fontSize: '16px', textDecoration: 'none'}}>추천받기</Link>
+              <Link to="/survey" style={{color: 'white', fontSize: '16px', textDecoration: 'none', fontFamily: 'eulyooSemiBold'}}>추천받기</Link>
               ) : (
-              <Link to="/login" style={{color: 'white', fontSize: '16px', textDecoration: 'none'}}>추천받기</Link> 
+              <Link to="/login" style={{color: 'white', fontSize: '16px', textDecoration: 'none', fontFamily: 'eulyooSemiBold'}}>추천받기</Link> 
             )}
             </Button>
           </Grid>
