@@ -21,7 +21,11 @@ const Detail = () => {
   // console.log(params)
   const [plantData, setPlantData] = useState()
   const [loading, setLoading] = useState(false)
-  const [storeProduct, setStoreProduct] = useState([])
+  // const [storeProduct, setStoreProduct] = useState([])
+
+  const changeImage = (e) => {
+    e.target.src = 'http://j6d204.p.ssafy.io/backend/media/images/no_image.jpg'
+  }
 
   const getProduct = useCallback(async () => {
     const headers = {
@@ -32,7 +36,7 @@ const Detail = () => {
         headers: headers,
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setPlantData(res.data);
       })
       .catch((err) => {
@@ -40,24 +44,24 @@ const Detail = () => {
       });
   }, [params]);
 
-  const getStore = useCallback(async () => {
-    await axios.get(`http://j6d204.p.ssafy.io/api/stores/${plantData.store}/`)
-    .then((res) => {
-      // console.log('store_data',res.data.product_set)
-      setStoreProduct([res.data.product_set])
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [plantData])
+  // const getStore = useCallback(async () => {
+  //   await axios.get(`http://j6d204.p.ssafy.io/api/stores/${plantData.store}/`)
+  //   .then((res) => {
+  //     // console.log('store_data',res.data.product_set)
+  //     setStoreProduct([res.data.product_set])
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }, [plantData])
 
   useEffect(() => {
     getProduct()
   }, [getProduct, loading])
 
-  useEffect(() => {
-    getStore()
-  }, [getStore])
+  // useEffect(() => {
+  //   getStore()
+  // }, [getStore])
 
   const toDetail = (plant_id) => {
     navigate(`/detail/${plant_id}`)
@@ -99,16 +103,16 @@ const Detail = () => {
   //   )
   // })
 
-  const settings = {
-    slide: 'div',
-    dots: true,
-    infinite: true,
-    speed: 500,
-    // arrows : true,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    draggable: false,
-  };
+  // const settings = {
+  //   slide: 'div',
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   // arrows : true,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 4,
+  //   draggable: false,
+  // };
 
   return (
     <div>
@@ -120,7 +124,8 @@ const Detail = () => {
             <div className="detail-plant-img">
               <img
                 className="detail-plant-img"
-                src={plantData.profile_img}
+                src={`http://j6d204.p.ssafy.io/backend/media/${plantData.profile_image}`} 
+                onError={changeImage}
                 alt="plant_img"
               />
             </div>
@@ -237,7 +242,6 @@ const Detail = () => {
           {plantData &&
             <Reviews reviews={plantData.review_set} loading={loading} setLoading={setLoading} />
           }
-          {/* <Reviews /> */}
         </Grid>
       </Grid>
     </div>

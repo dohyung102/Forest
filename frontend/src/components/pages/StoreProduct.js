@@ -3,33 +3,27 @@ import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const StoreProduct = (props) => {
-  // console.log(props)
   const navigate = useNavigate()
   const moveToPlantDetail = (plant_id) => {
     navigate(`/product/${plant_id}`)
   }
 
+  const changeImage = (e) => {
+    e.target.src = 'http://j6d204.p.ssafy.io/backend/media/images/no_image.jpg'
+  }
+
   const filteredProduct = props.productsList.map(product => {
     return (
       <Grid 
-        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom:'10px' }}
         onClick={() => moveToPlantDetail(product.id)} item md={4} key={product.id}>
-        <img className='store-main-img' alt='product-profile' src={product.profile_image} />
+        <img className='store-main-img' alt='product-image' 
+          src={`http://j6d204.p.ssafy.io/backend/media/${product.profile_image}`} 
+          onError={changeImage}
+        />
         <div className='store-main-name'>{product.name}</div>
-        {/* <div>
-          (카테고리) {product.category}
-        </div> */}
+        <div style={{ fontSize: '15px' }}>{product.price}원</div>
       </Grid>
-      // <Grid 
-      //   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-      //   onClick={() => moveToPlantDetail(product.id)} item md={4} key={product.id}>
-      //   {/* <div> */}
-      //   <img className='store-main-img' alt='store-profile' src={product.profile_image} />
-      //   <div className='store-main-name'>{product.name}</div>
-      //   <div className='store-main-name'>수량 : {product.num}</div>
-      //   <div className='store-main-name'>가격 : {product.price}</div>
-      //   {/* </div> */}
-      // </Grid>
     )
   })
 

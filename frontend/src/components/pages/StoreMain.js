@@ -14,6 +14,10 @@ const StoreMain = () => {
     navigate(`/product/${product_id}`)
   }
   
+  const changeImage = (e) => {
+    e.target.src = 'http://j6d204.p.ssafy.io/backend/media/images/no_image.jpg'
+  }
+
   const getStores = useCallback(async () => {
     // 나중에 지우기
     const headers = {
@@ -44,7 +48,9 @@ const StoreMain = () => {
         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         onClick={() => moveToProduct(product.id)} item md={4} key={product.id}>
         {/* <div> */}
-        <img className='store-main-img' alt='store-profile' src={product.profile_image} />
+        <img className='store-main-img' alt='store-profile' onError={changeImage}
+          src={`http://j6d204.p.ssafy.io/backend/media/${product.profile_image}`} 
+        />
         <div className='store-main-name'>{product.name}</div>
         <div className='store-main-name'>수량 : {product.num}</div>
         <div className='store-main-name'>가격 : {product.price}</div>

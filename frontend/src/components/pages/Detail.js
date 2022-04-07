@@ -42,6 +42,10 @@ const Detail = () => {
     navigate(`/product/${id}`);
   };
 
+  const changeImage = (e) => {
+    e.target.src = 'http://j6d204.p.ssafy.io/backend/media/images/no_image.jpg'
+  }
+
   const settings = {
     slide: 'div',
     // dots: true,
@@ -115,8 +119,9 @@ const Detail = () => {
                 >
                   <img
                     className="detail-similar-img"
-                    src={product.profile_image}
-                    alt="plant_img"
+                    src={`http://j6d204.p.ssafy.io/backend/media/${product.profile_image}`} 
+                    onError={changeImage}
+                    alt="product_img"
                   />
                   <div className="detail-similar-name">{product.name}</div>
                 </div>
@@ -136,8 +141,9 @@ const Detail = () => {
                 >
                   <img
                     className="detail-similar-img"
-                    src={product.profile_image}
-                    alt="plant_img"
+                    src={`http://j6d204.p.ssafy.io/backend/media/${product.profile_image}`} 
+                    onError={changeImage}
+                    alt="product_img"
                   />
                   <div className="detail-similar-name">{product.name}</div>
                 </Grid>
