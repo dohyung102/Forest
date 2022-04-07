@@ -35,8 +35,8 @@ const Appbar = () => {
 
   const logout = () => {
     localStorage.clear();
+    setAuth(false)
   };
-
   return (
     <AppBar sx={{ bgcolor: 'teal' }}>
       <Toolbar>
@@ -107,6 +107,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
+                      onClick={logout}
                       style={{
                         fontWeight: 'bold',
                         fontSize: '16px',

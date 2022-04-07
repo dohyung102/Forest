@@ -1,17 +1,20 @@
 import React from 'react';
 // import styled from 'styled-components';
-import './Survey.css';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-// import { useHistory } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 const Survey = () => {
-  
   const navigate = useNavigate();
-  // const history = useHistory();
-
+  const onClickHome = () => {
+    navigate(`/`);
+  };
   const [watering, setWatering] = React.useState('');
   const [flowerPresence, setFlowerPresence] = React.useState('');
   const [manageDifficulty, setManageDifficulty] = React.useState('');
@@ -44,7 +47,6 @@ const Survey = () => {
     console.log(newPlacement)
   };
 
-
   const survey = () => {
     axios({
       method: 'post',
@@ -67,7 +69,7 @@ const Survey = () => {
       })
       .catch((err) => {
         console.log(err)
-      })    
+      })
   }
 
   return (
@@ -139,13 +141,14 @@ const Survey = () => {
       </ToggleButtonGroup>
 
       <br></br><br></br><br></br><br></br>
-      <p>
-        <button
-          // onClick={ () => {
-          // history.goBack();}}
-          >뒤로 가기</button>
-        <button type='submit' onClick={survey}>확인</button>
-      </p>
+      <Stack direction="row" spacing={2}>
+        <Button variant="outlined" onClick={onClickHome} startIcon={<ArrowBackIcon />}>
+          뒤로가기
+        </Button>
+        <Button variant="contained" onClick={survey} endIcon={<SendIcon />}>
+          제출
+        </Button>
+      </Stack>
     </div>
   )
 }

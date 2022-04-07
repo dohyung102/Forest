@@ -201,9 +201,8 @@ const Cart = () => {
                         }
                         className="btn btn-info ms-2"
                       >
-                        {" "}
-                        -{" "}
-                      </button>
+                        -
+                        </button>
                       <button
                         onClick={() =>
                           updateItemQuantity(item.id, item.quantity + 1)
