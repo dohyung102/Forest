@@ -1,3 +1,9 @@
+.login-signup-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
 .login-signup-flex {
   display: flex;
   flex-direction: column;

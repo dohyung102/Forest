@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 } */
+
+@media screen and (min-width:900px) {
+  .layout {
+    padding-top: 10px;
+
+    /* display: grid; */
+    margin: 0 auto;
+    width: 900px;
+
+    /* border: solid 1px #aabbaa; */
+    /* border-left: solid 1px #aabbaa; */
+    /* border-right: solid 1px #aabbaa; */
+    /* border-bottom: solid 1px #aabbaa; */
+  }
+}
+
+.layout {
+  padding-top: 10px;
+}
