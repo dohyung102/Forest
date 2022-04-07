@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
 import 'moment/locale/ko';
-import './SellRegist.css'
+import './Seller.css'
 
 const SellRegist = () => {
   
@@ -175,7 +175,7 @@ const SellRegist = () => {
           </div>
         </div> */}
         <div className='seller-div'>
-          <label className='seller-label'>판매 기간</label>
+          <div className='seller-label'>판매 기간</div>
           <div>
             <LocalizationProvider dateAdapter={DateAdapter}>
               <div className='seller-date'>
