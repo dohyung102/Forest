@@ -118,6 +118,8 @@ const Appbar = () => {
                   <li>
                     <Button
                       style={btnStyle}
+                      component={Link} 
+                      to="/survey"
                     >
                       설문조사
                     </Button>
@@ -125,6 +127,8 @@ const Appbar = () => {
                   <li>
                     <Button
                       style={btnStyle}
+                      component={Link} 
+                      to="/recommend"
                     >
                       추천식물
                     </Button>
