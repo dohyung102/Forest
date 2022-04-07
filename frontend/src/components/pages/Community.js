@@ -25,20 +25,17 @@ import { Table } from 'react-bootstrap';
 // https://velog.io/@hyounglee/TIL-56
 
 const Community = () => {
-  function toPost(e) {
-    window.location.href = '/community/write';
-  }
-
+  
   // eslint-disable-next-line no-unused-vars
   const [posts, setPosts] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
-
+  
   const [preItems, setPreItems] = useState(0);
   const [items, setItems] = useState(9);
-
+  
   const getPosts = useCallback(async () => {
     setLoading(true);
     await axios.get('http://j6d204.p.ssafy.io/api/posts/').then((res) => {
@@ -52,18 +49,27 @@ const Community = () => {
     });
     setLoading(false);
   }, [preItems, items]);
-
+  
   const scrollHandle = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
     setPreItems(items);
     setItems((items) => items + 9);
-
+    
     setPage((page) => page + 1);
   };
-
+  
   const navigate = useNavigate();
+  const toPost = () => {
+    if (localStorage.getItem('token')) {
+      navigate('/community/write');
+    }
+    else {
+      alert('로그인을 해주세요')
+      navigate('/login')
+    }
+  }
   const linkToPostDetail = (index) => {
     navigate(`/community/${index}`, { state: index });
   };
