@@ -26,7 +26,6 @@ const StoreMain = () => {
 
     // await axios.get('http://j6d204.p.ssafy.io/api/stores/')
     await axios.get('http://j6d204.p.ssafy.io/api/products/' , {
-      headers: headers,
     })
     .then((res) => {
       // console.log(res.data)

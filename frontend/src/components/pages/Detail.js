@@ -72,13 +72,13 @@ const Detail = () => {
         </Grid>
         <Grid item md={6}>
           <div className="detail-ul">
-            <div>{plantData.name}</div>
-            <div>{plantData.character}</div>
-            <div>{plantData.watering}</div>
-            <div>{plantData.light_demand}</div>
-            <div>{plantData.humidity}</div>
-            <div>{plantData.manage_difficulty}</div>
-            <div>{plantData.growth_rate}</div>
+            <div>이름 : {plantData.name}</div>
+            <div>특징 : {plantData.character}</div>
+            <div>권장 수분량 : {plantData.watering}</div>
+            <div>권장 광원량 : {plantData.light_demand}</div>
+            <div>권장 습도 : {plantData.humidity}</div>
+            <div>관리 난이도 : {plantData.manage_difficulty}</div>
+            <div>성장속도 : {plantData.growth_rate}</div>
           </div>
         </Grid>
       </Grid>
