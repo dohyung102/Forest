@@ -5,8 +5,6 @@ from rest_framework.response import Response
 from matplotlib.pyplot import cla
 from rest_framework import viewsets, status
 
-from backend.accounts.models import Preference
-
 from .models import Plant
 from .serializers import PlantSerializers, PlantListSerializers, PlantNameSerializers
 from rest_framework.permissions import AllowAny
