@@ -1,73 +1,71 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import { Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Grid, Container, Avatar, Button, Divider } from '@mui/material';
 import axios from 'axios';
 
 import Product from './StoreProduct';
 
 const Store = () => {
-  const params = useParams();
-  const [storeData, setStoreData] = useState();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const dummy_products = [
-    {
-      name: '111111',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      price: '20000',
-      rate: '3',
-      categories: ['tall', 'big'],
-    },
-    {
-      name: '2222',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      price: '21000',
-      rate: '1',
-      categories: ['short', 'big'],
-    },
-    {
-      name: '3333',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      price: '30000',
-      rate: '5',
-      categories: ['tall', 'small'],
-    },
-    {
-      name: '4444',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      price: '20000',
-      rate: '3',
-      categories: ['short', 'small'],
-    },
-    {
-      name: '5555',
-      img: 'https://media.greg.app/Y2FyZS1wbGFudC1wcm9maWxlL3VzZXJzLzE3MzU2OS9wbGFudC1waG90b3MvTm9uZS8xNjQ3NzA2MzY2NTE1LTIyNEJCNzlGLUFBMUQtNDY0Qi04MjI2LUNERjI4QUU0NkE3NC5qcGVn?format=pjpeg&optimize=medium&auto=webp&precrop=1080:1080,smart&fit=crop&width=1080&height=1080',
-      price: '20000',
-      rate: '3',
-      categories: ['big', 'flowery'],
-    },
-  ];
-
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [product, setProduct] = useState(dummy_products);
-
-  const dummy_categories = ['All', 'tall', 'short', 'big', 'small', 'flowery'];
-
-  const getStore = useCallback(async () => {
-    await axios
-      .get(`http://j6d204.p.ssafy.io/api/stores/${params.store_id}/`)
-      .then((res) => {
-        console.log(res.data);
-        setStoreData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [params]);
-
+  const params = useParams()
+  const [storeData, setStoreData] = useState()
+  const navigate = useNavigate()
+  const [productSet, setProductSet] = useState([])
+  // const [activeCategory, setActiveCategory] = useState('All')
+  // const [product, setProduct] = useState(dummy_products)
+  // const changeImage = (e) => {
+  //   e.target.src = 'http://j6d204.p.ssafy.io/backend/media/images/no_image.jpg'
+  // }
+  // const dummy_categories = [
+  //   'All','tall','short','big','small','flowery'
+  // ]
   useEffect(() => {
-    getStore();
-  }, [getStore]);
+    axios.get(`http://j6d204.p.ssafy.io/api/stores/${params.store_id}/`)
+    .then((res) => {
+      console.log(res.data);
+      setStoreData(res.data);
+      setProductSet(res.data.product_set)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, [params]);
+
+// const products = productSet
+//   .map((products) => {
+//     return (
+//       <Grid
+//         key={products.id}
+//         item
+//         md={4}
+//         style={{
+//           display: 'flex',
+//           flexDirection: 'column',
+//           alignItems: 'center',
+//           marginBottom:'10px'
+//         }}
+//       >
+//         <Link to={`/product/${products.id}`} style={{marginBottom:'5px'}}>
+//           <img
+//             className="store-main-img"
+//             src={`http://j6d204.p.ssafy.io/backend/media/${products.profile_image}`}
+//             alt="no_image"
+//             onError={changeImage}
+//           />
+//         </Link>
+//         <Grid className='store-main-name'>{products.name}</Grid>
+//         <Grid style={{fontSize:'13px'}}>가격 : {products.price}원</Grid>
+//       </Grid>
+//     );
+//   });
+
+  const editStore = () => {
+    navigate('/seller', { state: storeData })
+  }
+
+  const registProduct = () => {
+    navigate('/sell_regist')
+  }
 
   // 카테고리 부분 해결되면 수정 후 재작성
   // useEffect(() => {
@@ -77,44 +75,71 @@ const Store = () => {
   // }, [activeCategory, dummy_products])
 
   return (
-    <Grid container>
-      <Grid item md={3}>
-        {storeData && <div>{storeData.name}</div>}
+    <Container maxWidth='md'>
+      <Grid container>
+        <Grid 
+          item 
+          container 
+          md={3}
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          style={{marginTop:'20px'}}
+        >
+          {storeData &&
+            <Avatar
+              alt=""
+              src={storeData.profile_image}
+              sx={{ width: '150px', height: '150px', marginTop: '70px', marginBottom:'15px'}}
+              variant="rounded"
+            />
+          }
+          {storeData &&
+            <div className='store-name'>{storeData.name}</div>
+          }
+          <Grid>
+            {storeData && storeData.user === localStorage.getItem('user') &&
+              <Grid
+              container 
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              >
+                <Button style={{ width: '120px', height: '40px', fontSize: '16px'}} onClick={editStore} variant='outlined'>스토어변경</Button><br/>
+                <Button style={{ width: '120px', height: '40px', fontSize: '16px'}} onClick={registProduct} variant='outlined'>상품 등록</Button>
+              </Grid>
+            }
+          </Grid>
+        </Grid>
+        {/* <Grid item md={9}>
+          <div className='store-title' style={{textAlign:'center', fonrWeight: 'bolder', fontSize:'32px', marginBottom:'30px'}}>상품 목록</div>
+          <Grid container>{products}</Grid>
+        </Grid> */}
 
-        {/* 카테고리 부분 해결되면 수정 후 재작성 */}
-
-        {/* <div>필터</div>
-        <ul>
-          {dummy_categories.map(category => {
-            return(
-              <li key={category}>
-                <button onClick={() => setActiveCategory(category)}>{category}</button>
-              </li>
-            )
-          })}
-          <button onClick={() => setActiveCategory('All')}>전체보기</button>
-          <button onClick={() => setActiveCategory('tall')}>tall</button>
-          <button onClick={() => setActiveCategory('short')}>short</button>
-          <button onClick={() => setActiveCategory('big')}>big</button>
-          <button onClick={() => setActiveCategory('small')}>small</button>
-          <button onClick={() => setActiveCategory('flowery')}>flowery</button>
-        </ul> */}
-
-        <div>
-          <button>상품등록</button>
-        </div>
-        <div>
-          <button>스토어등록</button>
-        </div>
+        {/* <Grid item md={3}>
+          {storeData &&
+            <div className='store-name'>{storeData.name}</div>
+          }
+          <div className='store-btn-div'>
+            {storeData && storeData.user === localStorage.getItem('user') &&
+              <div className='store-btn-list'>
+                <button onClick={editStore} className='store-btn'>스토어변경</button>
+                <button className='store-btn'>상품등록</button>
+              </div>
+            }
+          </div>
+        </Grid> */}
+        <Grid item md={9}>
+          <div className='store-main-title'>상품 목록</div>
+          <Divider sx={{my: 4}} light variant="middle" />
+          {storeData &&
+            <Product 
+              productsList={storeData.product_set}
+            />
+          }
+        </Grid>
       </Grid>
-      <Grid item md={9}>
-        <div>상품</div>
-        {storeData && <Product productsList={storeData.product_set} />}
-        {/* <Product 
-          productsList={product}
-        /> */}
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 

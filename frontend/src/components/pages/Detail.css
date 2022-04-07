@@ -14,11 +14,11 @@
   height: 180px;
   border-radius: 15px;
   margin: auto;
+  display: block;
 }
 
 .detail-similar-name {
   text-align: center;
-
 }
 
 .slick-prev {

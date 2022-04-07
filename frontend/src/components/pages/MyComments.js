@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import Mynav from '../layout/MypageNavigation';
+import { Table } from "react-bootstrap";
 
 const MyComments = () => {
   const [myComments, MyComments] = useState([]);
@@ -33,23 +34,30 @@ const MyComments = () => {
   return (
     <Grid container>
       <Grid item md={12}>
-        <p className="mypage-title">마이페이지</p>
+        <h2 className="mypage-title">마이페이지</h2>
         <Mynav />
       </Grid>
 
-      <Grid item md={12}>
-        <p>작성한 리뷰</p>
-      </Grid>
-      <div>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>글 번호</th>
+            <th>댓글 내용</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
         {myComments.map((comment) => {
           return (
-            <div key={comment.id}>
-              {/* <div>{review.post}</div> */}
-              <div onClick={() => toPost(comment.post)}>{comment.content}</div>
-            </div>
+            <tbody>
+              <tr onClick={() => toPost(comment.post)}>
+                <td>{comment.id}</td>
+                <td>{comment.content}</td>
+                <td>{comment.create_date}</td>
+              </tr>
+            </tbody>
           );
         })}
-      </div>
+      </Table>
     </Grid>
   );
 };

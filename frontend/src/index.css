@@ -1,3 +1,9 @@
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: "eulyooSemiBold";
+  font-weight: 50;
+  src: url("./fonts/Eulyoo1945-SemiBold.ttf") format("truetype");
+}

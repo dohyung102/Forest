@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 // import { useRecoilValue } from 'recoil'
 // import { idState } from './state'
 import './style.css';
@@ -25,9 +26,8 @@ const Appbar = () => {
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
-    // if (localStorage.getItem('token'))
     if (localStorage.getItem('token')) setAuth(true);
-  }, []);
+  }, [auth, localStorage.getItem('token')]);
 
   const homeButton = () => {
     window.location.replace('/');
@@ -37,6 +37,9 @@ const Appbar = () => {
     localStorage.clear();
     setAuth(false)
   };
+
+  // const navigate = useNavigate()
+
   return (
     <AppBar sx={{ bgcolor: 'teal' }}>
       <Toolbar>
@@ -57,17 +60,18 @@ const Appbar = () => {
             <nav>
               {auth ? (
                 <ul className="layout-ul">
-                  <li>
+                  {/* <li>
                     <Button
                       style={{
                         fontWeight: 'bold',
                         fontSize: '16px',
                         color: 'gray',
                       }}
+                      onClick={createProduct}
                     >
                       상품등록
                     </Button>
-                  </li>
+                  </li> */}
                   <li>
                     <Button
                       style={{
@@ -75,8 +79,10 @@ const Appbar = () => {
                         fontSize: '16px',
                         color: 'gray',
                       }}
+                      component={Link}
+                      to="/store"
                     >
-                      상품정보
+                      스토어
                     </Button>
                   </li>
                   <li>
@@ -137,8 +143,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/cart"
                     >
-                      <Link to="/carttest">장바구니</Link>
+                      장바구니
                     </Button>
                   </li>
                   <li>
@@ -148,8 +156,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/survey"
                     >
-                      <Link to="/survey">설문조사</Link>
+                      설문조사
                     </Button>
                   </li>
                   <li>
@@ -159,19 +169,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/recommend"
                     >
-                      <Link to="/recommend">추천식물</Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
-                    >
-                      <Link to="/sell_regist">판매상품 등록</Link>
+                      추천식물
                     </Button>
                   </li>
                 </ul>

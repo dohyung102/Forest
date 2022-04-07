@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Divider from '@mui/material/Divider';
+
+import './Seller.css'
 
 const SellerAuth = () => {
   const navigate = useNavigate();
@@ -59,11 +62,20 @@ const SellerAuth = () => {
 
   return (
     <div>
-      사업자 등록
+      <div className='seller-title'>판매자 신청</div>
+      <Divider sx={{my: 4}} variant="middle" light />
       <form>
-        <div>
-          <label htmlFor="company">회사이름</label>
+        <div className='seller-auth-title'>
+          회사 정보
+        </div>
+        <div className='seller-div'>
+          <label 
+            className='seller-label'
+            htmlFor="company">
+            회사이름
+          </label>
           <input
+            className="seller-input"
             type="text"
             name="company"
             value={company}
@@ -71,9 +83,14 @@ const SellerAuth = () => {
             placeholder="회사이름"
           />
         </div>
-        <div>
-          <label htmlFor="eid">사업자 등록번호</label>
+        <div className='seller-div'>
+          <label 
+            className='seller-label'
+            htmlFor="eid">
+            사업자 등록번호
+          </label>
           <input
+            className="seller-input"
             type="number"
             name="eid"
             value={EID}
@@ -81,39 +98,57 @@ const SellerAuth = () => {
             placeholder="사업자 등록번호"
           />
         </div>
+        <Divider sx={{my: 4}} variant="middle" light />
 
-        <div>담당자 등록</div>
-        <div>
-          <label htmlFor="name">회사이름</label>
+        <div className='seller-auth-title'>담당자 정보</div>
+        <div className='seller-div'>
+          <label 
+          className='seller-label'
+            htmlFor="name">
+            이름
+          </label>
           <input
+            className="seller-input"
             type="text"
             name="name"
             value={name}
             onChange={nameHandle}
-            placeholder="담당자 이름"
+            placeholder="이름"
           />
         </div>
-        <div>
-          <label htmlFor="phone">담당자 연락처</label>
+        <div className='seller-div'>
+          <label 
+            className='seller-label'
+            htmlFor="phone"
+          >
+            연락처
+          </label>
           <input
-            type="number"
+            className="seller-input"
+            type="text"
             name="phone"
             value={phone}
             onChange={phoneHandle}
-            placeholder="담당자 연락처"
+            placeholder="연락처"
           />
         </div>
-        <div>
-          <label htmlFor="email">담당자 이메일</label>
+        <div className='seller-div'>
+          <label 
+            className='seller-label'
+            htmlFor="email">
+            이메일
+          </label>
           <input
+            className="seller-input"
             type="email"
             name="email"
             value={email}
             onChange={emailHandle}
-            placeholder="담당자 이메일"
+            placeholder="이메일"
           />
         </div>
-        <button onClick={getAuth}>등록하기</button>
+        <Divider sx={{my: 4}} variant="middle" light />
+        <button className='seller-btn' onClick={getAuth}>등록하기</button>
       </form>
     </div>
   );

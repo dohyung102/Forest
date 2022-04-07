@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PlantViewSet, PlantSearchViewSet, PlantListViewSet
+from .views import PlantViewSet, PlantListViewSet, PlantRecommViewSet, PlantNameViewSet
 
 # Store 목록, 등록
 plant_list = PlantListViewSet.as_view({
@@ -15,17 +15,17 @@ plant_detail = PlantViewSet.as_view({
 })
 
 
-plant_search = PlantSearchViewSet.as_view({
-    'get': 'list'
+plant_user_custom = PlantRecommViewSet.as_view({
+    'get': 'recomm'
 })
 
-plant_user_custom = PlantSearchViewSet.as_view({
-    'get': 'recomm'
+plant_name = PlantNameViewSet.as_view({
+    'get': 'names'
 })
 
 urlpatterns = [
     path('', plant_list),
     path('<int:pk>/', plant_detail),
     path('usercustom/', plant_user_custom),
-    path('search/', plant_search)
+    path('name/', plant_name),
 ]

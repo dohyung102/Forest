@@ -1,0 +1,50 @@
+.seller-title {
+  font-size: 32px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.seller-auth-title {
+  font-size: 24px;
+  font-weight: bolder;
+  margin: 20px 0 20px 15px;
+}
+
+.seller-div {
+  width: 65%;
+  margin: 15px 0 15px 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seller-label {
+  font-weight: bold;
+}
+
+.seller-input {
+  width: 350px;
+  height: 30px;
+  font-size: 16px;
+  /* border: 1; */
+  /* border-radius: 1px; */
+  padding: 0;
+}
+
+.seller-input-area {
+  width: 350px;
+  height: 200px;
+  font-size: 16px;
+}
+
+.seller-btn {
+  width: 120px;
+  height: 40px;
+  float: right;
+}
+
+.seller-date {
+  margin-bottom: 15px;
+}

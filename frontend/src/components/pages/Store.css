@@ -1,0 +1,57 @@
+.store-main-title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.store-main-img {
+  height: 180px;
+  width: 180px;
+  border-radius: 15px;
+  margin-top: auto;
+  align-self: center;
+  /* margin: 5px; */
+}
+
+.store-main-name {
+  /* margin: 5px 0; */
+  text-align: center;
+  font-weight: bold;
+}
+
+.store-name {
+  margin-bottom: 80px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.store-btn {
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.store-main-btn {
+  float: right;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* .store-title {
+  font-size: 32px;
+  font-weight: bolder;
+  text-align: center;
+} */
+
+.store-btn-list {
+  /* margin-top: 40px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -11,6 +11,7 @@ class UserSerializers(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+#test
 class CommentSerializers(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
     # user = serializers.ReadOnlyField(source='user.email')
@@ -22,6 +23,7 @@ class CommentSerializers(serializers.ModelSerializer):
 
 class PostSerializers(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
+    image = serializers.ImageField()
 
     class Meta:
         model = Post
@@ -30,6 +32,7 @@ class PostSerializers(serializers.ModelSerializer):
 class PostDetailSerializers(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
     comment_set = CommentSerializers(read_only=True, many=True)
+    image = serializers.ImageField(use_url=False)
 
     class Meta:
         model = Post

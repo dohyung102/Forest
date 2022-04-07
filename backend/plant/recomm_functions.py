@@ -71,23 +71,24 @@ def calculate_recommend_plants_by_user_preference(preference_data):
     for index in combine_index:
         integer_list = list(preference_data[index].split(','))
         for i in integer_list:
-            all_text += data_dict[index][i]
+            all_text += data_dict[index][int(i)] + ' '
 
     feature_names = pd.read_pickle(FEATURE_NAMES)
     counter_vector = CountVectorizer(vocabulary=feature_names)
-    user_preference_vector = counter_vector.transform(all_text).toarray()
-
+    user_preference_vector = counter_vector.transform([all_text]).toarray()
     plants_vecter_data = pd.read_pickle(PLANT_VECTOR_DATA)
     similarity = cosine_similarity(plants_vecter_data, user_preference_vector)
 
     plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     plants_data['similarity'] = similarity
     result = plants_data.sort_values('similarity', ascending=False)[:10]
-
+    id_list = result['id'].to_list()
+    print(id_list)
     user_preference_vector = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)
     start_index = len(user_preference_vector)
     user_preference_vector = pd.concat([user_preference_vector, result], ignore_index=True)
-    return start_index
+    pd.to_pickle(user_preference_vector, USER_PREFERENCE_PLANT_VECTOR_DATA)
+    return (start_index, id_list)
 
 def find_preference_plants_by_index(index):
     user_preference_vector = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)
@@ -124,18 +125,20 @@ def find_user_data_based_plants_by_user_id(user_id):
         manage_difficulty=user.manage_difficulty, 
         growth_rate=user.growth_rate,
         placement=user.placement,
-        )
-    ids = other_users.user_id
+        ).values_list('id', flat=True)
+    # ids = other_users.user_id
     for i in range(len(filedata)):
-        if filedata[i][0] in ids:
+        if filedata[i][0] in other_users:
             plant_cnt[filedata[i][1]] += 1
     sortfile = sorted(filedata)
+    n = len(sortfile)
+    if n > 5:
+        n = 5
     recomm_plant = []
-    for j in range(4):
+    for j in range(n):
         recomm_plant.append(filedata.index(sortfile[j]))
-    return Plant.objects.filter(id in recomm_plant)
-    
-    
+    # print(Plant.objects.filter(id__in=recomm_plant))
+    return Plant.objects.filter(id__in=recomm_plant)
 
 
 # friend_list = [

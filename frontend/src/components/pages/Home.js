@@ -1,33 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
-
+import axios from 'axios';
 import { Grid, Button, Box, Card, Container, CardMedia, CardContent } from '@mui/material';
+import { fontFamily, fontSize } from '@mui/system';
+import { Link, useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
 
 const Home = () => {
-  const dummy_data = [
-    {
-      name: '식물a',
-      img: 'https://images.pexels.com/photos/1022922/pexels-photo-1022922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-    },
-    {
-      name: '식물b',
-      img: 'https://images.pexels.com/photos/1856450/pexels-photo-1856450.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    },
-    {
-      name: '식물c',
-      img: 'https://images.pexels.com/photos/912396/pexels-photo-912396.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    },
-    {
-      name: '식물d',
-      img: 'https://images.pexels.com/photos/912410/pexels-photo-912410.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    },
-  ];
+  const [auth, setAuth] = useState(false);
+  const [recommPlants, setRecommPlants] = useState([]);
+  // const [plants, setPlants] = useState(dummy_plants)
+  const settings = {
+    slide: 'Grid',
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    draggable: false,
+  };
+  const navigate = useNavigate();
+  const toPlant = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
-  const plant_data = dummy_data.map((plant) => {
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `http://j6d204.p.ssafy.io/api/plants/usercustom/`,
+      // url: `http://127.0.0.1:8000/api/plants/usercustom/`,
+      // headers: {
+      //   Authorization: `Bearer ${localStorage.getItem('token')}`,
+      //   // "Content-Type": `multipart/form-data`
+      // },
+    })
+    // axios.get('http://j6d204.p.ssafy.io/api/plants/usercustom/')
+    .then((res) => {
+      console.log(res.data);
+      setRecommPlants(res.data);
+    })
+    }, []);
+
+  useEffect(() => {
+    // if (localStorage.getItem('token'))
+    if (localStorage.getItem('token')) setAuth(true);
+  }, []);
+
+  const plant_data = recommPlants.map((plant) => {
     return (
-      <Grid key={plant.name} item md={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img className="home-plant-img" src={plant.img} alt="plant_img" />
-        <p className="home-plant-name">{plant.name}</p>
+      <Grid 
+        key={plant.name} 
+        item 
+        md={3} 
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        onClick={() => toPlant(plant.id)}  
+      >
+        <img className="home-plant-img" src={`http://j6d204.p.ssafy.io/backend/media/${plant.image_path}`}  alt="plant_img" />
+        <div className="home-plant-name">{plant.name}</div>
       </Grid>
     );
   });
@@ -35,34 +64,36 @@ const Home = () => {
   return (
     <div>
       <Container maxWidth="md">
-        <Grid container className="home-content">
-          <Grid item xs={6} sm={6}>
-            {/* <img
-              className="home-content-img"
-              alt=""
-              src="https://www.nongsaro.go.kr/ps/img/curation/bigData_2021/20210929/images/picture13.jpg"
-            /> */}
-          </Grid>
-          <Grid item xs={6} sm={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Card className="home-content-text">
-              <p className="home-content-title">Title</p>
-              <p className="home-content-content">
-                우리 프로젝트가 어떠어떠하니 식물추천을 받아보면 어떻겠냐는 내용이 들어가면 좋을 듯한 자리
-              </p>
-              <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                <Button style={{ width: '130px', height: '40px', color: 'white', backgroundColor: 'green' }}>test1</Button>
-                <Button style={{ width: '130px', height: '40px', color: 'white', backgroundColor: 'green' }}>test2</Button>
-              </Box>
-            </Card>
+        <Grid 
+          container 
+          className="home-content" 
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>당신을 위한 반려식물</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>추천 한번</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>받아보시겠어요?</Grid>
+          <Grid item style={{height: '20px' }}> </Grid>
+          <Grid item>
+            <Button style={{color: 'white', fontSize: '16px' }}>
+            {auth ? ( 
+              <Link to="/survey" style={{color: 'white', fontSize: '16px', textDecoration: 'none', fontFamily: 'eulyooSemiBold'}}>추천받기</Link>
+              ) : (
+              <Link to="/login" style={{color: 'white', fontSize: '16px', textDecoration: 'none', fontFamily: 'eulyooSemiBold'}}>추천받기</Link> 
+            )}
+            </Button>
           </Grid>
         </Grid>
       </Container>
       <Container maxWidth="md">
-        <Grid>
-          <p className="home-plant-title">TitleTitle</p>
-          <Grid container sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
+        <Grid >
+          <p className="home-plant-title">추천 식물</p>
+          <Slider 
+            {...settings} 
+          >
             {plant_data}
-          </Grid>
+          </Slider>
         </Grid>
       </Container>
     </div>

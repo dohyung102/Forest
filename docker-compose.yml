@@ -22,6 +22,8 @@ services:
     restart: always
     environment:
       TZ: Asia/Seoul
+    volumes:
+      - "./backend/media:/app/media"
     expose:
       - "8000"
     depends_on:

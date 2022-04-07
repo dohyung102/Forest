@@ -20,12 +20,12 @@ const Post = () => {
   const [postData, setPostData] = useState([]);
   const [edit, setEdit] = useState(false);
   const [userData, setUserData] = useState([]);
-
+  const formData = new FormData();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [preview, setPreview] = useState('');
   const [image, setImage] = useState('');
-  const formData = new FormData();
+
   const params = useParams();
   // console.log(params)
 
@@ -38,7 +38,7 @@ const Post = () => {
   const loadFile = (event) => {
     const imgFile = event.target.files[0];
     setPreview(URL.createObjectURL(imgFile));
-    formData.append('image', imgFile);
+    setImage(imgFile);
   };
   const deleteFile = (event) => {
     URL.revokeObjectURL(preview);
@@ -84,9 +84,9 @@ const Post = () => {
   }, [getPost, edit]);
 
   const editPost = (event) => {
+    formData.append('image', image);
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('image', image);
     event.preventDefault();
 
     axios({
@@ -248,7 +248,11 @@ const Post = () => {
                 <Typography component="div">{postData.content}</Typography>
               </Box>
               {/* <div>좋아요 기능 보류? : {post_dummy_data.likes}</div> */}
-              <img className="post-img" alt="" src={postData.image} />
+              <img
+                className="post-img"
+                alt=""
+                src={`http://j6d204.d.ssafy.io/backend/media/${postData.image}`}
+              />
               <Box></Box>
             </Paper>
           </Container>

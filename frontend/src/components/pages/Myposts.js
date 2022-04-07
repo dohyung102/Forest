@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 
 import Mynav from '../layout/MypageNavigation';
+import { Table } from "react-bootstrap";
 
 const MyPosts = () => {
   const navigate = useNavigate();
@@ -23,37 +24,47 @@ const MyPosts = () => {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
-      .then((res) => {
-        console.log(res.data.post_set);
-        setMyPost(res.data.post_set);
-      })
-      .catch((err) => {
-        console.log('error');
-      });
+    .then((res) => {
+      console.log(res.data.post_set);
+      setMyPost(res.data.post_set);
+    })
+    .catch((err) => {
+      console.log('error');
+    });
   }, []);
 
   return (
     <Grid container>
       <Grid item md={12}>
-        <p className="mypage-title">마이페이지</p>
+      <h2 className="mypage-title">마이페이지</h2>
         <Mynav />
       </Grid>
 
-      <Grid item md={12}>
-        <p>작성한 게시글</p>
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th width='10%'>글 번호</th>
+          <th width='50%'>제목</th>
+          <th width='15%'>작성일</th>
+        </tr>
+      </thead>
+      {myPost.map((post) => {
+        return (
+            <tbody>
+              <tr onClick={() => linkToPostDetail(post.id)}>
+                <td>{post.id}</td>
+                <td>{post.title}</td>
+                <td>{post.created_date}</td>
+              </tr>
+            </tbody>
+        );
+      })}
+    </Table>
       </Grid>
-      <div>
-        {myPost.map((post) => {
-          return (
-            <div key={post.id} onClick={() => linkToPostDetail(post.id)}>
-              <div>{post.title}</div>
-              <div>{post.content}</div>
-            </div>
-          );
-        })}
-      </div>
-    </Grid>
   );
 };
 
 export default MyPosts;
+
+
+
