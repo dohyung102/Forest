@@ -3,7 +3,7 @@ import './Home.css';
 import axios from 'axios';
 import { Grid, Button, Box, Card, Container, CardMedia, CardContent } from '@mui/material';
 import { fontFamily, fontSize } from '@mui/system';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
 const Home = () => {
@@ -18,9 +18,23 @@ const Home = () => {
     slidesToScroll: 4,
     draggable: false,
   };
+  const navigate = useNavigate();
+  const toPlant = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
 
   useEffect(() => {
-    axios.get('http://j6d204.p.ssafy.io/api/plants/usercustom/')
+    axios({
+      method: 'get',
+      url: `http://j6d204.p.ssafy.io/api/plants/usercustom/`,
+      // url: `http://127.0.0.1:8000/api/plants/usercustom/`,
+      // headers: {
+      //   Authorization: `Bearer ${localStorage.getItem('token')}`,
+      //   // "Content-Type": `multipart/form-data`
+      // },
+    })
+    // axios.get('http://j6d204.p.ssafy.io/api/plants/usercustom/')
     .then((res) => {
       console.log(res.data);
       setRecommPlants(res.data);
@@ -34,7 +48,13 @@ const Home = () => {
 
   const plant_data = recommPlants.map((plant) => {
     return (
-      <Grid key={plant.name} item md={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Grid 
+        key={plant.name} 
+        item 
+        md={3} 
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        onClick={() => toPlant(plant.id)}  
+      >
         <img className="home-plant-img" src={`http://j6d204.p.ssafy.io/backend/media/${plant.image_path}`}  alt="plant_img" />
         <div className="home-plant-name">{plant.name}</div>
       </Grid>

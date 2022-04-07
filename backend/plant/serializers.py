@@ -31,3 +31,13 @@ class PlantSerializers(serializers.ModelSerializer):
     def get_similar_plants(self, obj):
         similart_plants = find_similar_plant_by_plant_id(obj.id)
         return similart_plants
+
+class PlantNameSerializers(serializers.ModelSerializer):
+    label = serializers.SerializerMethodField()
+       
+    class Meta:
+        model = Plant
+        fields = ['id', 'name', 'label']
+
+    def get_label(self, obj):
+        return obj.name
