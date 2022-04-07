@@ -18,7 +18,7 @@ const SellRegist = () => {
   const [plant, setPlant] = useState('')
   const [name, setName] = useState('')
   const [price, setPrice] = useState()
-  const [num, setNum] = useState()
+  // const [num, setNum] = useState()
   const [description, setDescription] = useState('')
   const [openDate, setOpenDate] = useState(new Date());
   const [closeDate, setCloseDate] = useState(new Date());
@@ -34,9 +34,9 @@ const SellRegist = () => {
   const priceHandle = (event) => {
     setPrice(event.target.value)
   }
-  const numHandle = (event) => {
-    setNum(event.target.value)
-  }
+  // const numHandle = (event) => {
+  //   setNum(event.target.value)
+  // }
   const descriptionHandle = (event) => {
     setDescription(event.target.value)
   }
@@ -96,7 +96,7 @@ const SellRegist = () => {
 
     formData.append('name', name)
     formData.append('price', price)
-    formData.append('num', num)
+    formData.append('num', 1)
     formData.append('open_date', dateOpen)
     formData.append('close_date', dateClose)
     formData.append('description', description)
@@ -153,10 +153,10 @@ const SellRegist = () => {
           <label className='seller-label' htmlFor='price'>가격</label>
           <input className='seller-input' type='number' name='price' value={price} onChange={priceHandle} placeholder=' 상품 가격' />
         </div>
-        <div className='seller-div'>
+        {/* <div className='seller-div'>
           <label className='seller-label' htmlFor='number'>수량</label>
           <input className='seller-input' type='number' name='number' value={num} onChange={numHandle} placeholder=' 상품 수량' />
-        </div>
+        </div> */}
 
 
 

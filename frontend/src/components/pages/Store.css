@@ -34,6 +34,14 @@
   margin: 5px 0;
 }
 
+.store-main-btn {
+  float: right;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
 /* .store-title {
   font-size: 32px;
   font-weight: bolder;

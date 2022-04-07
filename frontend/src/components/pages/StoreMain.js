@@ -42,6 +42,32 @@ const StoreMain = () => {
     getStores()
   }, [getStores])
 
+  const createProduct = () => {
+    axios({
+      method: 'get',
+      url: 'http://j6d204.p.ssafy.io/api/accounts/user/',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (!res.data.role) {
+          alert('판매자 신청을 해주세요.')
+          navigate('/sellerauth')
+        }
+        else if (!res.data.store_set) {
+          alert('스토어 등록을 해주세요.')
+          navigate('/seller')
+        }
+        else {
+          navigate('/sell_regist')
+        }
+      })
+      .catch((err) => {
+        console.log('error');
+      });
+  }
+
   const productGrid = productList.map(product => {
     return (
       <Grid 
@@ -66,6 +92,14 @@ const StoreMain = () => {
           스토어
         </div>
         <Divider sx={{my: 4}} light variant="middle" />
+        {localStorage.getItem('role') &&
+          <button
+            className='store-main-btn'
+            onClick={createProduct}
+          >
+            상품등록
+          </button>
+        }
         <Grid
           container
           spacing={0}

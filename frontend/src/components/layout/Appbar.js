@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 // import Typography from '@mui/material/Typography';
 // import Menu from '@mui/material/Menu';
 // import MenuIcon from '@mui/icons-material/Menu';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -38,33 +38,7 @@ const Appbar = () => {
     setAuth(false)
   };
 
-  const navigate = useNavigate()
-  const createProduct = () => {
-    axios({
-      method: 'get',
-      url: 'http://j6d204.p.ssafy.io/api/accounts/user/',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then((res) => {
-        if (!res.data.role) {
-          alert('판매자 신청을 해주세요.')
-          navigate('/sellerauth')
-        }
-        else if (!res.data.store_set) {
-          alert('스토어 등록을 해주세요.')
-          navigate('/seller')
-        }
-        else {
-          navigate('/sell_regist')
-        }
-      })
-      .catch((err) => {
-        console.log('error');
-      });
-    
-  }
+  // const navigate = useNavigate()
 
   return (
     <AppBar sx={{ bgcolor: 'teal' }}>
@@ -86,7 +60,7 @@ const Appbar = () => {
             <nav>
               {auth ? (
                 <ul className="layout-ul">
-                  <li>
+                  {/* <li>
                     <Button
                       style={{
                         fontWeight: 'bold',
@@ -97,7 +71,7 @@ const Appbar = () => {
                     >
                       상품등록
                     </Button>
-                  </li>
+                  </li> */}
                   <li>
                     <Button
                       style={{
@@ -169,8 +143,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/cart"
                     >
-                      <Link to="/carttest">장바구니</Link>
+                      장바구니
                     </Button>
                   </li>
                   <li>
@@ -180,8 +156,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/survey"
                     >
-                      <Link to="/survey">설문조사</Link>
+                      설문조사
                     </Button>
                   </li>
                   <li>
@@ -191,19 +169,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/recommend"
                     >
-                      <Link to="/recommend">추천식물</Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
-                    >
-                      <Link to="/sell_regist">판매상품 등록</Link>
+                      추천식물
                     </Button>
                   </li>
                 </ul>

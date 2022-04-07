@@ -137,7 +137,7 @@ const Detail = () => {
               <div className='product-name'>{plantData.name}</div>
               <Divider sx={{my: 2}} light />
               <div className='product-price'>{plantData.price}원</div>
-              <div className='product-content'>남은 수량  {plantData.num}</div>
+              {/* <div className='product-content'>남은 수량  {plantData.num}</div> */}
               <div className='product-content'>판매기간 : {plantData.open_date} ~ {plantData.close_date}</div>
               <div className='product-btn-div'>
                 <button 
