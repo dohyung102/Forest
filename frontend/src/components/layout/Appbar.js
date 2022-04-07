@@ -156,8 +156,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/survey"
                     >
-                      <Link to="/survey">설문조사</Link>
+                      설문조사
                     </Button>
                   </li>
                   <li>
@@ -167,8 +169,10 @@ const Appbar = () => {
                         fontsize: '16px',
                         color: 'white',
                       }}
+                      component={Link} 
+                      to="/recommend"
                     >
-                      <Link to="/recommend">추천식물</Link>
+                      추천식물
                     </Button>
                   </li>
                 </ul>
