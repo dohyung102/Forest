@@ -16,11 +16,12 @@ import Button from '@mui/material/Button';
 // import MenuItem from '@mui/material/MenuItem';
 
 const Appbar = () => {
-  const [auth, setAuth] = useState(false);
-  console.log('setAuth',setAuth)
+  // const [auth, setAuth] = useState(false);
+  const auth = localStorage.getItem('auth');
+
 
   useEffect(() => {
-    if (localStorage.getItem('token')) setAuth(true);
+    // if (localStorage.getItem('token')) setAuth(true);
   }, [auth]);
 
   const homeButton = () => {
@@ -29,12 +30,12 @@ const Appbar = () => {
 
   const logout = () => {
     localStorage.clear();
-    setAuth(false)
+    navigate('/')
   };
 
   const navigate = useNavigate()
   const toLogin = () => {
-    navigate('/login', {state: { set_auth: setAuth }})
+    navigate('/login')
   }
 
   // const navigate = useNavigate()
