@@ -20,6 +20,7 @@ const Detail = () => {
   const navigate = useNavigate()
   // console.log(params)
   const [plantData, setPlantData] = useState()
+  const [reviews, setReviews] = useState()
   const [loading, setLoading] = useState(false)
   // const [storeProduct, setStoreProduct] = useState([])
 
@@ -38,6 +39,7 @@ const Detail = () => {
       .then((res) => {
         console.log(res.data);
         setPlantData(res.data);
+        setReviews(res.data.review_set);
       })
       .catch((err) => {
         console.log(err);
@@ -69,6 +71,10 @@ const Detail = () => {
 
   const toStore = (store_id) => {
     navigate(`/store/${store_id}`)
+  }
+
+  const getReviews = (data) => {
+    setReviews(data)
   }
 
   const addToCart = () => {
@@ -240,7 +246,7 @@ const Detail = () => {
           }
 
           {plantData &&
-            <Reviews reviews={plantData.review_set} loading={loading} setLoading={setLoading} />
+            <Reviews reviews={reviews} loading={loading} setLoading={setLoading} getReviews={getReviews}/>
           }
         </Grid>
       </Grid>

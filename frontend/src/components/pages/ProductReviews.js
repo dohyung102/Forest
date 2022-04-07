@@ -63,7 +63,12 @@ const ProductReviews = (props) => {
       }
     })
       .then((res) => {
-        console.log(res)
+        setReview('')
+        const data = [
+          ...props.reviews,
+          res.data
+        ];
+        props.getReviews(data)
       })
       .catch((err) => {
         console.log(err)
@@ -86,7 +91,16 @@ const ProductReviews = (props) => {
       }
     })
       .then((res) => {
-        console.log(res.data)
+        const data = 
+            props.reviews.map(review => {
+              if (review.id === res.data.id) {
+                return res.data
+              } else {
+                return review
+              }
+            })
+        props.getReviews(data)
+        setReviewPK(0)
       })
       .catch((err) => {
         console.log(err)
@@ -102,8 +116,14 @@ const ProductReviews = (props) => {
       },
     })
       .then((res) => {
-        // navigate(`/community/${params.post_pk}`)
-        console.log('delete complete')
+        const data = 
+            props.reviews.filter(review => {
+              return review.id != reviewID
+            })
+          
+        console.log(props.reviews)
+        console.log(data)
+        props.getReviews(data)
       })
       .catch((err) => {
         console.log(err)

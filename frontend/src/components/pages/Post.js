@@ -29,6 +29,10 @@ const Post = () => {
   const params = useParams();
   // console.log(params)
 
+  const getPostData = (data) => {
+    setPostData(data)
+  }
+
   const titleHandle = (event) => {
     setTitle(event.target.value);
   };
@@ -293,7 +297,7 @@ const Post = () => {
           <button>목록으로</button>
         </Link>
       )}
-      <Comment comment={postData} />
+      <Comment comment={postData} getPostData={getPostData} />
     </div>
   );
 };

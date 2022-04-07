@@ -38,8 +38,15 @@ const Comment = (props) => {
       }
     })
       .then((res) => {
-        console.log(res)
         setComment('')
+        const data = {
+          ...props.comment,
+          comment_set: [
+            ...props.comment.comment_set,
+            res.data
+          ]
+        }
+        props.getPostData(data)
       })
       .catch((err) => {
         console.log(err)
@@ -58,7 +65,19 @@ const Comment = (props) => {
       }
     })
       .then((res) => {
-        console.log(res.data)
+        const data = {
+          ...props.comment,
+          comment_set: 
+            props.comment.comment_set.map(comment => {
+              if (comment.id === res.data.id) {
+                return res.data
+              } else {
+                return comment
+              }
+            })
+          };
+        props.getPostData(data)
+        setCommentPK(0)
       })
       .catch((err) => {
         console.log(err)
@@ -75,7 +94,15 @@ const Comment = (props) => {
     })
       .then((res) => {
         // navigate(`/community/${params.post_pk}`)
-        console.log('delete complete')
+        console.log(res)
+        const data = {
+          ...props.comment,
+          comment_set: 
+            props.comment.comment_set.filter(comment => {
+              return comment.id != commentID
+            })
+          };
+          props.getPostData(data)
       })
       .catch((err) => {
         console.log(err)
