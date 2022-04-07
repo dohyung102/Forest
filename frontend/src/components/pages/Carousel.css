@@ -1,0 +1,42 @@
+.container {
+  width: 500px;
+  margin: auto;
+  height: 1000px;
+  overflow: hidden; 
+  /* 선을 넘어간 이미지들은 숨겨줍니다. */
+};
+.Button {
+  all: unset;
+  padding: 1em 2em;
+  margin: 2em 2em;
+  color: burlywood;
+  border-radius: 10px;
+  border: 1px solid burlywood;
+  cursor: pointer;
+  /* &:hover {
+    background-color: burlywood;
+    color: #fff;
+  } */
+}
+
+.SliderContainer {
+  margin: 0 auto;
+  margin-bottom: 2em;
+  display: flex; 
+  /* 이미지들을 가로로 나열합니다. */
+}
+.Text {
+  text-align: center;
+  color: burlywood;
+  /* p {
+    color: #fff;
+    font-size: 20px;
+    background-color: burlywood;
+    display: inline-block;
+    border-radius: 50px;
+    padding: 0.5em 1em;
+  } */
+}
+.Center {
+  text-align: center;
+}

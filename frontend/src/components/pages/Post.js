@@ -64,7 +64,7 @@ const Post = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [params.post_pk]);
+  }, [params.post_id]);
 
   // useEffect(() => {
   //   axios({

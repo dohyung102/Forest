@@ -64,8 +64,9 @@ const Survey = () => {
     })
       .then((res) => {
         console.log(res)
+        localStorage.setItem('ref', res.data.id)
         alert('survey completed')
-        navigate('/recommend', {state: { ref_id: res.data.id }})
+        navigate('/recommend')
       })
       .catch((err) => {
         console.log(err)

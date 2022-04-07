@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 
+import SideDrawer from './SideDrawer';
 import './style.css';
 
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import { Link, useNavigate } from 'react-router-dom';
 // import AppBar from '@mui/material/AppBar';
 // import Toolbar from '@mui/material/Toolbar';
@@ -48,7 +48,7 @@ const Appbar = () => {
   return (
     // <AppBar sx={{ bgcolor: 'teal'}}>
       <div className='layout-header'>
-        <Container maxWidth="md" height="100%" disableGutters>
+        <Container maxWidth='md' height="100%" disableGutters>
           {/* 웹 화면 */}
           <Box
             sx={{
@@ -118,7 +118,7 @@ const Appbar = () => {
                       장바구니
                     </Button>
                   </li>
-                  <li>
+                  {/* <li>
                     <Button
                       style={btnStyle}
                       component={Link} 
@@ -126,7 +126,7 @@ const Appbar = () => {
                     >
                       설문조사
                     </Button>
-                  </li>
+                  </li> */}
                   <li>
                     <Button
                       style={btnStyle}
@@ -193,9 +193,12 @@ const Appbar = () => {
 
           {/* 모바일 화면 */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', justifyContent: 'center' }}>
-            <MenuIcon fontSize='large' 
+            <Box sx={{ position: 'fixed', left:0, mx: 1 }}>
+              <SideDrawer />
+            </Box>
+            {/* <MenuIcon fontSize='large' 
               sx={{ position: 'fixed', left:0, mx: 1 }}
-              />
+              /> */}
             <div className="pjt-name">FOREST</div>
           </Box>
         </Container>

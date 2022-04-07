@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation()
   // const authData = location.state
-  console.log({location})
+  // console.log({location})
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,7 +51,10 @@ const Login = () => {
           localStorage.setItem('user', res.data.user.email);
           localStorage.setItem('role', res.data.user.role);
           localStorage.setItem('store', res.data.user.store_set);
-          localStorage.setItem('auth', true);
+          if (res.data.user.preference_set) {
+            // console.log(res.data.user.preference_set.reverse()[0].id)
+            localStorage.setItem('ref', res.data.user.preference_set.reverse()[0].id);
+          }
         }
         alert('로그인 성공');
         // location.state.set_auth(true)

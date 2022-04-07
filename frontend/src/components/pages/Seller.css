@@ -11,7 +11,7 @@
   margin: 20px 0 20px 15px;
 }
 
-@media screen and (max-width: 899px) {
+@media screen and (max-width: 699px) {
   .seller-div {
     max-width: 90%;
     margin: 15px 0 15px 15px;
@@ -22,11 +22,34 @@
   }
 
   .seller-input {
-    width: 90%;
+    width: 300px;
+    /* max-width: 300px; */
+    /* min-width: 250px; */
     height: 30px;
     font-size: 16px;
-    /* border: 1; */
-    /* border-radius: 1px; */
+    padding: 0;
+  }
+  
+  .seller-input-area {
+    width: 300px;
+    /* max-width: 300px; */
+    /* min-width: 250px; */
+    height: 200px;
+    font-size: 16px;
+  }
+  /* .seller-div {
+    max-width: 90%;
+    margin: 15px 0 15px 15px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .seller-input {
+    max-width: 350px;
+    height: 30px;
+    font-size: 16px;
     padding: 0;
   }
 
@@ -34,9 +57,9 @@
     width: 90%;
     height: 200px;
     font-size: 16px;
-  }
+  } */
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 700px) {
   .seller-div {
     width: 65%;
     margin: 15px 0 15px 15px;

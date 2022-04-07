@@ -17,6 +17,7 @@ const Signup = ({ history }) => {
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [passwordValidError, setPasswordValidError] = useState(false);
 
   const [emailBtnCheck, setEmailBtnCheck] = useState(false);
   const [nicknameBtnCheck, setNicknameBtnCheck] = useState(false);
@@ -37,7 +38,12 @@ const Signup = ({ history }) => {
     setNickname(event.target.value);
   };
   const passwordHandle = (event) => {
-    setPassword(event.target.value);
+    const pwInput = event.target.value
+    setPassword(pwInput);
+    const pwValid = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
+
+    if (!pwValid.test(pwInput)) setPasswordValidError(true)
+    else setPasswordValidError(false);
   };
   const passwordConfirmHandle = (event) => {
     const passwordConfirmInput = event.target.value;
@@ -132,6 +138,9 @@ const Signup = ({ history }) => {
           className="login-signup-input"
           autoComplete="on"
         />
+        {passwordValidError&& (
+          <div className="valid-alert">영문과 숫자를 포함하여 8자리 이상 작성하여 주세요.</div>
+        )}
         <input
           type="password"
           name="passwordConfirm_input"
@@ -160,6 +169,7 @@ const Signup = ({ history }) => {
             !emailBtnCheck ||
             !nicknameBtnCheck ||
             passwordError ||
+            passwordValidError ||
             !password ||
             !passwordConfirm
           }

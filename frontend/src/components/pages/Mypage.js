@@ -245,9 +245,9 @@ const Mypage = () => {
           <Button onClick={linkToSellerAuth} variant="outlined">판매자 신청</Button>
         )}
       </Grid>
-      <Grid item md={12}>
+      {/* <Grid item md={12}>
         <p>사용자 특성</p>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
