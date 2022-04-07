@@ -17,7 +17,7 @@ const StoreProduct = (props) => {
       <Grid 
         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom:'10px' }}
         onClick={() => moveToPlantDetail(product.id)} item md={4} key={product.id}>
-        <img className='store-main-img' alt='product-image' 
+        <img className='store-main-img' alt='product-img' 
           src={`http://j6d204.p.ssafy.io/backend/media/${product.profile_image}`} 
           onError={changeImage}
         />

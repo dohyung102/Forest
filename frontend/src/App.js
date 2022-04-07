@@ -23,7 +23,8 @@ import StoreMain from './components/pages/StoreMain';
 import SellerAuth from './components/pages/SellerAuth';
 import SellRegist from './components/pages/SellRegist';
 import Survey from './components/pages/Survey';
-import CartTest from './components/pages/CartTest';
+// import CartTest from './components/pages/CartTest';
+import Cart from './components/pages/Cart';
 import Carousel from './components/pages/Carousel';
 import Seller from './components/pages/Seller';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -54,7 +55,8 @@ function App() {
           <Route path="/store/:store_id" element={<Store />} />
 
           <Route path="/sellerauth" element={<SellerAuth />} />
-          <Route path="/carttest" element={<CartTest />} />
+          {/* <Route path="/carttest" element={<CartTest />} /> */}
+          <Route path="/cart" element={<Cart />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="/recommend" element={<Carousel />} />
           <Route path="/sell_regist" element={<SellRegist />} />
