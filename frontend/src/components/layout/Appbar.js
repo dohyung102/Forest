@@ -1,33 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-// import { useRecoilValue } from 'recoil'
-// import { idState } from './state'
+// import axios from 'axios';
+
 import './style.css';
 
-// import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import { Link, useNavigate } from 'react-router-dom';
+// import AppBar from '@mui/material/AppBar';
 // import Toolbar from '@mui/material/Toolbar';
-// import IconButton from '@mui/material/IconButton';
-// import Typography from '@mui/material/Typography';
-// import Menu from '@mui/material/Menu';
-// import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 // import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 // import Tooltip from '@mui/material/Tooltip';
 // import MenuItem from '@mui/material/MenuItem';
-// import { color, fontSize } from '@mui/system';
 
 const Appbar = () => {
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('token')) setAuth(true);
-  }, [auth, localStorage.getItem('token')]);
+  }, [auth]);
 
   const homeButton = () => {
     window.location.replace('/');
@@ -38,11 +30,21 @@ const Appbar = () => {
     setAuth(false)
   };
 
+  const navigate = useNavigate()
+  const toLogin = () => {
+    navigate('/login', { state: setAuth })
+  }
+
   // const navigate = useNavigate()
+  const btnStyle = {
+    fontWeight: 'bold',
+    fontSize: '16px',
+    color: 'white',
+  }
 
   return (
-    <AppBar sx={{ bgcolor: 'teal' }}>
-      <Toolbar>
+    // <AppBar sx={{ bgcolor: 'teal'}}>
+      <div className='layout-header'>
         <Container maxWidth="md" height="100%" disableGutters>
           {/* 웹 화면 */}
           <Box
@@ -60,25 +62,9 @@ const Appbar = () => {
             <nav>
               {auth ? (
                 <ul className="layout-ul">
-                  {/* <li>
-                    <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
-                      onClick={createProduct}
-                    >
-                      상품등록
-                    </Button>
-                  </li> */}
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/store"
                     >
@@ -87,11 +73,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/search"
                     >
@@ -100,11 +82,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/community"
                     >
@@ -114,22 +92,14 @@ const Appbar = () => {
                   <li>
                     <Button
                       onClick={logout}
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                     >
                       로그아웃
                     </Button>
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/mypage"
                     >
@@ -138,11 +108,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
+                      style={btnStyle}
                       component={Link} 
                       to="/cart"
                     >
@@ -151,11 +117,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
+                      style={btnStyle}
                       component={Link} 
                       to="/survey"
                     >
@@ -164,11 +126,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontweight: 'bold',
-                        fontsize: '16px',
-                        color: 'white',
-                      }}
+                      style={btnStyle}
                       component={Link} 
                       to="/recommend"
                     >
@@ -180,11 +138,7 @@ const Appbar = () => {
                 <ul className="layout-ul">
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/store"
                     >
@@ -193,11 +147,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/search"
                     >
@@ -206,11 +156,7 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/community"
                     >
@@ -219,24 +165,17 @@ const Appbar = () => {
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
-                      component={Link}
-                      to="/login"
+                      style={btnStyle}
+                      // component={Link}
+                      // to="/login"
+                      onClick={toLogin}
                     >
                       로그인
                     </Button>
                   </li>
                   <li>
                     <Button
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '16px',
-                        color: 'gray',
-                      }}
+                      style={btnStyle}
                       component={Link}
                       to="/signup"
                     >
@@ -250,14 +189,15 @@ const Appbar = () => {
           </Box>
 
           {/* 모바일 화면 */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <MenuIcon />
-            <div></div>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', justifyContent: 'center' }}>
+            <MenuIcon fontSize='large' 
+              sx={{ position: 'fixed', left:0, mx: 1 }}
+              />
             <div className="pjt-name">FOREST</div>
           </Box>
         </Container>
-      </Toolbar>
-    </AppBar>
+      </div>
+    // </AppBar>
   );
 };
 

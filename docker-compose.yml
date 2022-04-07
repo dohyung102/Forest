@@ -24,6 +24,8 @@ services:
       TZ: Asia/Seoul
     volumes:
       - "./backend/media:/app/media"
+      - "./backend/logs:/app/logs"
+      - "./backend/plant/data:/app/plant/data"
     expose:
       - "8000"
     depends_on:
@@ -50,3 +52,6 @@ networks:
   default:
     external:
       name: forest_net
+
+volumes:
+  forest_volume:

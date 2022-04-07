@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import axios from 'axios';
-import { Grid, Button, Box, Card, Container, CardMedia, CardContent } from '@mui/material';
-import { fontFamily, fontSize } from '@mui/system';
+import { Grid, Button, 
+  // Box, Card, 
+  Container, 
+  // CardMedia, CardContent 
+} from '@mui/material';
+// import { fontFamily, fontSize } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
@@ -17,6 +21,29 @@ const Home = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     draggable: false,
+    responsive: [
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        }
+      },
+      {
+        breakpoint: 620,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 415,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      },
+    ]
   };
   const navigate = useNavigate();
   const toPlant = (id) => {
@@ -71,16 +98,16 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative' }}>당신을 위한 반려식물</Grid>
-          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative' }}>추천 한번</Grid>
-          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative' }}>받아보시겠어요?</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>당신을 위한 반려식물</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>추천 한번</Grid>
+          <Grid item style={{color: 'white', fontSize: '30px', position: 'relative', fontFamily: 'eulyooSemiBold' }}>받아보시겠어요?</Grid>
           <Grid item style={{height: '20px' }}> </Grid>
           <Grid item>
             <Button style={{color: 'white', fontSize: '16px' }}>
             {auth ? ( 
-              <Link to="/survey" style={{color: 'white', fontSize: '16px', textDecoration: 'none'}}>추천받기</Link>
+              <Link to="/survey" style={{color: 'white', fontSize: '16px', textDecoration: 'none', fontFamily: 'eulyooSemiBold'}}>추천받기</Link>
               ) : (
-              <Link to="/login" style={{color: 'white', fontSize: '16px', textDecoration: 'none'}}>추천받기</Link> 
+              <Link to="/login" style={{color: 'white', fontSize: '16px', textDecoration: 'none', fontFamily: 'eulyooSemiBold'}}>추천받기</Link> 
             )}
             </Button>
           </Grid>
@@ -90,7 +117,7 @@ const Home = () => {
         <Grid >
           <p className="home-plant-title">추천 식물</p>
           <Slider 
-            {...settings} 
+            {...settings}
           >
             {plant_data}
           </Slider>

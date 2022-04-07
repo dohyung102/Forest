@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-
+from plant.models import Plant
 
 class UserManager(BaseUserManager):
     """
@@ -61,3 +61,7 @@ class Preference(models.Model):
     index = models.IntegerField(default=0)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class PreferPlant(models.Model):
+    preference = models.ForeignKey(Preference, on_delete=models.CASCADE, related_name='preferPlant')
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)

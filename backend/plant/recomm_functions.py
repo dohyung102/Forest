@@ -82,11 +82,13 @@ def calculate_recommend_plants_by_user_preference(preference_data):
     plants_data = pd.read_csv(BASE_DATA_DIR + '/all_processed_plant_data.csv', encoding='cp949').fillna('no')
     plants_data['similarity'] = similarity
     result = plants_data.sort_values('similarity', ascending=False)[:10]
+    id_list = result['id'].to_list()
+    print(id_list)
     user_preference_vector = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)
     start_index = len(user_preference_vector)
     user_preference_vector = pd.concat([user_preference_vector, result], ignore_index=True)
     pd.to_pickle(user_preference_vector, USER_PREFERENCE_PLANT_VECTOR_DATA)
-    return start_index
+    return (start_index, id_list)
 
 def find_preference_plants_by_index(index):
     user_preference_vector = pd.read_pickle(USER_PREFERENCE_PLANT_VECTOR_DATA)

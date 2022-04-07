@@ -11,32 +11,59 @@
   margin: 20px 0 20px 15px;
 }
 
-.seller-div {
-  width: 65%;
-  margin: 15px 0 15px 15px;
+@media screen and (max-width: 899px) {
+  .seller-div {
+    max-width: 90%;
+    margin: 15px 0 15px 15px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  .seller-input {
+    width: 90%;
+    height: 30px;
+    font-size: 16px;
+    /* border: 1; */
+    /* border-radius: 1px; */
+    padding: 0;
+  }
+
+  .seller-input-area {
+    width: 90%;
+    height: 200px;
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .seller-div {
+    width: 65%;
+    margin: 15px 0 15px 15px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .seller-input {
+    width: 350px;
+    height: 30px;
+    font-size: 16px;
+    /* border: 1; */
+    /* border-radius: 1px; */
+    padding: 0;
+  }
+
+  .seller-input-area {
+    width: 350px;
+    height: 200px;
+    font-size: 16px;
+  }
 }
 
 .seller-label {
   font-weight: bold;
-}
-
-.seller-input {
-  width: 350px;
-  height: 30px;
-  font-size: 16px;
-  /* border: 1; */
-  /* border-radius: 1px; */
-  padding: 0;
-}
-
-.seller-input-area {
-  width: 350px;
-  height: 200px;
-  font-size: 16px;
 }
 
 .seller-btn {

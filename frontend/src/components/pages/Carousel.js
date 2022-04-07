@@ -11,6 +11,8 @@ export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 
+
+
   // Next 버튼 클릭 시
   const NextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -36,10 +38,11 @@ export default function Slider() {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
   }, [currentSlide]);
 
+
   return (
     <Container>
       <Text>
-        <h1>FOREST가 추천하는 식물</h1>
+        <h1>FOREST가 추천합니다!</h1>
         <p>Best {currentSlide + 1}</p>
       </Text>
       <SliderContainer ref={slideRef}>
@@ -52,6 +55,7 @@ export default function Slider() {
         <Button onClick={NextSlide}>다음</Button>
       </Center>
     </Container>
+    
   );
 }
 const Container = styled.div`
