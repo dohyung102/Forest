@@ -15,7 +15,7 @@ const Detail = () => {
   const params = useParams();
   const [plantData, setPlantData] = useState({});
   const [similar, setSimilar] = useState();
-  const [product, setProduct] = useState();
+  const [products, setProducts] = useState();
 
   useEffect(() => {
     console.log(params.plant_id);
@@ -27,7 +27,7 @@ const Detail = () => {
         console.log('res.data', res.data);
         setPlantData(res.data);
         setSimilar(res.data.similar_plants);
-        setProduct(res.data.product_set);
+        setProducts(res.data.product_set);
       })
       .catch((err) => {
         console.log(err);
@@ -51,8 +51,6 @@ const Detail = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     draggable: false,
-    // prevArrow: <ArrowBackIosIcon color='primary' />,
-    // nextArrow: <ArrowForwardIosIcon color='primary' />,
   };
 
   return (
@@ -81,14 +79,14 @@ const Detail = () => {
         </Grid>
       </Grid>
 
-      <p>유사한 식물</p>
+      <div>유사한 식물</div>
       <Slider {...settings}>
         {similar &&
           similar.map((plant) => {
             return (
               <div
                 className="detail-similar"
-                key={plant.name}
+                key={plant.id}
                 onClick={() => toSimilarPlant(plant.id)}
               >
                 <img
@@ -102,26 +100,53 @@ const Detail = () => {
           })}
       </Slider>
 
-      <p>상품 목록</p>
-      <Slider {...settings}>
-        {product &&
-          product.map((product) => {
-            return (
-              <div
-                className="detail-similar"
-                key={product.name}
-                onClick={() => toProduct(product.id)}
-              >
-                <img
-                  className="detail-similar-img"
-                  src={product.profile_image}
-                  alt="plant_img"
-                />
-                <div className="detail-similar-name">{product.name}</div>
-              </div>
-            );
-          })}
-      </Slider>
+      <div>상품 목록</div>
+      {products && 
+        (products.length > 4
+        ?
+        <Slider {...settings}>
+          {
+            products.map(product => {
+              return (
+                <div
+                  className="detail-similar"
+                  key={product.id}
+                  onClick={() => toProduct(product.id)}
+                >
+                  <img
+                    className="detail-similar-img"
+                    src={product.profile_image}
+                    alt="plant_img"
+                  />
+                  <div className="detail-similar-name">{product.name}</div>
+                </div>
+              )
+            })
+          }
+        </Slider>
+        :
+        <Grid container>
+          {
+            products.map(product => {
+              return (
+                <Grid item md={3}
+                  className="detail-similar"
+                  key={product.id}
+                  onClick={() => toProduct(product.id)}
+                >
+                  <img
+                    className="detail-similar-img"
+                    src={product.profile_image}
+                    alt="plant_img"
+                  />
+                  <div className="detail-similar-name">{product.name}</div>
+                </Grid>
+              )
+            })
+          }
+        </Grid>
+        )
+      }
     </Container>
   );
 };

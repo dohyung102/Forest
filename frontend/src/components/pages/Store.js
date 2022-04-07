@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Grid, Container, Avatar, Button } from '@mui/material';
+import { Grid, Container, Avatar, Button, Divider } from '@mui/material';
 import axios from 'axios';
 
 import Product from './StoreProduct';
@@ -128,6 +128,31 @@ const products = productSet
               productsList={storeData.product_set}
             />
           } */}
+          <Grid container>{products}</Grid>
+        </Grid>
+
+        {/* 디자인 병합 진행중 */}
+        <Grid item md={3}>
+          {storeData &&
+            <div className='store-name'>{storeData.name}</div>
+          }
+          <div className='store-btn-div'>
+            {storeData && storeData.user === localStorage.getItem('user') &&
+              <div className='store-btn-list'>
+                <button onClick={editStore} className='store-btn'>스토어변경</button>
+                <button className='store-btn'>상품등록</button>
+              </div>
+            }
+          </div>
+        </Grid>
+        <Grid item md={9}>
+          <div className='store-main-title'>상품 목록</div>
+          <Divider sx={{my: 4}} light variant="middle" />
+          {storeData &&
+            <Product 
+              productsList={storeData.product_set}
+            />
+          }
           <Grid container>{products}</Grid>
         </Grid>
       </Grid>

@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
+import { Grid, Rating } from '@mui/material';
+
+
+import './Product.css'
 
 const ProductReviews = (props) => {
 
   console.log(props)
-  const [reviewData, setReviewData] = useState()
+  // const [reviewData, setReviewData] = useState()
   const params = useParams()
   const navigate = useNavigate()
   // const [title, setTitle] = useState('')
@@ -14,7 +18,7 @@ const ProductReviews = (props) => {
   const [star, setStar] = useState(5)
   const [reviewPK, setReviewPK] = useState(0)
   const [reviewEditContent, setReviewEditContent] = useState('')
-  const [reviewEditStar, setReviewEditStar] = useState('')
+  const [reviewEditStar, setReviewEditStar] = useState(0)
 
   // const titleHandle = (event) => {
   //   const titleInput = event.target.value
@@ -38,6 +42,7 @@ const ProductReviews = (props) => {
 
   const starEditHandle = (event) => {
     const editInput = event.target.value
+    console.log(editInput)
     setReviewEditStar(editInput)
   }
 
@@ -133,33 +138,44 @@ const ProductReviews = (props) => {
 
   return (
     <div>
-      리뷰 목록
-      <form>
-        <div>
-          <label htmlFor="review_input">리뷰 </label>
-          <input 
-            type='text' 
-            name='review_input' 
-            value={review} 
-            onChange={reviewHandle} 
-            placeholder='이 곳에 리뷰 작성' 
-          />
-        </div>
-        <div>
-          <label htmlFor="star_input">평점 </label>
-          <input 
-            type='number' 
-            name='star_input' 
-            value={star} 
-            onChange={starHandle} 
-            min='0'
-            max='5'
-            placeholder='이 곳에 평점 작성' 
-          />
-        </div>
-        <button onClick={createReview}>리뷰 작성</button>
+      <div className='product-sub-title'>
+        리뷰
+      </div>
+      <form className='product-form'>
+        <Grid container>
+          {/* <label htmlFor="review_input">내용 </label> */}
+          <Grid item xs={12} md={9}>
+            <textarea 
+              className="product-input-area"
+              type='text' 
+              name='review_input' 
+              value={review} 
+              onChange={reviewHandle} 
+              placeholder='이 곳에 리뷰 작성' 
+            />
+          </Grid>
+          <Grid item md={3}>
+            <Grid container
+              direction='column' justifyContent='center' alignItems='center'
+            >
+              <Rating
+                size="large"
+                name="simple-controlled"
+                value={star}
+                onChange={(event, star) => {
+                  setStar(star);
+                }}
+              />
+              <button
+                className='product-btn'
+                onClick={createReview}>
+                  리뷰 작성
+              </button>
+            </Grid>
+          </Grid>
+        </Grid>
       </form>
-      <div>
+      <div className='review-list'>
         {props.reviews
           &&
           props.reviews.map((review) => {
@@ -167,43 +183,56 @@ const ProductReviews = (props) => {
             <div key={review.id}>
               {reviewPK === review.id
                 ?
-                <div>
-                  <form>
-                    <div>
-                      <label htmlFor="review_edit">리뷰 </label>
-                      <input 
-                        type='text'
-                        value={reviewEditContent}
-                        name='review_edit'
-                        onChange={reviewEditHandle}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="star_edit">평점 </label>
-                      <input 
-                        type='number'
-                        value={reviewEditStar}
-                        name='star_edit'
-                        onChange={starEditHandle}
-                        min='0'
-                        max='5'
-                      />
-                    </div>
-                    <button onClick={() => editReview(review.id)}>수정</button>
-                    <button onClick={() => setReviewPK(0)}>취소</button>
+                  <form className='product-form'>
+                    <div className='review-user'>{review.user}</div>
+                    <Grid container>
+                      <Grid item xs={12} md={9}>
+                        {/* <label htmlFor="review_edit">리뷰 </label> */}
+                        <textarea 
+                          className='product-input-area'
+                          type='text'
+                          value={reviewEditContent}
+                          name='review_edit'
+                          onChange={reviewEditHandle}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={3}>
+                        <Grid container
+                          direction='column' justifyContent='center' alignItems='center'
+                        >
+                          <Rating
+                            size="large"
+                            name="star_edit"
+                            value={reviewEditStar}
+                            onChange={(reviewEditStar) => {starEditHandle(reviewEditStar)}}
+                            // onChange={(event, reviewEditStar) => {
+                            //   starEditHandle(reviewEditStar);
+                            // }}
+                          />
+                          <div>
+                            <button className='product-edit-button' onClick={() => editReview(review.id)}>수정</button>
+                            <button className='product-edit-button' onClick={() => setReviewPK(0)}>취소</button>
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </form>
-                </div>
                 :
-                <div>
-                  {review.user} | {review.context} | {review.create_date} | {review.star}
+                <div className='product-review'>
+                  <div className='review-user'>{review.user}</div>
+                  <div className='product-review-div'>
+                    <Rating value={review.star} readOnly />
+                    <div className='review-date'>{review.created_date}</div>
+                  </div>
                   {localStorage.getItem('user') === review.user
                     && 
-                    <div>
-                      <button onClick={() => setReviewPK(review.id)}>수정</button>
-                      <button onClick={() => editFunc(review)}>수정</button>
-                      <button onClick={() => deleteReview(review.id)}>삭제</button>
+                    <div className='product-btn-list'>
+                      {/* <button onClick={() => setReviewPK(review.id)}>수정</button> */}
+                      <button className='product-btn-edit' onClick={() => editFunc(review)}>수정</button>
+                      <button className='product-btn-edit' onClick={() => deleteReview(review.id)}>삭제</button>
                     </div>                
                   }
+                  <div className='review-context'>{review.context}</div>
                 </div>
               }
             </div>

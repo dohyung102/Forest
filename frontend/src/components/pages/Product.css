@@ -1,3 +1,114 @@
 .product-img {
   width: 900px;
 }
+
+.product-same-store-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.product-same-store-name {
+  text-align: center;
+}
+
+.product-title {
+  font-size: 32px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.product-name {
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* .product-content {
+  font-size: 16px;
+} */
+
+.product-btn-div {
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 20px 0;
+}
+
+.product-btn {
+  font-size: 16px;
+  width: 160px;
+  height: 50px;
+  margin-right: 12px;
+  /* float: right; */
+}
+
+.product-sub-title {
+  font-size: 24px;
+  font-weight: bolder;
+  margin: 20px;
+}
+
+.product-sub-content {
+  margin: 0 20px;
+}
+
+.product-form {
+  /* width: 80%; */
+  margin: 0 20px;
+}
+
+.product-input-area {
+  /* margin: 0 20px; */
+  width: 100%;
+  height: 80px;
+  font-size: 16px;
+}
+
+.review-list {
+  margin-top: 20px;
+}
+
+.product-btn-list {
+  float: right;
+}
+
+.product-btn-edit {
+  width: 100px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.product-edit-button {
+  width: 80px;
+  height: 30px;
+  margin: 3px;
+}
+
+.product-review {
+  margin: 0 20px 15px 20px;
+}
+
+.product-review-div {
+  display: flex;
+  align-items: center;
+}
+
+.review-user {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.review-date {
+  margin-left: 20px;
+}
+
+.review-context {
+  margin: 10px 0;
+  font-size: 18px;
+}

@@ -1,16 +1,16 @@
-.sell {
+/* .sell {
   display: flex;
   justify-content: left;
-}
+} */
 
 .sellButton {
   padding-right: 10px;
 }
 
-.sellInfo {
+/* .sellInfo {
   border-left: solid 1px black;
   padding-left: 10px;
-}
+} */
 
 input {
   width: 500px;
