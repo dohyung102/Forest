@@ -53,7 +53,7 @@ const Login = () => {
           localStorage.setItem('store', res.data.user.store_set);
         }
         alert('로그인 성공');
-
+        // location.state.set_auth(true)
         navigate('/');
       })
       .catch((err) => {

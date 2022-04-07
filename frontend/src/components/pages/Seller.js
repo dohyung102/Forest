@@ -62,6 +62,7 @@ const Seller = () => {
     })
       .then((res) => {
         console.log(res);
+        localStorage.setItem('store', res.data.id);
         navigate(`/store/${res.data.id}`);
       })
       .catch((err) => {

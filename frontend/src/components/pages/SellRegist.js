@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import Calendar from 'react-calendar';
 // import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 import { Divider, Autocomplete } from '@mui/material';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -15,10 +16,12 @@ import './SellRegist.css'
 
 const SellRegist = () => {
   
+  const navigate = useNavigate()
   const [plant, setPlant] = useState('')
   const [name, setName] = useState('')
   const [price, setPrice] = useState()
-  // const [num, setNum] = useState()
+  const [num, setNum] = useState()
+  // const num = 1
   const [description, setDescription] = useState('')
   const [openDate, setOpenDate] = useState(new Date());
   const [closeDate, setCloseDate] = useState(new Date());
@@ -34,9 +37,9 @@ const SellRegist = () => {
   const priceHandle = (event) => {
     setPrice(event.target.value)
   }
-  // const numHandle = (event) => {
-  //   setNum(event.target.value)
-  // }
+  const numHandle = (event) => {
+    setNum(event.target.value)
+  }
   const descriptionHandle = (event) => {
     setDescription(event.target.value)
   }
@@ -65,6 +68,10 @@ const SellRegist = () => {
     setPreview('');
     setImage([]);
   };
+
+  const toStore = (store_id) => {
+    navigate(`/store/${toStore}`)
+  }
     
   useEffect(() => {
     axios({
@@ -96,7 +103,7 @@ const SellRegist = () => {
 
     formData.append('name', name)
     formData.append('price', price)
-    formData.append('num', 1)
+    formData.append('num', num)
     formData.append('open_date', dateOpen)
     formData.append('close_date', dateClose)
     formData.append('description', description)
@@ -116,7 +123,7 @@ const SellRegist = () => {
     })
       .then((res) => {
         console.log(res);
-        // toCommunity();
+        navigate(`/store/${res.data.store}`)
       })
       .catch((err) => {
         console.log(err);
@@ -153,10 +160,10 @@ const SellRegist = () => {
           <label className='seller-label' htmlFor='price'>가격</label>
           <input className='seller-input' type='number' name='price' value={price} onChange={priceHandle} placeholder=' 상품 가격' />
         </div>
-        {/* <div className='seller-div'>
+        <div className='seller-div'>
           <label className='seller-label' htmlFor='number'>수량</label>
           <input className='seller-input' type='number' name='number' value={num} onChange={numHandle} placeholder=' 상품 수량' />
-        </div> */}
+        </div>
 
 
 

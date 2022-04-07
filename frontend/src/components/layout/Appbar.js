@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
 import { Link, useNavigate } from 'react-router-dom';
 // import AppBar from '@mui/material/AppBar';
 // import Toolbar from '@mui/material/Toolbar';
@@ -16,6 +17,7 @@ import Button from '@mui/material/Button';
 
 const Appbar = () => {
   const [auth, setAuth] = useState(false);
+  console.log('setAuth',setAuth)
 
   useEffect(() => {
     if (localStorage.getItem('token')) setAuth(true);
@@ -32,7 +34,7 @@ const Appbar = () => {
 
   const navigate = useNavigate()
   const toLogin = () => {
-    navigate('/login', { state: setAuth })
+    navigate('/login', {state: { set_auth: setAuth }})
   }
 
   // const navigate = useNavigate()

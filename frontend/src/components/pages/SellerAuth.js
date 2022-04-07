@@ -51,6 +51,7 @@ const SellerAuth = () => {
     })
       .then((res) => {
         console.log(res);
+        localStorage.setItem('role', true);
         alert('판매자 신청이 완료되었습니다.');
         // 판매자 등록화면으로
         navigate('/seller');

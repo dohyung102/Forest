@@ -65,7 +65,7 @@ const Survey = () => {
       .then((res) => {
         console.log(res)
         alert('survey completed')
-        navigate('/recommend')
+        navigate('/recommend', {state: { ref_id: res.data.id }})
       })
       .catch((err) => {
         console.log(err)
