@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
-// import axios from 'axios'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import {
-  Avatar,
-  Box,
-  Card,
-  CardActionArea,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-} from '@mui/material';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ChatIcon from '@mui/icons-material/Chat';
+// import { Link } from 'react-router-dom';
+// import {
+//   Avatar,
+//   Box,
+//   Card,
+//   CardActionArea,
+//   Container,
+//   Divider,
+//   Grid,
+//   Typography,
+// } from '@mui/material';
+// import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+// import ChatIcon from '@mui/icons-material/Chat';
 
 import './Community.css';
 import { Table } from 'react-bootstrap';
@@ -39,7 +38,7 @@ const Community = () => {
   const getPosts = useCallback(async () => {
     setLoading(true);
     await axios.get('http://j6d204.p.ssafy.io/api/posts/').then((res) => {
-      // console.log(res.data.reverse())
+      // console.log(res.data)
       res.data.reverse();
       setPosts((prevState) => [
         ...prevState,
@@ -50,15 +49,15 @@ const Community = () => {
     setLoading(false);
   }, [preItems, items]);
   
-  const scrollHandle = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    setPreItems(items);
-    setItems((items) => items + 9);
+  // const scrollHandle = () => {
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const clientHeight = document.documentElement.clientHeight;
+  //   setPreItems(items);
+  //   setItems((items) => items + 9);
     
-    setPage((page) => page + 1);
-  };
+  //   setPage((page) => page + 1);
+  // };
   
   const navigate = useNavigate();
   const toPost = () => {
@@ -78,12 +77,12 @@ const Community = () => {
     getPosts();
   }, [getPosts]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', scrollHandle);
-    return () => {
-      window.removeEventListener('scroll', scrollHandle);
-    };
-  });
+  // useEffect(() => {
+  //   window.addEventListener('scroll', scrollHandle);
+  //   return () => {
+  //     window.removeEventListener('scroll', scrollHandle);
+  //   };
+  // });
 
   return (
     <div>
