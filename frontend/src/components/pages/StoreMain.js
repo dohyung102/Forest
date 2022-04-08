@@ -74,7 +74,7 @@ const StoreMain = () => {
         onClick={() => moveToProduct(product.id)} item md={4} key={product.id}>
         {/* <div> */}
         <img className='store-main-img' alt='store-profile' onError={changeImage}
-          src={`http://j6d204.p.ssafy.io/backend/media/${product.profile_image}`} 
+          src={`http://j6d204.p.ssafy.io/backend/${product.profile_image}`} 
         />
         <div className='store-main-name'>{product.name}</div>
         <div className='store-main-name'>수량 : {product.num}</div>

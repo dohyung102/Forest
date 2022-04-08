@@ -25,5 +25,10 @@ class StoreViewSet(viewsets.ModelViewSet):
         else:
             return Response('권한이 없습니다.', status=status.HTTP_400_BAD_REQUEST)
 
+    def retrieve(self, request, pk):
+        store = Store.objects.get(pk=pk)
+        serializer = StoreSerializers(store)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     

@@ -130,7 +130,7 @@ const Detail = () => {
             <div className="detail-plant-img">
               <img
                 className="detail-plant-img"
-                src={`http://j6d204.p.ssafy.io/backend/media/${plantData.profile_image}`} 
+                src={`http://j6d204.p.ssafy.io/backend${plantData.profile_image}`} 
                 onError={changeImage}
                 alt="plant_img"
               />

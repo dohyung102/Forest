@@ -1,17 +1,27 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 
 from .serializers import ProductSerializers, BuySerializers, WishlistSerializers, ReviewSerializers
 from .models import Product, Buy, Wishlist, Review
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from .permissions import IsOwnerOrReadOnly
-
+from rest_framework.response import Response
 # Create your views here.
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
     permission_classes = [AllowAny]
+
+    def list(self, request, *args, **kwargs):
+        products = Product.objects.all()
+        serializers = ProductSerializers(products, many=True)
+        return Response(serializers.data, status=status.HTTP_200_OK)
+
+    def retrieve(self, request, pk):
+        product = Product.objects.get(pk=pk)
+        serializer = ProductSerializers(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class BuyViewSet(viewsets.ModelViewSet):

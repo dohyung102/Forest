@@ -89,7 +89,7 @@ const Store = () => {
           {storeData &&
             <Avatar
               alt=""
-              src={storeData.profile_image}
+              src={`http://j6d204.p.ssafy.io/backend${storeData.profile_image}`}
               sx={{ width: '150px', height: '150px', marginTop: '70px', marginBottom:'15px'}}
               variant="rounded"
             />
