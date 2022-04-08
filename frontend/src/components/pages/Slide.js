@@ -30,7 +30,7 @@ const Slide = () => {
       alert('설문 조사를 먼저 진행해주세요.')
       navigate('/survey')
     });
-}, []);
+  }, []);
   return (
     <div>
       <div style={{ fontSize: '32px', fontWeight: 'bold' , textAlign: 'center', margin: '20px 0'}}>FOREST가 추천하는 식물</div>
