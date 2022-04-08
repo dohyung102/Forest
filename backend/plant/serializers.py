@@ -20,8 +20,15 @@ class PlantListSerializers(serializers.ModelSerializer):
 
 
 class PlantSerializers(serializers.ModelSerializer):
+    class CustomProductSerializers(serializers.ModelSerializer):
+        profile_image = serializers.ImageField(use_url=False)
+        
+        class Meta:
+            model = Product
+            fields = '__all__'
+
     similar_plants = serializers.SerializerMethodField()
-    product_set = ProductSerializers(read_only=True, many=True)
+    product_set = CustomProductSerializers(read_only=True, many=True)
     image_path = serializers.ImageField(use_url=False)   
 
     class Meta:

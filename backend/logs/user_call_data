@@ -1,3 +1,5 @@
 [31/Mar/2022 15:34:29] INFO [plant.views:32] user_id = 1, plant_id = 3
 [31/Mar/2022 15:35:08] INFO [plant.views:32] user_id = 1, plant_id = 37
 [04/Apr/2022 13:02:40] INFO [plant.views:43] user_id = 1, plant_id = 1
+[08/Apr/2022 11:18:31] INFO [plant.views:52] user_id = 1, plant_id = 1
+[08/Apr/2022 11:20:28] INFO [plant.views:52] user_id = 1, plant_id = 1
