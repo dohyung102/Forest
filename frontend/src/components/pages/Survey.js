@@ -75,12 +75,13 @@ const Survey = () => {
 
   return (
     <div>
-      <h1>선호하는 환경을 입력해주세요</h1>
+      <h1 style={{textAlign: 'center'}}>선호하는 환경을 입력해주세요</h1>
+      <h4 style={{textAlign: 'center', marginBottom: '20px'}}>(다중 선택이 가능합니다.)</h4>
       <h3>물 주기</h3>
       <ToggleButtonGroup
         color="primary"
         value={watering}
-
+        style={{marginBottom: '25px'}}
         onChange={wateringHandleChange}
       >
         <ToggleButton value="0">식물을 물 속에 두고 편하게 키우고 싶어요</ToggleButton>
@@ -95,19 +96,18 @@ const Survey = () => {
       <ToggleButtonGroup
         color="primary"
         value={flowerPresence}
-
+        style={{marginBottom: '25px'}}
         onChange={flowerPresenceHandleChange}
       >
         <ToggleButton value="0">있었으면 좋겠어요</ToggleButton>
         <ToggleButton value="1">없는 게 좋아요</ToggleButton>
-        <ToggleButton value="2">상관없어요</ToggleButton>
       </ToggleButtonGroup>
 
       <h3>관리 난이도</h3>
       <ToggleButtonGroup
         color="primary"
         value={manageDifficulty}
-
+        style={{marginBottom: '25px'}}
         onChange={manageDifficultyHandleChange}
       >
         <ToggleButton value="0">쉬워요</ToggleButton>
@@ -120,7 +120,7 @@ const Survey = () => {
       <ToggleButtonGroup
         color="primary"
         value={growthRate}
-
+        style={{marginBottom: '25px'}}
         onChange={growthRateHandleChange}
       >
         <ToggleButton value="0">느린게 좋아요</ToggleButton>
@@ -132,7 +132,7 @@ const Survey = () => {
       <ToggleButtonGroup
         color="primary"
         value={placement}
-
+        style={{marginBottom: '25px'}}
         onChange={placementHandleChange}
       >
         <ToggleButton value="0">거실 안쪽에 두고 싶어요</ToggleButton>

@@ -30,8 +30,8 @@ const Post = () => {
   // console.log(params)
 
   const getPostData = (data) => {
-    setPostData(data)
-  }
+    setPostData(data);
+  };
 
   const titleHandle = (event) => {
     setTitle(event.target.value);
@@ -254,7 +254,7 @@ const Post = () => {
               {/* <div>좋아요 기능 보류? : {post_dummy_data.likes}</div> */}
               <img
                 className="post-img"
-                src={`http://j6d204.d.ssafy.io/backend/media/${postData.image}`}
+                src={`http://j6d204.p.ssafy.io/backend/media/${postData.image}`}
                 alt=""
               />
               <Box></Box>
