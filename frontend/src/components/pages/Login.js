@@ -105,8 +105,8 @@ const Login = () => {
       </form>
       <div>
         {/* <Button>비밀번호 찾기</Button> */}
-        <Link to="/signup">
-          <Button>회원가입</Button>
+        <Link to="/signup" style={{ textDecoration: 'none' }}>
+          <Button style={{ width: '120px', height: '30px', marginTop: '10px'}}>회원가입</Button>
         </Link>
       </div>
       {/* <p>or login with</p>
