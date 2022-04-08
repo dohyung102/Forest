@@ -69,18 +69,18 @@ const Appbar = () => {
                     <Button
                       style={btnStyle}
                       component={Link}
-                      to="/store"
+                      to="/search"
                     >
-                      스토어
+                      식물검색
                     </Button>
                   </li>
                   <li>
                     <Button
                       style={btnStyle}
-                      component={Link}
-                      to="/search"
+                      component={Link} 
+                      to="/recommend"
                     >
-                      식물검색
+                      식물추천
                     </Button>
                   </li>
                   <li>
@@ -90,6 +90,24 @@ const Appbar = () => {
                       to="/community"
                     >
                       커뮤니티
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      style={btnStyle}
+                      component={Link}
+                      to="/store"
+                    >
+                      스토어
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      style={btnStyle}
+                      component={Link} 
+                      to="/cart"
+                    >
+                      장바구니
                     </Button>
                   </li>
                   <li>
@@ -109,15 +127,6 @@ const Appbar = () => {
                       마이페이지
                     </Button>
                   </li>
-                  <li>
-                    <Button
-                      style={btnStyle}
-                      component={Link} 
-                      to="/cart"
-                    >
-                      장바구니
-                    </Button>
-                  </li>
                   {/* <li>
                     <Button
                       style={btnStyle}
@@ -127,27 +136,9 @@ const Appbar = () => {
                       설문조사
                     </Button>
                   </li> */}
-                  <li>
-                    <Button
-                      style={btnStyle}
-                      component={Link} 
-                      to="/recommend"
-                    >
-                      추천식물
-                    </Button>
-                  </li>
                 </ul>
               ) : (
                 <ul className="layout-ul">
-                  <li>
-                    <Button
-                      style={btnStyle}
-                      component={Link}
-                      to="/store"
-                    >
-                      스토어
-                    </Button>
-                  </li>
                   <li>
                     <Button
                       style={btnStyle}
@@ -164,6 +155,15 @@ const Appbar = () => {
                       to="/community"
                     >
                       커뮤니티
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      style={btnStyle}
+                      component={Link}
+                      to="/store"
+                    >
+                      스토어
                     </Button>
                   </li>
                   <li>

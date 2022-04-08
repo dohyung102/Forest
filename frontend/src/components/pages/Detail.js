@@ -82,7 +82,7 @@ const Detail = () => {
 
   return (
     <Container maxWidth="md">
-      <div>detail page</div>
+      <div className='detail-title'>식물 상세 정보</div>
       <Grid container alignItems="center">
         <Grid item md={6}>
           <div className="detail-plant-img">
@@ -95,7 +95,7 @@ const Detail = () => {
         </Grid>
         <Grid item md={6}>
           <div className="detail-ul">
-            <div>이름 : {plantData.name}</div>
+            <div className='home-plant-name'>{plantData.name}</div>
             <div>특징 : {plantData.character}</div>
             <div>권장 수분량 : {plantData.watering}</div>
             <div>권장 광원량 : {plantData.light_demand}</div>
@@ -106,7 +106,7 @@ const Detail = () => {
         </Grid>
       </Grid>
 
-      <div>유사한 식물</div>
+      <div className='detail-sub-title'>유사한 식물</div>
       <Slider {...settings}>
         {similar &&
           similar.map((plant) => {
@@ -127,7 +127,7 @@ const Detail = () => {
           })}
       </Slider>
 
-      <div>상품 목록</div>
+      <div className='detail-sub-title'>상품 목록</div>
       {products && 
         (products.length > 4
         ?

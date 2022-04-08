@@ -33,9 +33,11 @@ const Detail = () => {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
     await axios
-      .get(`http://j6d204.p.ssafy.io/api/products/${params.product_id}/`, {
-        headers: headers,
-      })
+      .get(`http://j6d204.p.ssafy.io/api/products/${params.product_id}/`, 
+      // {
+      //   headers: headers,
+      // }
+      )
       .then((res) => {
         console.log(res.data);
         setPlantData(res.data);
