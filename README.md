@@ -1,4 +1,2 @@
-# SSAFY 특화 프로젝트
+# 반려식물 추천 서비스 Forest
 
-test
-test2
